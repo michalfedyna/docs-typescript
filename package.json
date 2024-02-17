@@ -1,0 +1,14 @@
+{
+  "name": "docs-react-workspace",
+  "private": true,
+  "scripts": {},
+  "author": "Michał Fedyna <michal@fedyna.pl>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michalfedyna/docs-react.git"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  }
+}
