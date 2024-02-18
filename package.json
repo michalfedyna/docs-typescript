@@ -9,6 +9,7 @@
     "url": "git+https://github.com/michalfedyna/docs-react.git"
   },
   "devDependencies": {
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "eslint": "^8.56.0"
   }
 }

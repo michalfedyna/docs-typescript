@@ -2,9 +2,11 @@
   "name": "docs-typescript",
   "version": "0.0.1",
   "description": "Tool for documenting Typescript based projects",
-  "main": "./index.js",
+  "bin": {
+    "docs-typescript": "./lib/index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -b"
   },
   "repository": {
     "type": "git",
@@ -20,11 +22,14 @@
   },
   "homepage": "https://github.com/michalfedyna/docs-react#readme",
   "dependencies": {
-    "@microsoft/api-documenter": "^7.23.24",
-    "@microsoft/api-extractor": "^7.40.2",
-    "@microsoft/api-extractor-model": "^7.28.10",
-    "@microsoft/tsdoc": "^0.14.2",
-    "oclif": "^4.4.12",
-    "typescript": "^5.3.3"
+    "@commander-js/extra-typings": "12.0.0",
+    "@microsoft/api-documenter": "7.23.24",
+    "@microsoft/api-extractor": "7.40.2",
+    "@microsoft/api-extractor-model": "7.28.10",
+    "@microsoft/tsdoc": "0.14.2",
+    "commander": "12.0.0"
+  },
+  "devDependencies": {
+    "typescript": "5.3.3"
   }
 }

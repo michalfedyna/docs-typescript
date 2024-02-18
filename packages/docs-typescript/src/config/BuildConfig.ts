@@ -1,0 +1,3 @@
+class BuildConfig {}
+
+export { BuildConfig };
