@@ -1,10 +1,10 @@
-import { BuildConfig } from "../config/BuildConfig";
+import { DocsConfig } from "../config/DocsConfig";
 import { buildApiModel } from "./buildApiModel";
 
 function buildDocs(
   inputFiles: string[],
   outputFolder: string,
-  config: BuildConfig,
+  config: DocsConfig,
 ) {
   const apiModel = buildApiModel(inputFiles);
 

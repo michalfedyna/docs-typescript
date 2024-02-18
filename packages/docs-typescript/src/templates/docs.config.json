@@ -1,0 +1,5 @@
+{
+  "mode": "mdx",
+  "include": ["src/**/*"],
+  "hierarchy": "type"
+}

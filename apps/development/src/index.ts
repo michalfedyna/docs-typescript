@@ -1,3 +1,16 @@
+/**
+ * Person interface
+ * @remarks
+ * This is a simple interface for a person
+ * @example
+ * ```ts
+ * const person: Person = {
+ *  name: "John",
+ *  age: 30,
+ *  }
+ * ```
+ * @public
+ */
 interface Person {
   name: string;
   age: number;

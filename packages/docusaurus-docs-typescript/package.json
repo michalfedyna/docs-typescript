@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/michalfedyna/docs-react.git"
+    "url": "git+https://github.com/michalfedyna/docs-typescript.git"
   },
   "keywords": [
     "react"
@@ -16,7 +16,7 @@
   "author": "Michał Fedyna <michal@fedyna.pl>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/michalfedyna/docs-react/issues"
+    "url": "https://github.com/michalfedyna/docs-typescript/issues"
   },
-  "homepage": "https://github.com/michalfedyna/docs-react#readme"
+  "homepage": "https://github.com/michalfedyna/docs-typescript#readme"
 }

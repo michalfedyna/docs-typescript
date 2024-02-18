@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -b",
-    "docs": "docs-typescript build"
+    "init": "docs-typescript init",
+    "docs": "docs-typescript build",
+    "extract": "docs-typescript extract src/index.ts"
   },
   "keywords": [],
   "author": "",

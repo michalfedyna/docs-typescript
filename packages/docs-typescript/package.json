@@ -2,15 +2,16 @@
   "name": "docs-typescript",
   "version": "0.0.1",
   "description": "Tool for documenting Typescript based projects",
+  "main": "lib/index.js",
   "bin": {
-    "docs-typescript": "./lib/index.js"
+    "docs-typescript": "./lib/bin.js"
   },
   "scripts": {
     "build": "tsc -b"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/michalfedyna/docs-react.git"
+    "url": "git+https://github.com/michalfedyna/docs-typescript.git"
   },
   "keywords": [
     "react"
@@ -18,18 +19,21 @@
   "author": "Michał Fedyna <michal@fedyna.pl>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/michalfedyna/docs-react/issues"
+    "url": "https://github.com/michalfedyna/docs-typescript/issues"
   },
-  "homepage": "https://github.com/michalfedyna/docs-react#readme",
+  "homepage": "https://github.com/michalfedyna/docs-typescript#readme",
   "dependencies": {
     "@commander-js/extra-typings": "12.0.0",
     "@microsoft/api-documenter": "7.23.24",
     "@microsoft/api-extractor": "7.40.2",
     "@microsoft/api-extractor-model": "7.28.10",
     "@microsoft/tsdoc": "0.14.2",
-    "commander": "12.0.0"
+    "commander": "12.0.0",
+    "shelljs": "^0.8.5",
+    "typescript": "5.3.3"
   },
   "devDependencies": {
-    "typescript": "5.3.3"
+    "@types/node": "^20.11.19",
+    "@types/shelljs": "^0.8.15"
   }
 }
