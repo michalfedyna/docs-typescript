@@ -1,5 +1,6 @@
 {
-  "mode": "mdx",
-  "include": ["src/**/*"],
-  "hierarchy": "type"
+  "$schema": "https://raw.githubusercontent.com/michalfedyna/docs-typescript/packages/docs-typescript/schemas/docs.config.schema.json",
+  "mode": "file",
+  "format": "markdown",
+  "include": ["src/**/*"]
 }

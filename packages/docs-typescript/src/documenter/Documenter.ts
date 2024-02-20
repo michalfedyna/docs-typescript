@@ -1,0 +1,3 @@
+class Documenter {}
+
+export { Documenter };

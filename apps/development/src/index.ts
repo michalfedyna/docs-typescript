@@ -16,6 +16,16 @@ interface Person {
   age: number;
 }
 
+/**
+ * Person class {@link Person}
+ * @remarks
+ * This is a simple class for a person
+ * @example
+ * ```ts
+ * const person = new PersonClass("John", 30);
+ * ```
+ * @public
+ */
 class PersonClass implements Person {
   name: string;
   age: number;

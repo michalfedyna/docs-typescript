@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/michalfedyna/docs-typescript/packages/docs-typescript/schemas/docs.config.schema.json",
+  "title": "Docs Typescript Config",
+  "description": "Configuration for the Docs Typescript tool",
+  "type": "object",
+  "properties": {}
+}

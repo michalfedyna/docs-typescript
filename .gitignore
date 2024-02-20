@@ -4,3 +4,4 @@ lib
 types
 apps/development/docs
 apps/development/docs.config.json
+coverage

@@ -7,6 +7,7 @@ import {
   ApiItem,
   ApiModel,
 } from "@microsoft/api-extractor-model";
+import { DocLinkTag, DocMemberReference, DocNode } from "@microsoft/tsdoc";
 
 function extract(cli: Command) {
   cli
@@ -38,15 +39,25 @@ function buildDocs() {
 }
 
 function enumerateApiItems(apiItem: ApiItem) {
-  console.log("Enumerating", apiItem.displayName);
+  console.log("API Item", apiItem.displayName, apiItem.kind);
   if (apiItem instanceof ApiDocumentedItem && apiItem.tsdocComment) {
-    console.log("Docs", apiItem.tsdocComment.summarySection.nodes);
+    enumeratesDocComments(apiItem.tsdocComment.summarySection);
   }
   for (const member of apiItem.members) {
-    console.log("Member", member.displayName);
-    console.log("Kind", member.kind);
     enumerateApiItems(member);
   }
+}
+
+function enumeratesDocComments(tsDocComment: DocNode) {
+  for (const child of tsDocComment.getChildNodes()) {
+    enumeratesDocComments(child);
+  }
+}
+
+function sortApiItems(apiItems: ApiModel): ApiItem[] {
+  const sortedApiItems: ApiItem[] = [];
+
+  return sortedApiItems;
 }
 
 function generateDeclarations() {
