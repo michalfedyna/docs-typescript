@@ -1,0 +1,3 @@
+class ApiExtractor {}
+
+export { ApiExtractor };

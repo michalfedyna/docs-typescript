@@ -1,13 +1,10 @@
-import { Argument, Command } from "commander";
+import { Command } from "commander";
 import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
 import path from "path";
 import shell from "shelljs";
-import {
-  ApiDocumentedItem,
-  ApiItem,
-  ApiModel,
-} from "@microsoft/api-extractor-model";
-import { DocLinkTag, DocMemberReference, DocNode } from "@microsoft/tsdoc";
+import { ApiModel } from "@microsoft/api-extractor-model";
+
+import { Documenter } from "../../documenter/Documenter";
 
 function extract(cli: Command) {
   cli
@@ -31,33 +28,8 @@ function buildDocs() {
   const apiModel = new ApiModel();
   apiModel.loadPackage(pathToApiJson);
 
-  console.log("API Model", apiModel.displayName);
-
-  enumerateApiItems(apiModel);
-
-  console.log("Building markdown...");
-}
-
-function enumerateApiItems(apiItem: ApiItem) {
-  console.log("API Item", apiItem.displayName, apiItem.kind);
-  if (apiItem instanceof ApiDocumentedItem && apiItem.tsdocComment) {
-    enumeratesDocComments(apiItem.tsdocComment.summarySection);
-  }
-  for (const member of apiItem.members) {
-    enumerateApiItems(member);
-  }
-}
-
-function enumeratesDocComments(tsDocComment: DocNode) {
-  for (const child of tsDocComment.getChildNodes()) {
-    enumeratesDocComments(child);
-  }
-}
-
-function sortApiItems(apiItems: ApiModel): ApiItem[] {
-  const sortedApiItems: ApiItem[] = [];
-
-  return sortedApiItems;
+  const documenter = new Documenter(apiModel);
+  documenter.buildHierarchy();
 }
 
 function generateDeclarations() {

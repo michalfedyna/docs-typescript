@@ -1,0 +1,3 @@
+class DocExtractor {}
+
+export { DocExtractor };

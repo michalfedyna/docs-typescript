@@ -1,38 +1,35 @@
-/**
- * Person interface
- * @remarks
- * This is a simple interface for a person
- * @example
- * ```ts
- * const person: Person = {
- *  name: "John",
- *  age: 30,
- *  }
- * ```
- * @public
- */
 interface Person {
   name: string;
   age: number;
 }
 
 /**
- * Person class {@link Person}
- * @remarks
- * This is a simple class for a person
- * @example
- * ```ts
- * const person = new PersonClass("John", 30);
- * ```
- * @public
+ * @props
  */
-class PersonClass implements Person {
+type PersonType = {
   name: string;
+};
+
+/**
+ * @jsx
+ */
+function JSXComponent() {}
+
+class PersonClass implements Person {
+  private readonly _name: string;
   age: number;
 
-  constructor(name: string, age: number) {
-    this.name = name;
+  constructor(name: string, age: number, personType?: PersonType) {
+    this._name = name;
     this.age = age;
+  }
+
+  public get name(): string {
+    return this._name;
+  }
+
+  public printName(): void {
+    console.log(this._name);
   }
 }
 
@@ -49,4 +46,26 @@ const printPersonArrow = (person: Person) => {
   console.log(person);
 };
 
-export { Person, PersonClass, person, printPerson, printPersonArrow };
+export namespace PersonNamespace {
+  export const person: Person = {
+    name: "John",
+    age: 30,
+  };
+}
+
+/**
+ * @hook
+ */
+function useHook() {}
+
+export {
+  Person,
+  PersonClass,
+  person,
+  printPerson,
+  printPersonArrow,
+  JSXComponent,
+  useHook,
+};
+
+export type { PersonType };
