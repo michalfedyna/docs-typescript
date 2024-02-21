@@ -1,0 +1,3 @@
+class DocParser {}
+
+export { DocParser };

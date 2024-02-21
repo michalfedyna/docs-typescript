@@ -29,6 +29,7 @@
     "@microsoft/api-extractor": "7.40.2",
     "@microsoft/api-extractor-model": "7.28.10",
     "@microsoft/tsdoc": "0.14.2",
+    "@microsoft/tsdoc-config": "^0.16.2",
     "commander": "12.0.0",
     "shelljs": "^0.8.5",
     "typescript": "5.3.3"

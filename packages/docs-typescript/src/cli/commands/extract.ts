@@ -5,6 +5,10 @@ import shell from "shelljs";
 import { ApiModel } from "@microsoft/api-extractor-model";
 
 import { Documenter } from "../../documenter/Documenter";
+import { TSDocConfiguration } from "@microsoft/tsdoc";
+import { TSDocConfigFile } from "@microsoft/tsdoc-config";
+import { DocumenterDebug } from "../../documenter/DocumenterDebug";
+import { HierarchyItem } from "../../hierarchy/HierarchyItem";
 
 function extract(cli: Command) {
   cli
@@ -42,14 +46,24 @@ function extractApiModel() {
     cwd,
     "docs/config/api-extractor.json",
   );
+
+  const tsDocConfigPath = path.resolve(cwd, "docs/config/tsdoc.json");
+
   console.log(`Loading ${apiExtractorJsonPath}...`);
 
   try {
-    const extractorConfig =
-      ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath);
+    const configObject = ExtractorConfig.loadFile(apiExtractorJsonPath);
+    const tsDocConfig = TSDocConfigFile.loadFile(tsDocConfigPath);
+    const extractorConfig = ExtractorConfig.prepare({
+      configObject,
+      configObjectFullPath: apiExtractorJsonPath,
+      packageJsonFullPath: path.resolve(cwd, "package.json"),
+      tsdocConfigFile: tsDocConfig,
+    });
 
     const extractorResult = Extractor.invoke(extractorConfig, {
       localBuild: true,
+      showVerboseMessages: true,
     });
 
     if (extractorResult.succeeded) {

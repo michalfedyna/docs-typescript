@@ -41,6 +41,9 @@ importers:
       '@microsoft/tsdoc':
         specifier: 0.14.2
         version: 0.14.2
+      '@microsoft/tsdoc-config':
+        specifier: ^0.16.2
+        version: 0.16.2
       commander:
         specifier: 12.0.0
         version: 12.0.0

@@ -1,5 +1,3 @@
-import { PageBuilder } from "../documenter/PageBuilder";
-
 enum Sections {
   Header = "header",
   Remarks = "remarks",
@@ -8,8 +6,6 @@ enum Sections {
   Methods = "methods",
 }
 
-abstract class Emitter {
-  abstract emit(page: PageBuilder): string;
-}
+abstract class Emitter {}
 
 export { Emitter, Sections };
