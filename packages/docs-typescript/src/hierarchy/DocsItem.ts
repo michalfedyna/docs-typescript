@@ -1,0 +1,3 @@
+class DocsItem {}
+
+export { DocsItem };

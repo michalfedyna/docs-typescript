@@ -33,6 +33,8 @@ class PersonClass implements Person {
 	}
 }
 
+class ExtendsClass extends PersonClass {}
+
 const person: Person = {
 	name: "John",
 	age: 30
@@ -63,7 +65,7 @@ export namespace PersonNamespace {
  */
 function useHook() {}
 
-export { Person, PersonClass, person, printPerson, printPersonArrow, JSXComponent, useHook };
+export { Person, PersonClass, ExtendsClass, person, printPerson, printPersonArrow, JSXComponent, useHook };
 
 export { CarClass } from "./file";
 

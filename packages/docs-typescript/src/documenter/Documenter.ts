@@ -25,6 +25,7 @@ import { ConstructorItem } from "../hierarchy/items/ConstructorItem";
 import { PropertyItem } from "../hierarchy/items/PropertyItem";
 import { MethodItem } from "../hierarchy/items/MethodItem";
 import { PropsItem } from "../hierarchy/items/PropsItem";
+import { DocsItem } from "../hierarchy/DocsItem";
 
 class Documenter {
 	private _apiModel: ApiModel;
@@ -37,45 +38,55 @@ class Documenter {
 
 	public buildHierarchy(): void {
 		this._enumerateApiItems(this._apiModel, this._hierarchy);
-		console.log(JSON.stringify(this._hierarchy.toObject(), null, " "));
+		// console.log(JSON.stringify(this._hierarchy.toObject(), null, " "));
 	}
 
 	public emit(): void {}
 
 	private _enumerateApiItems(apiItem: ApiItem, parent?: HierarchyItem): void {
 		let child: HierarchyItem | undefined;
+		let docs;
 
 		if (apiItem instanceof ApiDocumentedItem && apiItem.tsdocComment) {
 			this._enumerateDocNodes(apiItem.tsdocComment);
 		}
 
 		if (apiItem instanceof ApiPackage) {
-			child = this._hierarchy.addPackage(apiItem.displayName, parent);
-			this._enumeratePackage(apiItem, child);
+			const packageItem = this._hierarchy.addPackage(apiItem.displayName, parent);
+			this._enumeratePackage(apiItem, packageItem);
+			child = packageItem;
 		} else if (apiItem instanceof ApiNamespace) {
-			child = this._hierarchy.addNamespace(apiItem.displayName, parent);
-			this._enumerateNamespace(apiItem, child);
+			const namespaceItem = this._hierarchy.addNamespace(apiItem.displayName, parent);
+			this._enumerateNamespace(apiItem, namespaceItem);
+			child = namespaceItem;
 		} else if (isJSX(apiItem)) {
-			child = this._hierarchy.addJSX(apiItem.displayName, parent);
-			this._enumerateJSX(apiItem, child);
+			const jsxItem = this._hierarchy.addJSX(apiItem.displayName, parent);
+			this._enumerateJSX(apiItem, jsxItem);
+			child = jsxItem;
 		} else if (isReactHook(apiItem)) {
-			child = this._hierarchy.addHook(apiItem.displayName, parent);
-			this._enumerateHook(apiItem, child);
+			const hookItem = this._hierarchy.addHook(apiItem.displayName, parent);
+			this._enumerateHook(apiItem, hookItem);
+			child = hookItem;
 		} else if (isProps(apiItem)) {
-			child = this._hierarchy.addProps(apiItem.displayName, parent);
-			this._enumerateProps(apiItem, child);
+			const propsItem = this._hierarchy.addProps(apiItem.displayName, parent);
+			this._enumerateProps(apiItem, propsItem);
+			child = propsItem;
 		} else if (apiItem instanceof ApiClass) {
-			child = this._hierarchy.addClass(apiItem.displayName, parent);
-			this._enumerateApiClass(apiItem, child);
+			const classItem = this._hierarchy.addClass(apiItem.displayName, parent);
+			this._enumerateApiClass(apiItem, classItem);
+			child = classItem;
 		} else if (apiItem instanceof ApiConstructor) {
-			child = this._hierarchy.addConstructor(apiItem.displayName, parent);
-			this._enumerateApiConstructor(apiItem, child);
+			const constructorItem = this._hierarchy.addConstructor(apiItem.displayName, parent);
+			this._enumerateApiConstructor(apiItem, constructorItem);
+			child = constructorItem;
 		} else if (apiItem instanceof ApiProperty) {
-			child = this._hierarchy.addProperty(apiItem.displayName, parent);
-			this._enumerateApiProperty(apiItem, child);
+			const propertyItem = this._hierarchy.addProperty(apiItem.displayName, parent);
+			this._enumerateApiProperty(apiItem, propertyItem);
+			child = propertyItem;
 		} else if (apiItem instanceof ApiMethod) {
-			child = this._hierarchy.addMethod(apiItem.displayName, parent);
-			this._enumerateApiMethod(apiItem, child);
+			const methodItem = this._hierarchy.addMethod(apiItem.displayName, parent);
+			this._enumerateApiMethod(apiItem, methodItem);
+			child = methodItem;
 		}
 
 		for (const member of apiItem.members) {
@@ -93,13 +104,51 @@ class Documenter {
 
 	private _enumerateProps(apiItem: ApiItem, propsItem: PropsItem): void {}
 
-	private _enumerateApiClass(apiClass: ApiClass, classItem: ClassItem): void {}
+	private _enumerateApiClass(apiClass: ApiClass, classItem: ClassItem): void {
+		const { isAbstract, fileUrlPath } = apiClass;
+		const extendsType = apiClass.extendsType?.excerpt.text;
+		const implementsTypes = apiClass.implementsTypes.map((type) => type.excerpt.text);
+	}
 
-	private _enumerateApiConstructor(apiConstructor: ApiConstructor, constructorItem: ConstructorItem): void {}
+	private _enumerateApiConstructor(apiConstructor: ApiConstructor, constructorItem: ConstructorItem): void {
+		const excerpt = apiConstructor.excerpt.text;
+		const parameters = apiConstructor.parameters.map((parameter) => ({
+			name: parameter.name,
+			type: parameter.parameterTypeExcerpt.text,
+			isOptional: parameter.isOptional
+		}));
+		const overloadIndex = apiConstructor.overloadIndex;
+		const isProtected = apiConstructor.isProtected;
+		const fileUrlPath = apiConstructor.fileUrlPath;
+	}
 
-	private _enumerateApiProperty(apiProperty: ApiProperty, propertyItem: PropertyItem): void {}
+	private _enumerateApiProperty(apiProperty: ApiProperty, propertyItem: PropertyItem): void {
+		const excerpt = apiProperty.excerpt.text;
+		const isStatic = apiProperty.isStatic;
+		const isAbstract = apiProperty.isAbstract;
+		const isProtected = apiProperty.isProtected;
+		const isReadonly = apiProperty.isReadonly;
+		const isOptional = apiProperty.isOptional;
+		const isEventProperty = apiProperty.isEventProperty;
+		const fileUrlPath = apiProperty.fileUrlPath;
+	}
 
-	private _enumerateApiMethod(apiMethod: ApiMethod, methodItem: MethodItem): void {}
+	private _enumerateApiMethod(apiMethod: ApiMethod, methodItem: MethodItem): void {
+		const excerpt = apiMethod.excerpt.text;
+		const parameters = apiMethod.parameters.map((parameter) => ({
+			name: parameter.name,
+			type: parameter.parameterTypeExcerpt.text,
+			isOptional: parameter.isOptional
+		}));
+
+		const isStatic = apiMethod.isStatic;
+		const isAbstract = apiMethod.isAbstract;
+		const isProtected = apiMethod.isProtected;
+		const isOptional = apiMethod.isOptional;
+		const overloadIndex = apiMethod.overloadIndex;
+		const returnType = apiMethod.returnTypeExcerpt.text;
+		const fileUrlPath = apiMethod.fileUrlPath;
+	}
 
 	private _enumerateApiInterface(apiInterface: ApiInterface): void {}
 
@@ -107,7 +156,7 @@ class Documenter {
 
 	private _enumerateVariable(apiVariable: ApiVariable): void {}
 
-	private _enumerateDocNodes(docNode: DocNode): void {
+	private _enumerateDocNodes(docNode: DocNode) {
 		for (const childNode of docNode.getChildNodes()) {
 			this._enumerateDocNodes(childNode);
 		}

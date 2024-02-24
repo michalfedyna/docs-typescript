@@ -1,3 +1,5 @@
+import { DocsItem } from "./DocsItem";
+
 enum HierarchyItemType {
 	HierarchyItem = "Hierarchy",
 	PackageItem = "Package",
@@ -15,8 +17,9 @@ enum HierarchyItemType {
 
 class HierarchyItem {
 	protected _name: string;
-	protected _url: string;
+	protected _uri: string;
 	protected _type: HierarchyItemType;
+	protected _docs?: DocsItem;
 
 	protected _children: HierarchyItem[] = [];
 	protected _parent: HierarchyItem | undefined = undefined;
@@ -25,12 +28,12 @@ class HierarchyItem {
 		this._type = HierarchyItemType.HierarchyItem;
 		this._name = name;
 		this._parent = parent;
-		this._url = this._createUrl(name, parent);
+		this._uri = this._createUri(name, parent);
 	}
 
-	protected _createUrl(name: string, parent?: HierarchyItem): string {
+	protected _createUri(name: string, parent?: HierarchyItem): string {
 		if (parent) {
-			return this._createUrl(parent.name, parent.parent) + "/" + name;
+			return this._createUri(parent.name, parent.parent) + "/" + name;
 		}
 
 		return name;
@@ -41,6 +44,10 @@ class HierarchyItem {
 		return child;
 	}
 
+	public addDocs(docs: DocsItem): void {
+		this._docs = docs;
+	}
+
 	public get type(): HierarchyItemType {
 		return this._type;
 	}
@@ -49,8 +56,8 @@ class HierarchyItem {
 		return this._name;
 	}
 
-	public get url(): string {
-		return this._url;
+	public get uri(): string {
+		return this._uri;
 	}
 
 	public get children(): HierarchyItem[] {
@@ -62,7 +69,7 @@ class HierarchyItem {
 	}
 
 	public findByUrl(url: string): HierarchyItem | undefined {
-		if (this._url === url) return this;
+		if (this._uri === url) return this;
 
 		for (const child of this._children) {
 			const result = child.findByUrl(url);
@@ -77,7 +84,7 @@ class HierarchyItem {
 	public toObject(): object {
 		return {
 			name: this._name,
-			url: this._url,
+			url: this._uri,
 			type: this._type,
 			children: this._children.map((child) => child.toObject())
 		};

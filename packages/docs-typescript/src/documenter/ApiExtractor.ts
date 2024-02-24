@@ -1,3 +1,0 @@
-class ApiExtractor {}
-
-export { ApiExtractor };

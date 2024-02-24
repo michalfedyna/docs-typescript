@@ -1,3 +1,0 @@
-class DocExtractor {}
-
-export { DocExtractor };

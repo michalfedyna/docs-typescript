@@ -1,3 +1,0 @@
-class DocParser {}
-
-export { DocParser };
