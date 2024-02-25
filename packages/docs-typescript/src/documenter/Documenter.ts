@@ -15,7 +15,17 @@ import {
 import { DocNode } from "@microsoft/tsdoc";
 import { Hierarchy } from "../hierarchy/Hierarchy";
 import { HierarchyItem } from "../hierarchy/HierarchyItem";
-import { isJSX, isProps, isReactHook } from "./matchers";
+import {
+	isClass,
+	isConstructor,
+	isJSX,
+	isMethod,
+	isNamespace,
+	isPackage,
+	isProperty,
+	isProps,
+	isReactHook
+} from "./matchers";
 import { NamespaceItem } from "../hierarchy/items/NamespaceItem";
 import { JSXItem } from "../hierarchy/items/JSXItem";
 import { HookItem } from "../hierarchy/items/HookItem";
@@ -51,16 +61,16 @@ class Documenter {
 			this._enumerateDocNodes(apiItem.tsdocComment);
 		}
 
-		if (apiItem instanceof ApiPackage) {
+		if (isPackage(apiItem)) {
 			const packageItem = this._hierarchy.addPackage(apiItem.displayName, parent);
 			this._enumeratePackage(apiItem, packageItem);
 			child = packageItem;
-		} else if (apiItem instanceof ApiNamespace) {
+		} else if (isNamespace(apiItem)) {
 			const namespaceItem = this._hierarchy.addNamespace(apiItem.displayName, parent);
 			this._enumerateNamespace(apiItem, namespaceItem);
 			child = namespaceItem;
 		} else if (isJSX(apiItem)) {
-			const jsxItem = this._hierarchy.addJSX(apiItem.displayName, parent);
+			const jsxItem: HierarchyItem = this._hierarchy.addJSX(apiItem.displayName, parent);
 			this._enumerateJSX(apiItem, jsxItem);
 			child = jsxItem;
 		} else if (isReactHook(apiItem)) {
@@ -71,19 +81,19 @@ class Documenter {
 			const propsItem = this._hierarchy.addProps(apiItem.displayName, parent);
 			this._enumerateProps(apiItem, propsItem);
 			child = propsItem;
-		} else if (apiItem instanceof ApiClass) {
+		} else if (isClass(apiItem)) {
 			const classItem = this._hierarchy.addClass(apiItem.displayName, parent);
 			this._enumerateApiClass(apiItem, classItem);
 			child = classItem;
-		} else if (apiItem instanceof ApiConstructor) {
+		} else if (isConstructor(apiItem)) {
 			const constructorItem = this._hierarchy.addConstructor(apiItem.displayName, parent);
 			this._enumerateApiConstructor(apiItem, constructorItem);
 			child = constructorItem;
-		} else if (apiItem instanceof ApiProperty) {
+		} else if (isProperty(apiItem)) {
 			const propertyItem = this._hierarchy.addProperty(apiItem.displayName, parent);
 			this._enumerateApiProperty(apiItem, propertyItem);
 			child = propertyItem;
-		} else if (apiItem instanceof ApiMethod) {
+		} else if (isMethod(apiItem)) {
 			const methodItem = this._hierarchy.addMethod(apiItem.displayName, parent);
 			this._enumerateApiMethod(apiItem, methodItem);
 			child = methodItem;
