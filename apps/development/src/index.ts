@@ -1,13 +1,13 @@
 interface Person {
-	name: string;
-	age: number;
+  name: string;
+  age: number;
 }
 
 /**
  * @props
  */
 type PersonType = {
-	name: string;
+  name: string;
 };
 
 /**
@@ -16,48 +16,56 @@ type PersonType = {
 function JSXComponent() {}
 
 class PersonClass implements Person {
-	private readonly _name: string;
-	age: number;
+  private readonly _name: string;
+  age: number;
 
-	constructor(name: string, age: number, personType?: PersonType) {
-		this._name = name;
-		this.age = age;
-	}
+  constructor(name: string, age: number, personType?: PersonType) {
+    this._name = name;
+    this.age = age;
+  }
 
-	public get name(): string {
-		return this._name;
-	}
+  public get name(): string {
+    return this._name;
+  }
 
-	public printName(): void {
-		console.log(this._name);
-	}
+  public printName(): void {
+    console.log(this._name);
+  }
 }
 
 class ExtendsClass extends PersonClass {}
 
+/**
+ * This is person object implementation
+ * @example
+ * ```ts
+ *  person.name = "John";
+ *  person.age = 30;
+ * ```
+ */
 const person: Person = {
-	name: "John",
-	age: 30
+  name: "John",
+  age: 30,
 };
 
 function printPerson(person: Person) {
-	console.log(person);
+  console.log(person);
 }
 
 const printPersonArrow = (person: Person) => {
-	console.log(person);
+  console.log(person);
 };
 
 export namespace PersonNamespace {
-	export const person: Person = {
-		name: "John",
-		age: 30
-	};
+  export const person: Person = {
+    name: "John",
+    age: 30,
+  };
 
-	/**
-	 * @jsx
-	 */
-	export function ReactComponent() {}
+  /**
+   * @jsx
+   */
+  export function ReactComponent() {}
 }
 
 /**
@@ -65,7 +73,16 @@ export namespace PersonNamespace {
  */
 function useHook() {}
 
-export { Person, PersonClass, ExtendsClass, person, printPerson, printPersonArrow, JSXComponent, useHook };
+export {
+  Person,
+  PersonClass,
+  ExtendsClass,
+  person,
+  printPerson,
+  printPersonArrow,
+  JSXComponent,
+  useHook,
+};
 
 export { CarClass } from "./file";
 

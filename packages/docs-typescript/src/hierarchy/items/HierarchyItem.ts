@@ -1,4 +1,4 @@
-import { DocsItem } from "./DocsItem";
+import { DocsItem } from "../docs/DocsItem";
 
 enum HierarchyItemType {
 	HierarchyItem = "Hierarchy",

@@ -1,10 +1,21 @@
-import { HierarchyItem, HierarchyItemType } from "../HierarchyItem";
+import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
+import { DocsItem } from "../docs/DocsItem";
 
-class NamespaceItem extends HierarchyItem {
-  constructor(name: string, parent?: HierarchyItem) {
-    super(name, parent);
-    this._type = HierarchyItemType.NamespaceItem;
-  }
+interface NamespaceAttributes {
+	displayName: string;
+	fileUrlPath?: string;
 }
 
-export { NamespaceItem };
+class NamespaceItem extends HierarchyItem {
+	protected _type = HierarchyItemType.NamespaceItem;
+	protected _attributes: NamespaceAttributes;
+	protected _docs: DocsItem;
+
+	constructor(attributes: NamespaceAttributes, docs: DocsItem, parent?: HierarchyItem) {
+		super(attributes.displayName, parent);
+		this._attributes = attributes;
+		this._docs = docs;
+	}
+}
+
+export { NamespaceItem, NamespaceAttributes };

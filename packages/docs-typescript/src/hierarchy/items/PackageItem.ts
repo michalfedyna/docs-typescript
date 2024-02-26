@@ -1,10 +1,20 @@
-import { HierarchyItem, HierarchyItemType } from "../HierarchyItem";
+import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
+import { DocsItem } from "../docs/DocsItem";
 
-class PackageItem extends HierarchyItem {
-  constructor(name: string, parent?: HierarchyItem) {
-    super(name, parent);
-    this._type = HierarchyItemType.PackageItem;
-  }
+interface PackageAttributes {
+	displayName: string;
 }
 
-export { PackageItem };
+class PackageItem extends HierarchyItem {
+	protected _type = HierarchyItemType.PackageItem;
+	protected _attributes: PackageAttributes;
+	protected _docs: DocsItem;
+
+	constructor(attributes: PackageAttributes, docs: DocsItem, parent?: HierarchyItem) {
+		super(attributes.displayName, parent);
+		this._attributes = attributes;
+		this._docs = docs;
+	}
+}
+
+export { PackageItem, PackageAttributes };

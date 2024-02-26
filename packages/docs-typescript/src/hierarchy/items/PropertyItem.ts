@@ -1,10 +1,36 @@
-import { HierarchyItem, HierarchyItemType } from "../HierarchyItem";
+import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
+import { DocsItem } from "../docs/DocsItem";
+
+interface PropertyAttributes {
+	displayName: string;
+	fileUrlPath?: string;
+	isAbstract: boolean;
+	isEventProperty: boolean;
+	isOptional: boolean;
+	isProtected: boolean;
+	isReadonly: boolean;
+	isStatic: boolean;
+	type: string;
+}
 
 class PropertyItem extends HierarchyItem {
-	constructor(name: string, parent?: HierarchyItem) {
-		super(name, parent);
-		this._type = HierarchyItemType.PropertyItem;
+	protected _type = HierarchyItemType.PropertyItem;
+	protected _attributes: PropertyAttributes;
+	protected _docs: DocsItem;
+
+	constructor(attributes: PropertyAttributes, docs: DocsItem, parent?: HierarchyItem) {
+		super(attributes.displayName, parent);
+		this._attributes = attributes;
+		this._docs = docs;
+	}
+
+	public get attributes(): PropertyAttributes {
+		return this._attributes;
+	}
+
+	public get docs(): DocsItem {
+		return this._docs;
 	}
 }
 
-export { PropertyItem };
+export { PropertyItem, PropertyAttributes };
