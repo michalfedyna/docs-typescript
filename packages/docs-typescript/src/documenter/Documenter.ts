@@ -3,7 +3,6 @@ import {
 	ApiConstructor,
 	ApiConstructSignature,
 	ApiDocumentedItem,
-	ApiEntryPoint,
 	ApiEnum,
 	ApiEnumMember,
 	ApiFunction,
@@ -54,7 +53,6 @@ import { ConstructorAttributes, ConstructorItem } from "../hierarchy/items/Const
 import { PropertyAttributes, PropertyItem } from "../hierarchy/items/PropertyItem";
 import { MethodAttributes, MethodItem } from "../hierarchy/items/MethodItem";
 import { PropsItem } from "../hierarchy/items/PropsItem";
-import { DocsBuilder } from "../hierarchy/docs/DocsBuilder";
 import { VariableAttributes, VariableItem } from "../hierarchy/items/VariableItem";
 import { InterfaceAttributes, InterfaceItem } from "../hierarchy/items/InterfaceItem";
 import { TypeAliasAttributes, TypeAliasItem } from "../hierarchy/items/TypeAliasItem";
@@ -65,7 +63,7 @@ import { IndexSignatureAttributes, IndexSignatureItem } from "../hierarchy/items
 import { FunctionAttributes, FunctionItem } from "../hierarchy/items/FunctionItem";
 import { EnumAttributes, EnumItem } from "../hierarchy/items/EnumItem";
 import { EnumMemberAttributes, EnumMemberItem } from "../hierarchy/items/EnumMemberItem";
-import { EntryPointAttributes, EntryPointItem } from "../hierarchy/items/EntryPointItem";
+import { DocsAttributes, DocsItem } from "../hierarchy/docs/DocsItem";
 
 class Documenter {
 	private readonly _apiModel: ApiModel;
@@ -85,25 +83,35 @@ class Documenter {
 
 	private _enumerateApiItems(apiItem: ApiItem, parent?: HierarchyItem): void {
 		let child: HierarchyItem | undefined;
-		let docsBuilder = new DocsBuilder();
+		let docsAttributes: DocsAttributes = {};
 
 		if (apiItem instanceof ApiDocumentedItem && apiItem.tsdocComment) {
-			apiItem.tsdocComment;
+			const {
+				summarySection,
+				remarksBlock,
+				returnsBlock,
+				deprecatedBlock,
+				typeParams,
+				seeBlocks,
+				params,
+				customBlocks
+			} = apiItem.tsdocComment;
+
+			const defaultValueBlock = customBlocks.filter((block) => block.blockTag.tagName === "@defaultValue");
+			const examplesBlock = customBlocks.filter((block) => block.blockTag.tagName === "@example");
+
 			this._enumerateDocNodes(apiItem.tsdocComment);
 		}
+
 		if (isEntryPoint(apiItem)) {
-			// Handle entry point in the future when its implemented by the API Extractor
-			// const docs = docsBuilder.build();
-			// const attributes = this._enumerateEntryPoint(apiItem);
-			// const packageItem = new EntryPointItem(attributes, docs, parent);
 			child = parent;
 		} else if (isPackage(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumeratePackage(apiItem);
 			const packageItem = new PackageItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(packageItem, parent);
 		} else if (isNamespace(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateNamespace(apiItem);
 			const namespaceItem = new NamespaceItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(namespaceItem, parent);
@@ -117,72 +125,72 @@ class Documenter {
 			const propsItem = new PropsItem(apiItem.displayName, parent);
 			child = this._hierarchy.addItem(propsItem, parent);
 		} else if (isClass(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateClass(apiItem);
 			const classItem = new ClassItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(classItem, parent);
 		} else if (isConstructor(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateConstructor(apiItem);
 			const constructorItem = new ConstructorItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(constructorItem, parent);
 		} else if (isProperty(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateProperty(apiItem);
 			const propertyItem = new PropertyItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(propertyItem, parent);
 		} else if (isMethod(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateMethod(apiItem);
 			const methodItem = new MethodItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(methodItem, parent);
 		} else if (isFunction(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateFunction(apiItem);
 			const functionItem = new FunctionItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(functionItem, parent);
 		} else if (isVariable(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateVariable(apiItem);
 			const variableItem = new VariableItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(variableItem, parent);
 		} else if (isInterface(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateInterface(apiItem);
 			const interfaceItem = new InterfaceItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(interfaceItem, parent);
 		} else if (isConstructorSignature(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateConstructorSignature(apiItem);
 			const constructorSignatureItem = new ConstructorSignatureItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(constructorSignatureItem, parent);
 		} else if (isPropertySignature(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumeratePropertySignature(apiItem);
 			const propertySignatureItem = new PropertySignatureItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(propertySignatureItem, parent);
 		} else if (isMethodSignature(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateMethodSignature(apiItem);
 			const methodSignatureItem = new MethodSignatureItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(methodSignatureItem, parent);
 		} else if (isIndexSignature(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateIndexSignature(apiItem);
 			const indexSignatureItem = new IndexSignatureItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(indexSignatureItem, parent);
 		} else if (isTypeAlias(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateTypeAlias(apiItem);
 			const typeAliasItem = new TypeAliasItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(typeAliasItem, parent);
 		} else if (isEnum(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateEnum(apiItem);
 			const enumItem = new EnumItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(enumItem, parent);
 		} else if (isEnumMember(apiItem)) {
-			const docs = docsBuilder.build();
+			const docs = new DocsItem(docsAttributes);
 			const attributes = this._enumerateEnumMember(apiItem);
 			const enumMemberItem = new EnumMemberItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(enumMemberItem, parent);
@@ -191,12 +199,6 @@ class Documenter {
 		for (const member of apiItem.members) {
 			this._enumerateApiItems(member, child);
 		}
-	}
-
-	private _enumerateEntryPoint(apiEntryPoint: ApiEntryPoint): EntryPointAttributes {
-		const { displayName } = apiEntryPoint;
-
-		return { displayName };
 	}
 
 	private _enumeratePackage(apiPackage: ApiPackage): PackageAttributes {

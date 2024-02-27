@@ -29,7 +29,8 @@ class VariableItem extends HierarchyItem {
 	public toObject(): object {
 		return {
 			...super.toObject(),
-			attributes: this._attributes
+			attributes: this._attributes,
+			docs: this._docs.toObject()
 		};
 	}
 }
