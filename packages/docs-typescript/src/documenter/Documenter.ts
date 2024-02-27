@@ -3,6 +3,7 @@ import {
 	ApiConstructor,
 	ApiConstructSignature,
 	ApiDocumentedItem,
+	ApiEntryPoint,
 	ApiEnum,
 	ApiEnumMember,
 	ApiFunction,
@@ -26,6 +27,7 @@ import {
 	isClass,
 	isConstructor,
 	isConstructorSignature,
+	isEntryPoint,
 	isEnum,
 	isEnumMember,
 	isFunction,
@@ -63,6 +65,7 @@ import { IndexSignatureAttributes, IndexSignatureItem } from "../hierarchy/items
 import { FunctionAttributes, FunctionItem } from "../hierarchy/items/FunctionItem";
 import { EnumAttributes, EnumItem } from "../hierarchy/items/EnumItem";
 import { EnumMemberAttributes, EnumMemberItem } from "../hierarchy/items/EnumMemberItem";
+import { EntryPointAttributes, EntryPointItem } from "../hierarchy/items/EntryPointItem";
 
 class Documenter {
 	private readonly _apiModel: ApiModel;
@@ -85,10 +88,16 @@ class Documenter {
 		let docsBuilder = new DocsBuilder();
 
 		if (apiItem instanceof ApiDocumentedItem && apiItem.tsdocComment) {
+			apiItem.tsdocComment;
 			this._enumerateDocNodes(apiItem.tsdocComment);
 		}
-
-		if (isPackage(apiItem)) {
+		if (isEntryPoint(apiItem)) {
+			// Handle entry point in the future when its implemented by the API Extractor
+			// const docs = docsBuilder.build();
+			// const attributes = this._enumerateEntryPoint(apiItem);
+			// const packageItem = new EntryPointItem(attributes, docs, parent);
+			child = parent;
+		} else if (isPackage(apiItem)) {
 			const docs = docsBuilder.build();
 			const attributes = this._enumeratePackage(apiItem);
 			const packageItem = new PackageItem(attributes, docs, parent);
@@ -116,7 +125,7 @@ class Documenter {
 			const docs = docsBuilder.build();
 			const attributes = this._enumerateConstructor(apiItem);
 			const constructorItem = new ConstructorItem(attributes, docs, parent);
-			child = this._hierarchy.addItem(constructorItem);
+			child = this._hierarchy.addItem(constructorItem, parent);
 		} else if (isProperty(apiItem)) {
 			const docs = docsBuilder.build();
 			const attributes = this._enumerateProperty(apiItem);
@@ -182,6 +191,12 @@ class Documenter {
 		for (const member of apiItem.members) {
 			this._enumerateApiItems(member, child);
 		}
+	}
+
+	private _enumerateEntryPoint(apiEntryPoint: ApiEntryPoint): EntryPointAttributes {
+		const { displayName } = apiEntryPoint;
+
+		return { displayName };
 	}
 
 	private _enumeratePackage(apiPackage: ApiPackage): PackageAttributes {
@@ -391,7 +406,7 @@ class Documenter {
 	}
 
 	private _enumerateDocNodes(docNode: DocNode, level: number = 0) {
-		console.log(" ".repeat(level * 2) + docNode.kind);
+		//console.log(" ".repeat(level * 2) + docNode.kind);
 
 		if (docNode instanceof DocSection) {
 		}

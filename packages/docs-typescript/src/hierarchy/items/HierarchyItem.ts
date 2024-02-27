@@ -1,6 +1,7 @@
 import { DocsItem } from "../docs/DocsItem";
 
 enum HierarchyItemType {
+	EntryPointItem = "EntryPoint",
 	ClassItem = "Class",
 	ConstructorItem = "Constructor",
 	ConstructorSignatureItem = "ConstructorSignature",
@@ -48,8 +49,8 @@ class HierarchyItem {
 	}
 
 	public addChild<T extends HierarchyItem>(child: T): T {
-		this._children.push(child);
-		return child;
+		const length = this._children.push(child);
+		return this._children[length - 1] as T;
 	}
 
 	public addDocs(docs: DocsItem): void {

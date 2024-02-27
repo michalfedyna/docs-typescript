@@ -3,6 +3,7 @@ import {
 	ApiConstructor,
 	ApiConstructSignature,
 	ApiDocumentedItem,
+	ApiEntryPoint,
 	ApiEnum,
 	ApiEnumMember,
 	ApiFunction,
@@ -50,6 +51,10 @@ function enumerateDocForTag(docNode: DocNode, tagName: string): boolean {
 	}
 
 	return false;
+}
+
+function isEntryPoint(apiItem: ApiItem): apiItem is ApiEntryPoint {
+	return apiItem instanceof ApiEntryPoint;
 }
 
 function isPackage(apiItem: ApiItem): apiItem is ApiPackage {
@@ -120,6 +125,7 @@ export {
 	isClass,
 	isConstructor,
 	isConstructorSignature,
+	isEntryPoint,
 	isEnum,
 	isEnumMember,
 	isFunction,
