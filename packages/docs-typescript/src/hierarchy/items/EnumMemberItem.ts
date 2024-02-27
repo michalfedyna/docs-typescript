@@ -1,26 +1,23 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
 
-interface ClassAttributes {
+interface EnumMemberAttributes {
 	displayName: string;
-	extendsType?: string;
-	implementedTypes: string[];
-	isAbstract: boolean;
 	fileUrlPath?: string;
 }
 
-class ClassItem extends HierarchyItem {
-	protected _type: HierarchyItemType = HierarchyItemType.ClassItem;
-	protected _attributes: ClassAttributes;
+class EnumMemberItem extends HierarchyItem {
+	protected _type: HierarchyItemType = HierarchyItemType.EnumMemberItem;
+	protected _attributes: EnumMemberAttributes;
 	protected _docs: DocsItem;
 
-	constructor(attributes: ClassAttributes, docs: DocsItem, parent?: HierarchyItem) {
+	constructor(attributes: EnumMemberAttributes, docs: DocsItem, parent?: HierarchyItem) {
 		super(attributes.displayName, parent);
 		this._attributes = attributes;
 		this._docs = docs;
 	}
 
-	public get attributes(): ClassAttributes {
+	public get attributes(): EnumMemberAttributes {
 		return this._attributes;
 	}
 
@@ -36,4 +33,4 @@ class ClassItem extends HierarchyItem {
 	}
 }
 
-export { ClassItem, ClassAttributes };
+export { EnumMemberItem, EnumMemberAttributes };

@@ -1,34 +1,27 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
 
-interface MethodAttributes {
+interface IndexSignatureAttributes {
 	displayName: string;
 	fileUrlPath?: string;
-	isAbstract: boolean;
-	isOptional: boolean;
-	isProtected: boolean;
-	isStatic: boolean;
+	parameters: { name: string; type: string; isOptional: boolean }[];
+	isReadonly: boolean;
 	overloadIndex: number;
 	returnType: string;
-	parameters: {
-		name: string;
-		type: string;
-		isOptional: boolean;
-	}[];
 }
 
-class MethodItem extends HierarchyItem {
-	protected _type = HierarchyItemType.MethodItem;
-	protected _attributes: MethodAttributes;
+class IndexSignatureItem extends HierarchyItem {
+	protected _type: HierarchyItemType = HierarchyItemType.IndexSignatureItem;
+	protected _attributes: IndexSignatureAttributes;
 	protected _docs: DocsItem;
 
-	constructor(attributes: MethodAttributes, docs: DocsItem, parent?: HierarchyItem) {
+	constructor(attributes: IndexSignatureAttributes, docs: DocsItem, parent?: HierarchyItem) {
 		super(attributes.displayName, parent);
 		this._attributes = attributes;
 		this._docs = docs;
 	}
 
-	public get attributes(): MethodAttributes {
+	public get attributes(): IndexSignatureAttributes {
 		return this._attributes;
 	}
 
@@ -44,4 +37,4 @@ class MethodItem extends HierarchyItem {
 	}
 }
 
-export { MethodItem, MethodAttributes };
+export { IndexSignatureItem, IndexSignatureAttributes };

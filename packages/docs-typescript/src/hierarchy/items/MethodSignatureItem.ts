@@ -1,25 +1,28 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
 
-interface InterfaceAttributes {
+interface MethodSignatureAttributes {
 	displayName: string;
 	fileUrlPath?: string;
-	extendsTypes: string[];
+	isOptional: boolean;
+	returnType: string;
+	overloadIndex: number;
+	parameters: { name: string; type: string; isOptional: boolean }[];
 	typeParameters: { name: string; isOptional: boolean; constraint: string; default: string }[];
 }
 
-class InterfaceItem extends HierarchyItem {
-	protected _type: HierarchyItemType = HierarchyItemType.InterfaceItem;
-	protected _attributes: InterfaceAttributes;
+class MethodSignatureItem extends HierarchyItem {
+	protected _type: HierarchyItemType = HierarchyItemType.MethodSignatureItem;
+	protected _attributes: MethodSignatureAttributes;
 	protected _docs: DocsItem;
 
-	constructor(attributes: InterfaceAttributes, docs: DocsItem, parent?: HierarchyItem) {
+	constructor(attributes: MethodSignatureAttributes, docs: DocsItem, parent?: HierarchyItem) {
 		super(attributes.displayName, parent);
 		this._attributes = attributes;
 		this._docs = docs;
 	}
 
-	public get attributes(): InterfaceAttributes {
+	public get attributes(): MethodSignatureAttributes {
 		return this._attributes;
 	}
 
@@ -35,4 +38,4 @@ class InterfaceItem extends HierarchyItem {
 	}
 }
 
-export { InterfaceItem, InterfaceAttributes };
+export { MethodSignatureItem, MethodSignatureAttributes };

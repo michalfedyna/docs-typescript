@@ -25,6 +25,13 @@ class VariableItem extends HierarchyItem {
 	public get docs(): DocsItem {
 		return this._docs;
 	}
+
+	public toObject(): object {
+		return {
+			...super.toObject(),
+			attributes: this._attributes
+		};
+	}
 }
 
 export { VariableItem, VariableAttributes };

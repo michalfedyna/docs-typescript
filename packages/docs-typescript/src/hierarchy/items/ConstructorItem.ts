@@ -27,6 +27,13 @@ class ConstructorItem extends HierarchyItem {
 	public get attributes(): ConstructorAttributes {
 		return this._attributes;
 	}
+
+	public toObject(): object {
+		return {
+			...super.toObject(),
+			attributes: this._attributes
+		};
+	}
 }
 
 export { ConstructorItem, ConstructorAttributes };

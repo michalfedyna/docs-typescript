@@ -19,6 +19,21 @@ class ConstructorSignatureItem extends HierarchyItem {
 		this._attributes = attributes;
 		this._docs = docs;
 	}
+
+	get attributes(): ConstructorSignatureAttributes {
+		return this._attributes;
+	}
+
+	get docs(): DocsItem {
+		return this._docs;
+	}
+
+	public toObject(): object {
+		return {
+			...super.toObject(),
+			attributes: this._attributes
+		};
+	}
 }
 
 export { ConstructorSignatureItem, ConstructorSignatureAttributes };

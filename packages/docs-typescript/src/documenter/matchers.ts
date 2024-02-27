@@ -3,12 +3,18 @@ import {
 	ApiConstructor,
 	ApiConstructSignature,
 	ApiDocumentedItem,
+	ApiEnum,
+	ApiEnumMember,
+	ApiFunction,
+	ApiIndexSignature,
 	ApiInterface,
 	ApiItem,
 	ApiMethod,
+	ApiMethodSignature,
 	ApiNamespace,
 	ApiPackage,
 	ApiProperty,
+	ApiPropertySignature,
 	ApiTypeAlias,
 	ApiVariable
 } from "@microsoft/api-extractor-model";
@@ -74,12 +80,36 @@ function isVariable(apiItem: ApiItem): apiItem is ApiVariable {
 	return apiItem instanceof ApiVariable;
 }
 
+function isFunction(apiItem: ApiItem): apiItem is ApiFunction {
+	return apiItem instanceof ApiFunction;
+}
+
+function isEnum(apiItem: ApiItem): apiItem is ApiEnum {
+	return apiItem instanceof ApiEnum;
+}
+
+function isEnumMember(apiItem: ApiItem): apiItem is ApiEnumMember {
+	return apiItem instanceof ApiEnumMember;
+}
+
 function isInterface(apiItem: ApiItem): apiItem is ApiInterface {
 	return apiItem instanceof ApiInterface;
 }
 
 function isConstructorSignature(apiItem: ApiItem): apiItem is ApiConstructSignature {
 	return apiItem instanceof ApiConstructSignature;
+}
+
+function isPropertySignature(apiItem: ApiItem): apiItem is ApiPropertySignature {
+	return apiItem instanceof ApiPropertySignature;
+}
+
+function isMethodSignature(apiItem: ApiItem): apiItem is ApiMethodSignature {
+	return apiItem instanceof ApiMethodSignature;
+}
+
+function isIndexSignature(apiItem: ApiItem): apiItem is ApiIndexSignature {
+	return apiItem instanceof ApiIndexSignature;
 }
 
 function isTypeAlias(apiItem: ApiItem): apiItem is ApiTypeAlias {
@@ -90,12 +120,18 @@ export {
 	isClass,
 	isConstructor,
 	isConstructorSignature,
+	isEnum,
+	isEnumMember,
+	isFunction,
+	isIndexSignature,
 	isInterface,
 	isJSX,
 	isMethod,
+	isMethodSignature,
 	isNamespace,
 	isPackage,
 	isProperty,
+	isPropertySignature,
 	isProps,
 	isReactHook,
 	isTypeAlias,
