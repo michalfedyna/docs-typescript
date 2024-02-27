@@ -1,12 +1,16 @@
 import {
 	ApiClass,
 	ApiConstructor,
+	ApiConstructSignature,
 	ApiDocumentedItem,
+	ApiInterface,
 	ApiItem,
 	ApiMethod,
 	ApiNamespace,
 	ApiPackage,
-	ApiProperty
+	ApiProperty,
+	ApiTypeAlias,
+	ApiVariable
 } from "@microsoft/api-extractor-model";
 import { DocBlockTag, DocNode, DocNodeKind } from "@microsoft/tsdoc";
 
@@ -66,4 +70,34 @@ function isMethod(apiItem: ApiItem): apiItem is ApiMethod {
 	return apiItem instanceof ApiMethod;
 }
 
-export { isJSX, isReactHook, isProps, isPackage, isNamespace, isClass, isConstructor, isProperty, isMethod };
+function isVariable(apiItem: ApiItem): apiItem is ApiVariable {
+	return apiItem instanceof ApiVariable;
+}
+
+function isInterface(apiItem: ApiItem): apiItem is ApiInterface {
+	return apiItem instanceof ApiInterface;
+}
+
+function isConstructorSignature(apiItem: ApiItem): apiItem is ApiConstructSignature {
+	return apiItem instanceof ApiConstructSignature;
+}
+
+function isTypeAlias(apiItem: ApiItem): apiItem is ApiTypeAlias {
+	return apiItem instanceof ApiTypeAlias;
+}
+
+export {
+	isClass,
+	isConstructor,
+	isConstructorSignature,
+	isInterface,
+	isJSX,
+	isMethod,
+	isNamespace,
+	isPackage,
+	isProperty,
+	isProps,
+	isReactHook,
+	isTypeAlias,
+	isVariable
+};

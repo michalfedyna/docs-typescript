@@ -1,18 +1,20 @@
 import { DocsItem } from "../docs/DocsItem";
 
 enum HierarchyItemType {
-	HierarchyItem = "Hierarchy",
-	PackageItem = "Package",
+	TypeAliasItem = "TypeAlias",
 	ClassItem = "Class",
+	ConstructorSignatureItem = "ConstructorSignature",
 	ConstructorItem = "Constructor",
-	PropertyItem = "Property",
-	MethodItem = "Method",
+	HierarchyItem = "Hierarchy",
+	HookItem = "Hook",
 	InterfaceItem = "Interface",
-	VariableItem = "Variable",
-	NamespaceItem = "Namespace",
 	JSXItem = "JSX",
+	MethodItem = "Method",
+	NamespaceItem = "Namespace",
+	PackageItem = "Package",
+	PropertyItem = "Property",
 	PropsItem = "Props",
-	HookItem = "Hook"
+	VariableItem = "Variable"
 }
 
 class HierarchyItem {

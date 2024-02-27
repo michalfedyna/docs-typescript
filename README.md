@@ -1,4 +1,4 @@
 # Docs Typescript - Documenting Typescript made easy
 
-Tool for documenting Typescript based project using API Extractor with TSDoc and Docusaurus with support for Markdown and MDX.
-With custom TSDoc tags supporting React components and hooks categories.
+Tool for documenting Typescript based project APIs using API Extractor with support for Markdown, Docusaurus and Terminal Explorer.
+With support for custom TSDoc tags `@jsx`, `@hook` and `@props`.

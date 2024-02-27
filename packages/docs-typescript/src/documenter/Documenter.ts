@@ -1,6 +1,7 @@
 import {
 	ApiClass,
 	ApiConstructor,
+	ApiConstructSignature,
 	ApiDocumentedItem,
 	ApiInterface,
 	ApiItem,
@@ -10,6 +11,7 @@ import {
 	ApiPackage,
 	ApiProperty,
 	ApiPropertySignature,
+	ApiTypeAlias,
 	ApiVariable
 } from "@microsoft/api-extractor-model";
 import { DocFencedCode, DocNode, DocSection } from "@microsoft/tsdoc";
@@ -18,13 +20,17 @@ import { HierarchyItem } from "../hierarchy/items/HierarchyItem";
 import {
 	isClass,
 	isConstructor,
+	isConstructorSignature,
+	isInterface,
 	isJSX,
 	isMethod,
 	isNamespace,
 	isPackage,
 	isProperty,
 	isProps,
-	isReactHook
+	isReactHook,
+	isTypeAlias,
+	isVariable
 } from "./matchers";
 import { NamespaceAttributes, NamespaceItem } from "../hierarchy/items/NamespaceItem";
 import { JSXItem } from "../hierarchy/items/JSXItem";
@@ -36,6 +42,10 @@ import { PropertyAttributes, PropertyItem } from "../hierarchy/items/PropertyIte
 import { MethodAttributes, MethodItem } from "../hierarchy/items/MethodItem";
 import { PropsItem } from "../hierarchy/items/PropsItem";
 import { DocsBuilder } from "../hierarchy/docs/DocsBuilder";
+import { VariableAttributes, VariableItem } from "../hierarchy/items/VariableItem";
+import { InterfaceAttributes, InterfaceItem } from "../hierarchy/items/InterfaceItem";
+import { TypeAliasAttributes, TypeAliasItem } from "../hierarchy/items/TypeAliasItem";
+import { ConstructorSignatureAttributes, ConstructorSignatureItem } from "../hierarchy/items/ConstructorSignatureItem";
 
 class Documenter {
 	private readonly _apiModel: ApiModel;
@@ -85,24 +95,44 @@ class Documenter {
 			child = this._hierarchy.addItem(propsItem, parent);
 		} else if (isClass(apiItem)) {
 			const docs = docsBuilder.build();
-			const attributes = this._enumerateApiClass(apiItem);
+			const attributes = this._enumerateClass(apiItem);
 			const classItem = new ClassItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(classItem, parent);
 		} else if (isConstructor(apiItem)) {
 			const docs = docsBuilder.build();
-			const attributes = this._enumerateApiConstructor(apiItem);
+			const attributes = this._enumerateConstructor(apiItem);
 			const constructorItem = new ConstructorItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(constructorItem);
 		} else if (isProperty(apiItem)) {
 			const docs = docsBuilder.build();
-			const attributes = this._enumerateApiProperty(apiItem);
+			const attributes = this._enumerateProperty(apiItem);
 			const propertyItem = new PropertyItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(propertyItem, parent);
 		} else if (isMethod(apiItem)) {
 			const docs = docsBuilder.build();
-			const attributes = this._enumerateApiMethod(apiItem);
+			const attributes = this._enumerateMethod(apiItem);
 			const methodItem = new MethodItem(attributes, docs, parent);
 			child = this._hierarchy.addItem(methodItem, parent);
+		} else if (isVariable(apiItem)) {
+			const docs = docsBuilder.build();
+			const attributes = this._enumerateVariable(apiItem);
+			const variableItem = new VariableItem(attributes, docs, parent);
+			child = this._hierarchy.addItem(variableItem, parent);
+		} else if (isInterface(apiItem)) {
+			const docs = docsBuilder.build();
+			const attributes = this._enumerateInterface(apiItem);
+			const interfaceItem = new InterfaceItem(attributes, docs, parent);
+			child = this._hierarchy.addItem(interfaceItem, parent);
+		} else if (isConstructorSignature(apiItem)) {
+			const docs = docsBuilder.build();
+			const attributes = this._enumerateConstructorSignature(apiItem);
+			const constructorSignatureItem = new ConstructorSignatureItem(attributes, docs, parent);
+			child = this._hierarchy.addItem(constructorSignatureItem, parent);
+		} else if (isTypeAlias(apiItem)) {
+			const docs = docsBuilder.build();
+			const attributes = this._enumerateTypeAlias(apiItem);
+			const typeAliasItem = new TypeAliasItem(attributes, docs, parent);
+			child = this._hierarchy.addItem(typeAliasItem, parent);
 		}
 
 		for (const member of apiItem.members) {
@@ -126,7 +156,7 @@ class Documenter {
 
 	private _enumerateProps(apiItem: ApiItem, propsItem: PropsItem): void {}
 
-	private _enumerateApiClass(apiClass: ApiClass): ClassAttributes {
+	private _enumerateClass(apiClass: ApiClass): ClassAttributes {
 		const { displayName, isAbstract, fileUrlPath } = apiClass;
 		const extendsType = apiClass.extendsType?.excerpt.text;
 		const implementsTypes = apiClass.implementsTypes.map((type) => type.excerpt.text);
@@ -140,7 +170,7 @@ class Documenter {
 		};
 	}
 
-	private _enumerateApiConstructor(apiConstructor: ApiConstructor): ConstructorAttributes {
+	private _enumerateConstructor(apiConstructor: ApiConstructor): ConstructorAttributes {
 		const { displayName, overloadIndex, isProtected, fileUrlPath } = apiConstructor;
 		const parameters = apiConstructor.parameters.map((parameter) => ({
 			name: parameter.name,
@@ -157,7 +187,7 @@ class Documenter {
 		};
 	}
 
-	private _enumerateApiProperty(apiProperty: ApiProperty): PropertyAttributes {
+	private _enumerateProperty(apiProperty: ApiProperty): PropertyAttributes {
 		const { displayName, isStatic, isAbstract, isProtected, isReadonly, isOptional, isEventProperty, fileUrlPath } =
 			apiProperty;
 
@@ -176,7 +206,7 @@ class Documenter {
 		};
 	}
 
-	private _enumerateApiMethod(apiMethod: ApiMethod): MethodAttributes {
+	private _enumerateMethod(apiMethod: ApiMethod): MethodAttributes {
 		const parameters = apiMethod.parameters.map((parameter) => ({
 			name: parameter.name,
 			type: parameter.parameterTypeExcerpt.text,
@@ -198,11 +228,52 @@ class Documenter {
 		};
 	}
 
-	private _enumerateApiInterface(apiInterface: ApiInterface): void {}
+	private _enumerateInterface(apiInterface: ApiInterface): InterfaceAttributes {
+		const { displayName, fileUrlPath } = apiInterface;
+		const typeParameters = apiInterface.typeParameters.map((typeParameter) => ({
+			name: typeParameter.name,
+			isOptional: typeParameter.isOptional,
+			constraint: typeParameter.constraintExcerpt.text,
+			default: typeParameter.defaultTypeExcerpt.text
+		}));
+		const extendsTypes = apiInterface.extendsTypes.map((extendsType) => extendsType.excerpt.text);
+		return { displayName, fileUrlPath, extendsTypes, typeParameters };
+	}
 
-	private _enumerateApiPropertySignature(apiPropertySignature: ApiPropertySignature): void {}
+	private _enumerateConstructorSignature(
+		apiConstructorSignature: ApiConstructSignature
+	): ConstructorSignatureAttributes {
+		const { displayName, fileUrlPath, overloadIndex } = apiConstructorSignature;
+		const returnType = apiConstructorSignature.returnTypeExcerpt.text;
+		const parameters = apiConstructorSignature.parameters.map((parameter) => ({
+			name: parameter.name,
+			type: parameter.parameterTypeExcerpt.text,
+			isOptional: parameter.isOptional
+		}));
 
-	private _enumerateVariable(apiVariable: ApiVariable): void {}
+		return { displayName, fileUrlPath, returnType, parameters, overloadIndex };
+	}
+
+	private _enumeratePropertySignature(apiPropertySignature: ApiPropertySignature): void {}
+
+	private _enumerateTypeAlias(apiItem: ApiTypeAlias): TypeAliasAttributes {
+		const { displayName, fileUrlPath } = apiItem;
+		const type = apiItem.typeExcerpt.text;
+		const typeParameters = apiItem.typeParameters.map((typeParameter) => ({
+			name: typeParameter.name,
+			isOptional: typeParameter.isOptional,
+			constraint: typeParameter.constraintExcerpt.text,
+			default: typeParameter.defaultTypeExcerpt.text
+		}));
+
+		return { displayName, fileUrlPath, type, typeParameters };
+	}
+
+	private _enumerateVariable(apiVariable: ApiVariable): VariableAttributes {
+		const { displayName, fileUrlPath } = apiVariable;
+		const type = apiVariable.variableTypeExcerpt.text;
+		return { displayName, fileUrlPath, type };
+	}
 
 	private _enumerateDocNodes(docNode: DocNode, level: number = 0) {
 		console.log(" ".repeat(level * 2) + docNode.kind);
