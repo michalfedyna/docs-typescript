@@ -1,3 +1,8 @@
+/**
+ * Person interface
+ * @remarks
+ * This is person interface to represent person object
+ */
 interface Person {
   name: string;
   age: number;
@@ -48,6 +53,11 @@ const person: Person = {
   age: 30,
 };
 
+/**
+ * Takes {@link Person} object and prints it
+ * @param person - Person object
+ * @returns void - No return
+ */
 function printPerson(person: Person) {
   console.log(person);
 }

@@ -1,0 +1,3 @@
+namespace DocsExtractors {}
+
+export { DocsExtractors };
