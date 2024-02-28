@@ -29,8 +29,10 @@ function buildDocs() {
 	const apiModel = new ApiModel();
 	apiModel.loadPackage(pathToApiJson);
 
-	const documenter = new Documenter(apiModel);
-	documenter.buildHierarchy();
+	//const documenter = new Documenter(apiModel);
+	//documenter.buildHierarchy();
+	const debug = new DocumenterDebug(apiModel);
+	debug.buildHierarchy();
 }
 
 function generateDeclarations() {

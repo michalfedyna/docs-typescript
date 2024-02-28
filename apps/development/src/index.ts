@@ -1,4 +1,9 @@
 /**
+ * Test library for docs-typescript development
+ * @packageDocumentation
+ */
+
+/**
  * Person interface
  * @remarks
  * This is person interface to represent person object
