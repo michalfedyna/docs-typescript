@@ -1,4 +1,15 @@
-import { ApiDocumentedItem, ApiItem, ApiModel } from "@microsoft/api-extractor-model";
+import {
+	ApiClass,
+	ApiConstructor,
+	ApiDocumentedItem,
+	ApiItem,
+	ApiItemKind,
+	ApiMethod,
+	ApiModel,
+	ApiNamespace,
+	ApiPackage,
+	ApiProperty
+} from "@microsoft/api-extractor-model";
 import { DocNode } from "@microsoft/tsdoc";
 import { Hierarchy } from "../hierarchy/Hierarchy";
 import { HierarchyItem } from "../hierarchy/items/HierarchyItem";
@@ -44,7 +55,7 @@ import { FunctionItem } from "../hierarchy/items/FunctionItem";
 import { EnumItem } from "../hierarchy/items/EnumItem";
 import { EnumMemberItem } from "../hierarchy/items/EnumMemberItem";
 import { DocsAttributes, DocsItem } from "../hierarchy/docs/DocsItem";
-import { isCodeSpan, isFencedCode, isLinkTag, isPlainText, isSoftBreak } from "../utils/docsNodesMatchers";
+import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "../utils/docsNodesMatchers";
 import { LineWriter } from "../utils/LineWriter";
 import { AttributesExtractors } from "./AttributesExtractors";
 
@@ -195,9 +206,10 @@ class Documenter {
 
 	private _enumerateDocNodes(docNode: DocNode): void {
 		if (isPlainText(docNode)) {
-		} else if (isCodeSpan(docNode)) {
+		} else if (isParagraph(docNode)) {
 		} else if (isSoftBreak(docNode)) {
 		} else if (isLinkTag(docNode)) {
+		} else if (isCodeSpan(docNode)) {
 		} else if (isFencedCode(docNode)) {
 		}
 
