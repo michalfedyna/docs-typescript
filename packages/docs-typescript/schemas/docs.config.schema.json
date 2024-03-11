@@ -1,8 +1,54 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/michalfedyna/docs-typescript/main/packages/docs-typescript/schemas/docs.config.schema.json",
-  "title": "Docs Typescript Config",
-  "description": "Configuration for the Docs Typescript tool",
-  "type": "object",
-  "properties": {}
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://raw.githubusercontent.com/michalfedyna/docs-typescript/main/packages/docs-typescript/schemas/docs.config.schema.json",
+	"title": "Docs Typescript Config",
+	"description": "Configuration for the Docs Typescript tool",
+	"type": "object",
+	"properties": {
+		"entry": {
+			"type": "array",
+			"description": "The entry files",
+			"items": {
+				"type": "string"
+			},
+			"default": ["src/index.tsx"]
+		},
+		"format": {
+			"type": "string",
+			"description": "The format of the output",
+			"enum": ["markdown", "html", "mdx"],
+			"default": "markdown"
+		},
+		"output": {
+			"type": "string",
+			"description": "The output directory",
+			"default": "docs"
+		},
+		"singlePage": {
+			"type": "boolean",
+			"description": "Whether to generate a single page or multiple pages",
+			"default": false
+		},
+		"framework": {
+			"type": "string",
+			"description": "The framework in use",
+			"enum": ["react"]
+		},
+		"tsconfig": {
+			"type": "string",
+			"description": "The path to the tsconfig file",
+			"default": "tsconfig.json"
+		},
+
+		"apiExtractor": {
+			"type": "string",
+			"description": "The path to the api-extractor config file",
+			"default": "api-extractor.json"
+		},
+		"tsdoc": {
+			"type": "string",
+			"description": "The path to the tsdoc config file",
+			"default": "tsdoc.json"
+		}
+	}
 }

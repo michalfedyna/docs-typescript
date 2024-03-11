@@ -204,7 +204,7 @@ class Documenter {
 		}
 	}
 
-	private _enumerateDocNodes(docNode: DocNode): void {
+	private _enumerateDocNodes(docNode: DocNode): DocsAttributes {
 		if (isPlainText(docNode)) {
 		} else if (isParagraph(docNode)) {
 		} else if (isSoftBreak(docNode)) {
