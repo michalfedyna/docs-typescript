@@ -58,22 +58,47 @@ import { DocsAttributes, DocsItem } from "../hierarchy/docs/DocsItem";
 import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "../utils/docsNodesMatchers";
 import { LineWriter } from "../utils/LineWriter";
 import { AttributesExtractors } from "./AttributesExtractors";
+import { DocsConfig } from "../config/DocsConfig";
+import { Emitter } from "../emitters/Emitter";
+import { HTMLEmitter } from "../emitters/HTMLEmitter";
+import { MDEmitter } from "../emitters/MDEmitter";
+import { MDXEmitter } from "../emitters/MDXEmitter";
 
 class Documenter {
 	private readonly _apiModel: ApiModel;
 	private readonly _hierarchy: Hierarchy;
+	private readonly _config: DocsConfig;
+	private readonly _emitter: Emitter;
 
-	constructor(apiModel: ApiModel) {
+	constructor(apiModel: ApiModel, config: DocsConfig) {
 		this._apiModel = apiModel;
+		this._config = config;
 		this._hierarchy = new Hierarchy("");
+
+		switch (config.format) {
+			case "html":
+				this._emitter = new HTMLEmitter();
+				break;
+
+			case "markdown":
+				this._emitter = new MDEmitter();
+				break;
+
+			case "mdx":
+				this._emitter = new MDXEmitter();
+				break;
+		}
 	}
 
-	public buildHierarchy(): void {
+	public emit(): void {
+		this._buildHierarchy();
+		this._emitter.emit();
+	}
+
+	private _buildHierarchy(): void {
 		this._enumerateApiItems(this._apiModel, this._hierarchy);
 		// console.log(JSON.stringify(this._hierarchy.toObject(), null, " "));
 	}
-
-	public emit(): void {}
 
 	private _enumerateApiItems(apiItem: ApiItem, parent?: HierarchyItem): void {
 		let child: HierarchyItem | undefined;
@@ -204,7 +229,7 @@ class Documenter {
 		}
 	}
 
-	private _enumerateDocNodes(docNode: DocNode): DocsAttributes {
+	private _enumerateDocNodes(docNode: DocNode): void {
 		if (isPlainText(docNode)) {
 		} else if (isParagraph(docNode)) {
 		} else if (isSoftBreak(docNode)) {

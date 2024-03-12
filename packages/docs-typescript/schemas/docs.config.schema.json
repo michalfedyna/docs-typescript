@@ -5,13 +5,14 @@
 	"description": "Configuration for the Docs Typescript tool",
 	"type": "object",
 	"properties": {
-		"entry": {
-			"type": "array",
-			"description": "The entry files",
-			"items": {
-				"type": "string"
-			},
-			"default": ["src/index.tsx"]
+		"root": {
+			"type": "string",
+			"description": "The root directory",
+			"default": "."
+		},
+		"api": {
+			"type": "string",
+			"description": "The path to the API file"
 		},
 		"format": {
 			"type": "string",
@@ -33,22 +34,7 @@
 			"type": "string",
 			"description": "The framework in use",
 			"enum": ["react"]
-		},
-		"tsconfig": {
-			"type": "string",
-			"description": "The path to the tsconfig file",
-			"default": "tsconfig.json"
-		},
-
-		"apiExtractor": {
-			"type": "string",
-			"description": "The path to the api-extractor config file",
-			"default": "api-extractor.json"
-		},
-		"tsdoc": {
-			"type": "string",
-			"description": "The path to the tsdoc config file",
-			"default": "tsdoc.json"
 		}
-	}
+	},
+	"required": ["api"]
 }

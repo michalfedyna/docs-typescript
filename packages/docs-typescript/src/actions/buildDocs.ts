@@ -1,12 +1,18 @@
 import { DocsConfig } from "../config/DocsConfig";
-import { buildApiModel } from "./buildApiModel";
+import path from "path";
+import { ApiModel } from "@microsoft/api-extractor-model";
+import { Documenter } from "../documenter/Documenter";
 
-function buildDocs(
-  inputFiles: string[],
-  outputFolder: string,
-  config: DocsConfig,
-) {
-  const apiModel = buildApiModel(inputFiles);
+function buildDocs(config: DocsConfig) {
+	const cwd = process.cwd();
 
-  console.log("apiModel.kind:", apiModel.kind);
+	const pathToApiJson = path.resolve(cwd, config.api);
+	const apiModel = new ApiModel();
+
+	apiModel.loadPackage(pathToApiJson);
+
+	const documenter = new Documenter(apiModel, config);
+	documenter.emit();
 }
+
+export { buildDocs };

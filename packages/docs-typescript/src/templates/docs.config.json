@@ -1,6 +1,3 @@
 {
   "$schema": "https://raw.githubusercontent.com/michalfedyna/docs-typescript/main/packages/docs-typescript/schemas/docs.config.schema.json",
-  "mode": "file",
-  "format": "markdown",
-  "include": ["src/**/*"]
 }

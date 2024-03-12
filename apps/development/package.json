@@ -6,7 +6,6 @@
   "scripts": {
     "init": "docs-typescript init",
     "docs": "docs-typescript build",
-    "extract": "docs-typescript extract src/index.ts",
     "clean": "rm -r docs.config.json docs"
   },
   "keywords": [],
