@@ -4,9 +4,8 @@ import { TSDocConfigFile } from "@microsoft/tsdoc-config";
 
 function extractApiModel() {
 	const cwd = process.cwd();
-	const apiExtractorJsonPath = path.resolve(cwd, "docs/config/api-extractor.json");
-
-	const tsDocConfigPath = path.resolve(cwd, "docs/config/tsdoc.json");
+	const apiExtractorJsonPath = path.resolve(cwd, "api-extractor.json");
+	const tsDocConfigPath = path.resolve(cwd, "tsdoc.json");
 
 	try {
 		const configObject = ExtractorConfig.loadFile(apiExtractorJsonPath);

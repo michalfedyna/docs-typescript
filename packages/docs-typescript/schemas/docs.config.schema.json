@@ -5,14 +5,14 @@
 	"description": "Configuration for the Docs Typescript tool",
 	"type": "object",
 	"properties": {
+		"api": {
+			"type": "string",
+			"description": "The path to the API file"
+		},
 		"root": {
 			"type": "string",
 			"description": "The root directory",
 			"default": "."
-		},
-		"api": {
-			"type": "string",
-			"description": "The path to the API file"
 		},
 		"format": {
 			"type": "string",

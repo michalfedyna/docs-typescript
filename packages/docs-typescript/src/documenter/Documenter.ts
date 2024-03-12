@@ -92,12 +92,11 @@ class Documenter {
 
 	public emit(): void {
 		this._buildHierarchy();
-		this._emitter.emit();
+		this._emitter.emit(this._hierarchy);
 	}
 
 	private _buildHierarchy(): void {
 		this._enumerateApiItems(this._apiModel, this._hierarchy);
-		// console.log(JSON.stringify(this._hierarchy.toObject(), null, " "));
 	}
 
 	private _enumerateApiItems(apiItem: ApiItem, parent?: HierarchyItem): void {

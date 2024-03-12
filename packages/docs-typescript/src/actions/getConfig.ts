@@ -12,7 +12,7 @@ function getConfig(): DocsConfig {
 	Debug.log("Config file", configObject);
 
 	if (!configObject.api) {
-		console.error("No API configuration found in docs.config.json");
+		console.error("No api configuration found in docs.config.json");
 		process.exit(1);
 	}
 

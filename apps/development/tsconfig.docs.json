@@ -1,0 +1,9 @@
+{
+    "include": ["./src/**/*"],
+    "compilerOptions": {
+        "declaration": true,
+        "declarationMap": true,
+        "emitDeclarationOnly": true,
+        "declarationDir": "./declarations"
+    }
+}

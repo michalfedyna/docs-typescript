@@ -1,31 +1,25 @@
 import { Command } from "commander";
 
 import { getConfig } from "../../actions/getConfig";
-import { generateDeclarations } from "../../actions/generateDeclarations";
-import { extractApiModel } from "../../actions/extractApiModel";
 import { buildDocs } from "../../actions/buildDocs";
 
 import { Debug } from "../../utils/Debug";
 
 function build(cli: Command) {
-	cli.command("build").description("generates documentation for entire project").action(action);
+	cli.command("build").description("builds documentation").action(action(cli));
 }
 
-function action() {
-	Debug.enable();
-	Debug.log("build action started");
+function action(cli: Command) {
+	return function () {
+		const options = cli.opts();
 
-	Debug.log("Getting config");
-	const config = getConfig();
+		if (options.verbose) {
+			Debug.enable();
+		}
 
-	Debug.log("Generating declarations");
-	generateDeclarations();
-
-	Debug.log("Extracting API model");
-	extractApiModel();
-
-	Debug.log("Building documentation");
-	buildDocs(config);
+		const config = getConfig();
+		buildDocs(config);
+	};
 }
 
 export default build;

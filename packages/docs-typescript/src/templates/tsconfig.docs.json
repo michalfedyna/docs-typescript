@@ -1,9 +1,9 @@
 {
-  "include": ["../../src/**/*"],
+  "include": ["./src/**/*"],
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
-    "declarationDir": "../declarations"
+    "declarationDir": "./declarations"
   }
 }

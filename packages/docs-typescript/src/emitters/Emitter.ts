@@ -1,3 +1,5 @@
+import { Hierarchy } from "../hierarchy/Hierarchy";
+
 enum Sections {
 	Header = "header",
 	Remarks = "remarks",
@@ -7,7 +9,7 @@ enum Sections {
 }
 
 abstract class Emitter {
-	abstract emit(): void;
+	abstract emit(hierarchy: Hierarchy): void;
 }
 
 export { Emitter, Sections };
