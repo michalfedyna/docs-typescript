@@ -5,22 +5,22 @@
 	"description": "Configuration for the Docs Typescript tool",
 	"type": "object",
 	"properties": {
-		"api": {
+		"apiJsonPath": {
 			"type": "string",
 			"description": "The path to the API file"
 		},
-		"root": {
+		"rootPath": {
 			"type": "string",
 			"description": "The root directory",
 			"default": "."
 		},
-		"format": {
+		"outputFormat": {
 			"type": "string",
 			"description": "The format of the output",
 			"enum": ["markdown", "html", "mdx"],
 			"default": "markdown"
 		},
-		"output": {
+		"outputPath": {
 			"type": "string",
 			"description": "The output directory",
 			"default": "docs"

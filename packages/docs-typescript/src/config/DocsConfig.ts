@@ -1,28 +1,35 @@
 interface Config {
-	api: string;
-	root?: string;
-	format?: "markdown" | "mdx" | "html";
-	output?: string;
+	apiJsonPath: string;
+	rootPath?: string;
+	outputFormat?: "markdown" | "mdx" | "html";
+	outputPath?: string;
 	singlePage?: boolean;
 	framework?: "react" | false;
 }
 
 class DocsConfig implements Config {
-	root: string;
-	api: string;
-	format: "markdown" | "mdx" | "html";
-	output: string = "docs";
+	apiJsonPath: string;
+	rootPath: string;
+	outputFormat: "markdown" | "mdx" | "html";
+	outputPath: string = "docs";
 	singlePage: boolean;
 	framework: "react" | false;
 
-	constructor({ api, root = ".", format = "markdown", output = "docs", singlePage = true, framework = false }: Config) {
-		this.root = root;
-		this.api = api;
-		this.format = format;
-		this.output = output;
+	constructor({
+		apiJsonPath,
+		rootPath = ".",
+		outputFormat = "markdown",
+		outputPath = "docs",
+		singlePage = false,
+		framework = false
+	}: Config) {
+		this.apiJsonPath = apiJsonPath;
+		this.rootPath = rootPath;
+		this.outputFormat = outputFormat;
+		this.outputPath = outputPath;
 		this.singlePage = singlePage;
 		this.framework = framework;
 	}
 }
 
-export { DocsConfig };
+export { DocsConfig, Config };

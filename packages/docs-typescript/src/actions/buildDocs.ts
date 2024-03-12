@@ -7,7 +7,7 @@ import { Debug } from "../utils/Debug";
 function buildDocs(config: DocsConfig) {
 	const cwd = process.cwd();
 
-	const pathToApiJson = path.resolve(cwd, config.api);
+	const pathToApiJson = path.resolve(cwd, config.apiJsonPath);
 
 	Debug.log("Loading api model from", pathToApiJson);
 
