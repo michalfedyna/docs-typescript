@@ -1,9 +1,21 @@
 import { Emitter } from "./Emitter";
-import { Hierarchy } from "../hierarchy/Hierarchy";
+import { HierarchyItem } from "../hierarchy/items/HierarchyItem";
 
 class MDXEmitter extends Emitter {
-	emit(hierarchy: Hierarchy): void {
-		console.log(JSON.stringify(hierarchy.toObject(), null, " "));
+	emit(items: HierarchyItem[]): void {
+		for (const item of items) {
+			this.page(item);
+		}
+	}
+
+	page(item: HierarchyItem): { url: string; content: string } {
+		if (item.children.length > 0) {
+		}
+
+		return {
+			url: "",
+			content: ""
+		};
 	}
 }
 

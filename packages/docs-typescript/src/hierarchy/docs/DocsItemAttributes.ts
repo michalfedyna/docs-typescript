@@ -1,5 +1,7 @@
+import { DocWriter } from "./DocsWriter";
+
 interface DocsSummary {
-	lines: string[];
+	content: DocWriter;
 }
 
 interface DocsRemarks {}

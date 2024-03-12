@@ -1,4 +1,5 @@
-import { Hierarchy } from "../hierarchy/Hierarchy";
+import { DocsConfig } from "../config/DocsConfig";
+import { HierarchyItem } from "../hierarchy/items/HierarchyItem";
 
 enum Sections {
 	Header = "header",
@@ -8,8 +9,17 @@ enum Sections {
 	Methods = "methods"
 }
 
+interface Page {
+	url: string;
+	content: string;
+}
+
 abstract class Emitter {
-	abstract emit(hierarchy: Hierarchy): void;
+	constructor(protected readonly _config: DocsConfig) {}
+
+	abstract emit(items: HierarchyItem[]): void;
+
+	abstract page(item: HierarchyItem): { url: string; content: string };
 }
 
 export { Emitter, Sections };

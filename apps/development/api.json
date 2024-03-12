@@ -283,7 +283,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "development!Person:interface",
-          "docComment": "/**\n * Person interface\n *\n * @remarks\n *\n * This is person interface to represent person object\n */\n",
+          "docComment": "/**\n * This is summary for Person interface This is multiline summary\n *\n * This is multiline summary after empty line\n *\n * @remarks\n *\n * This is person interface to represent person object\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",

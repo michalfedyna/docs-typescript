@@ -4,7 +4,11 @@
  */
 
 /**
- * Person interface
+ * This is summary for Person interface
+ * This is multiline summary
+ *
+ * This is multiline summary after empty line
+ *
  * @remarks
  * This is person interface to represent person object
  */

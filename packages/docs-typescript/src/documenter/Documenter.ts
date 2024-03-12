@@ -1,15 +1,4 @@
-import {
-	ApiClass,
-	ApiConstructor,
-	ApiDocumentedItem,
-	ApiItem,
-	ApiItemKind,
-	ApiMethod,
-	ApiModel,
-	ApiNamespace,
-	ApiPackage,
-	ApiProperty
-} from "@microsoft/api-extractor-model";
+import { ApiDocumentedItem, ApiItem, ApiModel } from "@microsoft/api-extractor-model";
 import { DocNode } from "@microsoft/tsdoc";
 import { Hierarchy } from "../hierarchy/Hierarchy";
 import { HierarchyItem } from "../hierarchy/items/HierarchyItem";
@@ -56,13 +45,13 @@ import { EnumItem } from "../hierarchy/items/EnumItem";
 import { EnumMemberItem } from "../hierarchy/items/EnumMemberItem";
 import { DocsAttributes, DocsItem } from "../hierarchy/docs/DocsItem";
 import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "../utils/docsNodesMatchers";
-import { LineWriter } from "../utils/LineWriter";
 import { AttributesExtractors } from "./AttributesExtractors";
 import { DocsConfig } from "../config/DocsConfig";
 import { Emitter } from "../emitters/Emitter";
 import { HTMLEmitter } from "../emitters/HTMLEmitter";
 import { MDEmitter } from "../emitters/MDEmitter";
 import { MDXEmitter } from "../emitters/MDXEmitter";
+import { DocWriter } from "../hierarchy/docs/DocsWriter";
 
 class Documenter {
 	private readonly _apiModel: ApiModel;
@@ -75,24 +64,24 @@ class Documenter {
 		this._config = config;
 		this._hierarchy = new Hierarchy("");
 
-		switch (config.format) {
+		switch (config.outputFormat) {
 			case "html":
-				this._emitter = new HTMLEmitter();
+				this._emitter = new HTMLEmitter(config);
 				break;
 
 			case "markdown":
-				this._emitter = new MDEmitter();
+				this._emitter = new MDEmitter(config);
 				break;
 
 			case "mdx":
-				this._emitter = new MDXEmitter();
+				this._emitter = new MDXEmitter(config);
 				break;
 		}
 	}
 
 	public emit(): void {
 		this._buildHierarchy();
-		this._emitter.emit(this._hierarchy);
+		this._emitter.emit(this._hierarchy.children);
 	}
 
 	private _buildHierarchy(): void {
@@ -115,18 +104,32 @@ class Documenter {
 				customBlocks
 			} = apiItem.tsdocComment;
 
+			console.log("--------------");
+			console.log(apiItem.displayName, apiItem.kind);
+			console.log("--------------");
+
 			const defaultValueBlock = customBlocks.filter((block) => block.blockTag.tagName === "@defaultValue");
 			const examplesBlock = customBlocks.filter((block) => block.blockTag.tagName === "@example");
 
-			const summary = this._enumerateDocNodes(summarySection);
-			const remarks = remarksBlock ? this._enumerateDocNodes(remarksBlock.content) : "";
-			const returns = returnsBlock ? this._enumerateDocNodes(returnsBlock.content) : "";
-			const paramsArray = params.blocks.map((block) => {
-				return { name: block.parameterName, docs: this._enumerateDocNodes(block.content) };
-			});
+			docsAttributes.summary = { content: this._enumerateDocNodes(summarySection, new DocWriter()) };
+			docsAttributes.remarks = remarksBlock
+				? { content: this._enumerateDocNodes(remarksBlock.content, new DocWriter()) }
+				: undefined;
+			docsAttributes.returns = returnsBlock
+				? { content: this._enumerateDocNodes(returnsBlock.content, new DocWriter()) }
+				: undefined;
+			docsAttributes.deprecated = deprecatedBlock
+				? { content: this._enumerateDocNodes(deprecatedBlock.content, new DocWriter()) }
+				: undefined;
+			docsAttributes.typeParams = typeParams
+				? params.blocks.map((block) => {
+						return { name: block.parameterName, docs: this._enumerateDocNodes(block.content, new DocWriter()) };
+					})
+				: undefined;
+
 			const examples = examplesBlock.map((block, index) => ({
 				name: examplesBlock.length > 1 ? `Example ${index}` : "Example",
-				docs: this._enumerateDocNodes(block.content)
+				docs: this._enumerateDocNodes(block.content, new DocWriter())
 			}));
 		}
 
@@ -228,18 +231,27 @@ class Documenter {
 		}
 	}
 
-	private _enumerateDocNodes(docNode: DocNode): void {
+	private _enumerateDocNodes(docNode: DocNode, writer: DocWriter, level: number = 0): DocWriter {
+		console.log(" ".repeat(level * 2) + docNode.kind);
+
 		if (isPlainText(docNode)) {
+			writer.writeContent(docNode.text);
 		} else if (isParagraph(docNode)) {
+			writer = writer.writeParagraph() || writer;
 		} else if (isSoftBreak(docNode)) {
 		} else if (isLinkTag(docNode)) {
+			writer.writeLink(docNode.linkText || docNode.urlDestination! || "");
 		} else if (isCodeSpan(docNode)) {
+			writer.writeInlineCode(docNode.code);
 		} else if (isFencedCode(docNode)) {
+			writer.writeCode(docNode.code, docNode.language);
 		}
 
 		for (const childNode of docNode.getChildNodes()) {
-			this._enumerateDocNodes(childNode);
+			this._enumerateDocNodes(childNode, writer, level + 1);
 		}
+
+		return writer;
 	}
 }
 
