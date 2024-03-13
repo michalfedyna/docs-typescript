@@ -17,9 +17,11 @@ interface Page {
 abstract class Emitter {
 	constructor(protected readonly _config: DocsConfig) {}
 
-	abstract emit(items: HierarchyItem[]): void;
+	abstract emit(item: HierarchyItem): void;
 
-	abstract page(item: HierarchyItem): { url: string; content: string };
+	protected abstract _emitPage(item: HierarchyItem): void;
+
+	protected abstract _toFile(content: string, url: string): void;
 }
 
 export { Emitter, Sections };

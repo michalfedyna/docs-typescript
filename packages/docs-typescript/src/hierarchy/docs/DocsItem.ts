@@ -16,8 +16,8 @@ class DocsItem {
 	protected _remarks?: DocsRemarks;
 	protected _returns?: DocsReturns;
 	protected _deprecated?: DocsDeprecated;
-	protected _typeParams?: DocsTypeParams;
-	protected _see?: DocsSee;
+	protected _typeParams?: DocsTypeParams[];
+	protected _see?: DocsSee[];
 	protected _defaultValue?: DocsDefaultValue;
 	protected _params?: DocsParam[];
 	protected _examples?: DocsExample[];
@@ -50,11 +50,11 @@ class DocsItem {
 		return this._deprecated;
 	}
 
-	public get typeParams(): DocsTypeParams | undefined {
+	public get typeParams(): DocsTypeParams[] | undefined {
 		return this._typeParams;
 	}
 
-	public get see(): DocsSee | undefined {
+	public get see(): DocsSee[] | undefined {
 		return this._see;
 	}
 

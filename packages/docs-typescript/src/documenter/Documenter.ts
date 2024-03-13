@@ -65,23 +65,26 @@ class Documenter {
 		this._hierarchy = new Hierarchy("");
 
 		switch (config.outputFormat) {
-			case "html":
-				this._emitter = new HTMLEmitter(config);
-				break;
-
-			case "markdown":
+			// case "html":
+			// 	this._emitter = new HTMLEmitter(config);
+			// 	break;
+			//
+			// case "markdown":
+			// 	this._emitter = new MDEmitter(config);
+			// 	break;
+			//
+			// case "mdx":
+			// 	this._emitter = new MDXEmitter(config);
+			// 	break;
+			default:
 				this._emitter = new MDEmitter(config);
-				break;
-
-			case "mdx":
-				this._emitter = new MDXEmitter(config);
-				break;
 		}
 	}
 
 	public emit(): void {
 		this._buildHierarchy();
-		this._emitter.emit(this._hierarchy.children);
+		console.log(JSON.stringify(this._hierarchy.toObject(), null, 2));
+		this._emitter.emit(this._hierarchy);
 	}
 
 	private _buildHierarchy(): void {
@@ -112,25 +115,47 @@ class Documenter {
 			const examplesBlock = customBlocks.filter((block) => block.blockTag.tagName === "@example");
 
 			docsAttributes.summary = { content: this._enumerateDocNodes(summarySection, new DocWriter()) };
+
 			docsAttributes.remarks = remarksBlock
 				? { content: this._enumerateDocNodes(remarksBlock.content, new DocWriter()) }
 				: undefined;
+
 			docsAttributes.returns = returnsBlock
 				? { content: this._enumerateDocNodes(returnsBlock.content, new DocWriter()) }
 				: undefined;
+
 			docsAttributes.deprecated = deprecatedBlock
 				? { content: this._enumerateDocNodes(deprecatedBlock.content, new DocWriter()) }
 				: undefined;
+
 			docsAttributes.typeParams = typeParams
-				? params.blocks.map((block) => {
-						return { name: block.parameterName, docs: this._enumerateDocNodes(block.content, new DocWriter()) };
-					})
+				? typeParams.blocks.map((block) => ({
+						name: block.parameterName,
+						content: this._enumerateDocNodes(block.content, new DocWriter())
+					}))
 				: undefined;
 
-			const examples = examplesBlock.map((block, index) => ({
+			docsAttributes.params = params
+				? params.blocks.map((block) => ({
+						name: block.parameterName,
+						content: this._enumerateDocNodes(block.content, new DocWriter())
+					}))
+				: undefined;
+
+			docsAttributes.see = seeBlocks
+				? seeBlocks.map((block) => ({
+						content: this._enumerateDocNodes(block.content, new DocWriter())
+					}))
+				: undefined;
+
+			docsAttributes.examples = examplesBlock.map((block, index) => ({
 				name: examplesBlock.length > 1 ? `Example ${index}` : "Example",
-				docs: this._enumerateDocNodes(block.content, new DocWriter())
+				content: this._enumerateDocNodes(block.content, new DocWriter())
 			}));
+
+			docsAttributes.defaultValue = defaultValueBlock.length
+				? { content: this._enumerateDocNodes(defaultValueBlock[0].content, new DocWriter()) }
+				: undefined;
 		}
 
 		if (isEntryPoint(apiItem)) {

@@ -1,7 +1,7 @@
 import { Emitter } from "./Emitter";
 import { HierarchyItem } from "../hierarchy/items/HierarchyItem";
 
-class HTMLEmitter extends Emitter {
+class HTMLEmitter {
 	emit(items: HierarchyItem[]): void {
 		for (const item of items) {
 			this.page(item);

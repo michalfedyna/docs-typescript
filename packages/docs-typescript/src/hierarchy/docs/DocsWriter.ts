@@ -26,7 +26,7 @@ type Doc =
 	  }
 	| {
 			type: DocType.Paragraph;
-			writer: DocWriter;
+			content: DocWriter;
 	  };
 
 class DocWriter {
@@ -45,10 +45,10 @@ class DocWriter {
 	}
 
 	public writeParagraph(): DocWriter | undefined {
-		const index = this._docs.push({ type: DocType.Paragraph, writer: new DocWriter() });
+		const index = this._docs.push({ type: DocType.Paragraph, content: new DocWriter() });
 		const doc = this._docs[index - 1];
 		if (doc.type === DocType.Paragraph) {
-			return doc.writer;
+			return doc.content;
 		}
 	}
 

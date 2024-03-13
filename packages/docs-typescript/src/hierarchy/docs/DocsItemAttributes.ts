@@ -4,24 +4,39 @@ interface DocsSummary {
 	content: DocWriter;
 }
 
-interface DocsRemarks {}
+interface DocsRemarks {
+	content: DocWriter;
+}
 
-interface DocsReturns {}
+interface DocsReturns {
+	content: DocWriter;
+}
 
-interface DocsDeprecated {}
+interface DocsDeprecated {
+	content: DocWriter;
+}
 
-interface DocsTypeParams {}
+interface DocsTypeParams {
+	name: string;
+	content: DocWriter;
+}
 
-interface DocsSee {}
+interface DocsSee {
+	content: DocWriter;
+}
 
-interface DocsParam {}
+interface DocsParam {
+	name: string;
+	content: DocWriter;
+}
 
-interface DocsDefaultValue {}
+interface DocsDefaultValue {
+	content: DocWriter;
+}
 
 interface DocsExample {
 	name: string;
-	language: string;
-	lines: string[];
+	content: DocWriter;
 }
 
 interface DocsAttributes {
@@ -29,9 +44,9 @@ interface DocsAttributes {
 	remarks?: DocsRemarks;
 	returns?: DocsReturns;
 	deprecated?: DocsDeprecated;
-	typeParams?: DocsTypeParams;
-	see?: DocsSee;
 	defaultValue?: DocsDefaultValue;
+	typeParams?: DocsTypeParams[];
+	see?: DocsSee[];
 	params?: DocsParam[];
 	examples?: DocsExample[];
 }
