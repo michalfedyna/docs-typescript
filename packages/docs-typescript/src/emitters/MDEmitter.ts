@@ -1,10 +1,13 @@
-import { Emitter } from "./Emitter";
-import { HierarchyItem, HierarchyItemType } from "../hierarchy/items/HierarchyItem";
-import { EntryPointItem } from "../hierarchy/items/EntryPointItem";
 import * as fs from "fs";
 import path from "path";
-import { MDWriter } from "./MDWriter";
+
 import { ClassItem } from "../hierarchy/items/ClassItem";
+import { ConstructorItem } from "../hierarchy/items/ConstructorItem";
+import { Debug } from "../utils/Debug";
+import { Emitter } from "./Emitter";
+import { HierarchyItem, HierarchyItemType } from "../hierarchy/items/HierarchyItem";
+import { MDWriter } from "./MDWriter";
+import { Template } from "../utils/Template";
 
 class MDEmitter extends Emitter {
 	emit(item: HierarchyItem): void {
@@ -20,16 +23,36 @@ class MDEmitter extends Emitter {
 			case HierarchyItemType.EntryPointItem: {
 				break;
 			}
+			case HierarchyItemType.PackageItem: {
+				break;
+			}
 			case HierarchyItemType.NamespaceItem: {
 				break;
 			}
 			case HierarchyItemType.ClassItem: {
 				const classItem = item as ClassItem;
+
+				const context = {
+					name: classItem.attributes.displayName,
+					signature: classItem.attributes.signature,
+					isAbstract: classItem.attributes.isAbstract
+				};
+
+				const content = new Template(this._config.outputFormat, "class").render(context);
+
+				this._toFile(content, classItem.uri);
+				break;
+			}
+			case HierarchyItemType.ConstructorItem: {
+				const constructorItem = item as ConstructorItem;
 				const writer = new MDWriter();
 
-				writer.header(1, classItem.attributes.displayName);
+				writer.header(1, constructorItem.parent?.name + " Constructor");
 
-				this._toFile(writer.toString(), classItem.uri);
+				writer.header(2, "Signature");
+				writer.code("typescript", constructorItem.attributes.signature);
+
+				this._toFile(writer.toString(), constructorItem.uri);
 				break;
 			}
 		}

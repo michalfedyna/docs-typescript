@@ -11,6 +11,8 @@ class MDWriter {
 
 	public header(level: number, text: string): void {
 		this._buffer.push(`${"#".repeat(level)} ${text}`);
+		this.newline();
+		this.newline();
 	}
 
 	public code(language: string, content: string): void {
@@ -19,6 +21,7 @@ class MDWriter {
 		this._buffer.push(content);
 		this.newline();
 		this._buffer.push("```");
+		this.newline();
 	}
 
 	public inlineCode(content: string): void {

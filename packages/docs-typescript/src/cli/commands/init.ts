@@ -18,7 +18,7 @@ function action(cli: Command) {
 
 		const cwd = process.cwd();
 		const outputFolder: string = path.resolve(cwd);
-		const templateFolder: string = path.resolve(__dirname, "../../templates");
+		const templateFolder: string = path.resolve(__dirname, "../../templates/config");
 
 		Debug.log("Copying template files to docs folder");
 		Debug.log("Template folder", templateFolder);

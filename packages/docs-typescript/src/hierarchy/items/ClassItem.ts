@@ -3,6 +3,7 @@ import { DocsItem } from "../docs/DocsItem";
 
 interface ClassAttributes {
 	displayName: string;
+	signature: string;
 	extendsType?: string;
 	implementedTypes: string[];
 	isAbstract: boolean;

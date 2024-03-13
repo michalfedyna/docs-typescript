@@ -1,21 +1,20 @@
 {
-  "compilerOptions": {
-    "target": "ES6" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "rootDir": "./src" /* Specify the root folder within your source files. */,
-    "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
-    "declarationMap": true,
-    "sourceMap": true /* Create source map files for emitted JavaScript files. */,
-    // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If 'declaration' is true, also designates a file that bundles all .d.ts output. */
-    "outDir": "./lib" /* Specify an output folder for all emitted files. */,
-    "declarationDir": "./types" /* Specify the output directory for generated declaration files. */,
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-    "strict": true /* Enable all strict type-checking options. */,
-    "noImplicitAny": true /* Enable error reporting for expressions and declarations with an implied 'any' type. */,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "resolveJsonModule": true /* Include modules imported with '.json' extension. */
-  },
-  "include": ["src/**/*", "src/**/*.json"]
+	"compilerOptions": {
+		"target": "ES6" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+		"module": "CommonJS",
+		"moduleResolution": "Node",
+		"rootDir": "./src" /* Specify the root folder within your source files. */,
+		"declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
+		"declarationMap": true,
+		"sourceMap": true /* Create source map files for emitted JavaScript files. */,
+		"outDir": "./lib" /* Specify an output folder for all emitted files. */,
+		"declarationDir": "./types" /* Specify the output directory for generated declaration files. */,
+		"esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+		"forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+		"strict": true /* Enable all strict type-checking options. */,
+		"noImplicitAny": true /* Enable error reporting for expressions and declarations with an implied 'any' type. */,
+		"skipLibCheck": true /* Skip type checking all .d.ts files. */,
+		"resolveJsonModule": true /* Include modules imported with '.json' extension. */
+	},
+	"include": ["src/**/*", "src/**/*.json", "src/**/*.hbs"]
 }

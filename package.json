@@ -1,7 +1,9 @@
 {
   "name": "docs-react-workspace",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
   "author": "Michał Fedyna <michal@fedyna.pl>",
   "license": "MIT",
   "repository": {

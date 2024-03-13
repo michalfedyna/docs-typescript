@@ -83,7 +83,7 @@ class Documenter {
 
 	public emit(): void {
 		this._buildHierarchy();
-		console.log(JSON.stringify(this._hierarchy.toObject(), null, 2));
+		//console.log(JSON.stringify(this._hierarchy.toObject(), null, 2));
 		this._emitter.emit(this._hierarchy);
 	}
 
@@ -257,7 +257,7 @@ class Documenter {
 	}
 
 	private _enumerateDocNodes(docNode: DocNode, writer: DocWriter, level: number = 0): DocWriter {
-		console.log(" ".repeat(level * 2) + docNode.kind);
+		// console.log(" ".repeat(level * 2) + docNode.kind);
 
 		if (isPlainText(docNode)) {
 			writer.writeContent(docNode.text);

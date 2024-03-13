@@ -3,6 +3,7 @@ import { DocsItem } from "../docs/DocsItem";
 
 interface ConstructorAttributes {
 	displayName: string;
+	signature: string;
 	fileUrlPath?: string;
 	overloadIndex: number;
 	isProtected: boolean;

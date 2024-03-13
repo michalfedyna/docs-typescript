@@ -1,4 +1,0 @@
-{
-    "$schema": "https://raw.githubusercontent.com/michalfedyna/docs-typescript/main/packages/docs-typescript/schemas/docs.config.schema.json",
-    "apiJsonPath": "api.json"
-}

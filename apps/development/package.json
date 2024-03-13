@@ -8,7 +8,7 @@
     "docs": "docs-typescript build --verbose",
     "extract": "docs-typescript extract --verbose",
     "help": "docs-typescript help --verbose",
-    "clean": "rm -r docs.config.json tsdoc.json tsconfig.docs.json api-extractor.json declarations api.json"
+    "clean": "rm -rf docs.config.json tsdoc.json tsconfig.docs.json api-extractor.json declarations api.json declarations node_modules docs"
   },
   "keywords": [],
   "author": "",

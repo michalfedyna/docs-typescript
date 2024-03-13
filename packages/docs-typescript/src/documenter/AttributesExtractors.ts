@@ -55,8 +55,10 @@ namespace AttributesExtractors {
 		const { displayName, isAbstract, fileUrlPath } = apiClass;
 		const extendsType = apiClass.extendsType?.excerpt.text;
 		const implementsTypes = apiClass.implementsTypes.map((type) => type.excerpt.text);
+		const signature = apiClass.excerpt.text;
 
 		return {
+			signature,
 			displayName,
 			isAbstract,
 			fileUrlPath,
@@ -72,8 +74,10 @@ namespace AttributesExtractors {
 			type: parameter.parameterTypeExcerpt.text,
 			isOptional: parameter.isOptional
 		}));
+		const signature = apiConstructor.excerpt.text;
 
 		return {
+			signature,
 			displayName,
 			overloadIndex,
 			isProtected,
