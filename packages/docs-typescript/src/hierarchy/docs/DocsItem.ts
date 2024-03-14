@@ -8,10 +8,15 @@ import type {
 	DocsParam,
 	DocsDefaultValue,
 	DocsExample,
-	DocsAttributes
+	DocsAttributes,
+	DocsSince,
+	DocsInfo,
+	DocsWarning,
+	DocsError,
+	DocsAuthor
 } from "./DocsItemAttributes";
 
-class DocsItem {
+class DocsItem implements DocsAttributes {
 	public summary?: DocsSummary;
 	public remarks?: DocsRemarks;
 	public returns?: DocsReturns;
@@ -21,6 +26,11 @@ class DocsItem {
 	public defaultValue?: DocsDefaultValue;
 	public params?: DocsParam[];
 	public examples?: DocsExample[];
+	public since?: DocsSince[];
+	public infos?: DocsInfo[];
+	public warnings?: DocsWarning[];
+	public errors?: DocsError[];
+	public authors?: DocsAuthor[];
 
 	constructor(attributes: DocsAttributes) {
 		this.summary = attributes.summary;
@@ -32,6 +42,11 @@ class DocsItem {
 		this.defaultValue = attributes.defaultValue;
 		this.params = attributes.params;
 		this.examples = attributes.examples;
+		this.since = attributes.since;
+		this.infos = attributes.infos;
+		this.warnings = attributes.warnings;
+		this.errors = attributes.errors;
+		this.authors = attributes.authors;
 	}
 
 	public toObject(): object {
@@ -44,7 +59,12 @@ class DocsItem {
 			see: this.see,
 			defaultValue: this.defaultValue,
 			params: this.params,
-			examples: this.examples
+			examples: this.examples,
+			since: this.since,
+			infos: this.infos,
+			warnings: this.warnings,
+			errors: this.errors,
+			authors: this.authors
 		};
 	}
 }

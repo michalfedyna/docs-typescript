@@ -39,6 +39,26 @@ interface DocsExample {
 	content: DocWriter;
 }
 
+interface DocsSince {
+	content: DocWriter;
+}
+
+interface DocsInfo {
+	content: DocWriter;
+}
+
+interface DocsWarning {
+	content: DocWriter;
+}
+
+interface DocsError {
+	content: DocWriter;
+}
+
+interface DocsAuthor {
+	content: DocWriter;
+}
+
 interface DocsAttributes {
 	summary?: DocsSummary;
 	remarks?: DocsRemarks;
@@ -49,6 +69,11 @@ interface DocsAttributes {
 	see?: DocsSee[];
 	params?: DocsParam[];
 	examples?: DocsExample[];
+	since?: DocsSince[];
+	infos?: DocsInfo[];
+	warnings?: DocsWarning[];
+	errors?: DocsError[];
+	authors?: DocsAuthor[];
 }
 
 export type {
@@ -61,5 +86,10 @@ export type {
 	DocsSee,
 	DocsParam,
 	DocsDefaultValue,
-	DocsExample
+	DocsExample,
+	DocsSince,
+	DocsInfo,
+	DocsWarning,
+	DocsError,
+	DocsAuthor
 };

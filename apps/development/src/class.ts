@@ -5,12 +5,24 @@ abstract class SomeAbstractClass {
   abstract someMethod(): void;
 }
 
+/**
+ * SomeClass exported from class.ts
+ *
+ * @info
+ * This is a class that extends `SomeAbstractClass` and implements `SomeInterface`.
+ *
+ * @since 1.0.0
+ * @public
+ */
 class SomeClass extends SomeAbstractClass {
   someMethod(): void {
     console.log("SomeClass.someMethod");
   }
 }
 
+/**
+ * BaseClass exported from class.ts
+ */
 class BaseClass {
   constructor(public name: string) {
     console.log("BaseClass.constructor");

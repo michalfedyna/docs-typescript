@@ -111,8 +111,13 @@ class Documenter {
 			// console.log(apiItem.displayName, apiItem.kind);
 			// console.log("--------------");
 
-			const defaultValueBlock = customBlocks.filter((block) => block.blockTag.tagName === "@defaultValue");
-			const examplesBlock = customBlocks.filter((block) => block.blockTag.tagName === "@example");
+			const defaultValueBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@defaultValue");
+			const examplesBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@example");
+			const sinceBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@since");
+			const infoBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@info");
+			const warningBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@warning");
+			const errorBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@error");
+			const authorBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@author");
 
 			docsAttributes.summary = { content: this._enumerateDocNodes(summarySection, new DocWriter()) };
 
@@ -148,14 +153,34 @@ class Documenter {
 					}))
 				: undefined;
 
-			docsAttributes.examples = examplesBlock.map((block, index) => ({
-				name: examplesBlock.length > 1 ? `Example ${index}` : "Example",
+			docsAttributes.examples = examplesBlocks.map((block, index) => ({
+				name: examplesBlocks.length > 1 ? `Example ${index}` : "Example",
 				content: this._enumerateDocNodes(block.content, new DocWriter())
 			}));
 
-			docsAttributes.defaultValue = defaultValueBlock.length
-				? { content: this._enumerateDocNodes(defaultValueBlock[0].content, new DocWriter()) }
+			docsAttributes.defaultValue = defaultValueBlocks.length
+				? { content: this._enumerateDocNodes(defaultValueBlocks[0].content, new DocWriter()) }
 				: undefined;
+
+			docsAttributes.since = sinceBlocks.map((block) => ({
+				content: this._enumerateDocNodes(block.content, new DocWriter())
+			}));
+
+			docsAttributes.infos = infoBlocks.map((block) => ({
+				content: this._enumerateDocNodes(block.content, new DocWriter())
+			}));
+
+			docsAttributes.warnings = warningBlocks.map((block) => ({
+				content: this._enumerateDocNodes(block.content, new DocWriter())
+			}));
+
+			docsAttributes.errors = errorBlocks.map((block) => ({
+				content: this._enumerateDocNodes(block.content, new DocWriter())
+			}));
+
+			docsAttributes.authors = authorBlocks.map((block) => ({
+				content: this._enumerateDocNodes(block.content, new DocWriter())
+			}));
 		}
 
 		if (isEntryPoint(apiItem)) {
@@ -174,6 +199,7 @@ class Documenter {
 			const jsxItem = new JSXItem(apiItem.displayName, parent);
 			child = this._hierarchy.addItem(jsxItem, parent);
 		} else if (isReactHook(apiItem)) {
+			console.log("IS REACT HOOK", apiItem.displayName);
 			const hookItem = new HookItem(apiItem.displayName, parent);
 			child = this._hierarchy.addItem(hookItem, parent);
 		} else if (isProps(apiItem)) {
