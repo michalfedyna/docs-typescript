@@ -8,6 +8,7 @@ import { HierarchyItem, HierarchyItemType } from "../hierarchy/items/HierarchyIt
 import { Template } from "../utils/Template";
 import { ClassContext } from "../templates/markdown/class";
 import { ConstructorContext } from "../templates/markdown/constructor";
+import { Debug } from "../utils/Debug";
 
 class MDEmitter extends Emitter {
 	emit(item: HierarchyItem): void {
@@ -31,16 +32,18 @@ class MDEmitter extends Emitter {
 			}
 			case HierarchyItemType.ClassItem: {
 				const classItem = item as ClassItem;
-				const constructorItem = classItem.children[0] as ConstructorItem;
+				const constructorItems = classItem.children
+					.map((child) => (child instanceof ConstructorItem ? child : null))
+					.filter((child) => !!child) as ConstructorItem[];
 
 				const context: ClassContext = {
-					name: classItem.attributes.displayName,
+					name: classItem.attributes.name,
 					signature: classItem.attributes.signature,
 					isAbstract: classItem.attributes.isAbstract,
-					constructorContext: {
-						name: constructorItem.attributes.displayName,
+					constructors: constructorItems.map((constructorItem) => ({
+						name: constructorItem.attributes.name,
 						signature: constructorItem.attributes.signature
-					}
+					}))
 				};
 
 				const content = new Template("markdown", "class").render(context);
@@ -51,7 +54,7 @@ class MDEmitter extends Emitter {
 				const constructorItem = item as ConstructorItem;
 
 				const context: ConstructorContext = {
-					name: constructorItem.attributes.displayName,
+					name: constructorItem.attributes.name,
 					signature: constructorItem.attributes.signature
 				};
 

@@ -1,35 +1,26 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
+import { Exported, FileUrl, Name, ReleaseTag, Signature } from "./Attributes";
 
-interface NamespaceAttributes {
-	displayName: string;
-	fileUrlPath?: string;
-}
+interface NamespaceAttributes extends Name, Signature, Exported, ReleaseTag, FileUrl {}
 
 class NamespaceItem extends HierarchyItem {
-	protected _type = HierarchyItemType.NamespaceItem;
-	protected _attributes: NamespaceAttributes;
-	protected _docs: DocsItem;
+	public type = HierarchyItemType.NamespaceItem;
+	public attributes: NamespaceAttributes;
+	public docs: DocsItem;
 
 	constructor(attributes: NamespaceAttributes, docs: DocsItem, parent?: HierarchyItem) {
-		super(attributes.displayName, parent);
-		this._attributes = attributes;
-		this._docs = docs;
-	}
+		super(attributes.name, parent);
 
-	public get attributes(): NamespaceAttributes {
-		return this._attributes;
-	}
-
-	public get docs(): DocsItem {
-		return this._docs;
+		this.attributes = attributes;
+		this.docs = docs;
 	}
 
 	public toObject(): object {
 		return {
 			...super.toObject(),
-			attributes: this._attributes,
-			docs: this._docs.toObject()
+			attributes: this.attributes,
+			docs: this.docs.toObject()
 		};
 	}
 }

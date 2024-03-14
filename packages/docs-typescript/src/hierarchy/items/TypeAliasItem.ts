@@ -1,37 +1,26 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
+import { Name, Signature, ReleaseTag, Type, TypeParameters, FileUrl, Exported } from "./Attributes";
 
-interface TypeAliasAttributes {
-	displayName: string;
-	fileUrlPath?: string;
-	type: string;
-	typeParameters: { name: string; isOptional: boolean; constraint: string; default: string }[];
-}
+interface TypeAliasAttributes extends Name, Signature, ReleaseTag, Type, TypeParameters, FileUrl, Exported {}
 
 class TypeAliasItem extends HierarchyItem {
-	protected _type: HierarchyItemType = HierarchyItemType.TypeAliasItem;
-	protected _attributes: TypeAliasAttributes;
-	protected _docs: DocsItem;
+	public type: HierarchyItemType = HierarchyItemType.TypeAliasItem;
+	public attributes: TypeAliasAttributes;
+	public docs: DocsItem;
 
 	constructor(attributes: TypeAliasAttributes, docs: DocsItem, parent?: HierarchyItem) {
-		super(attributes.displayName, parent);
-		this._attributes = attributes;
-		this._docs = docs;
-	}
+		super(attributes.name, parent);
 
-	public get attributes(): TypeAliasAttributes {
-		return this._attributes;
-	}
-
-	public get docs(): DocsItem {
-		return this._docs;
+		this.attributes = attributes;
+		this.docs = docs;
 	}
 
 	public toObject(): object {
 		return {
 			...super.toObject(),
-			attributes: this._attributes,
-			docs: this._docs.toObject()
+			attributes: this.attributes,
+			docs: this.docs.toObject()
 		};
 	}
 }

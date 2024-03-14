@@ -1,35 +1,26 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
+import { FileUrl, Name, ReleaseTag, Signature } from "./Attributes";
 
-interface EnumMemberAttributes {
-	displayName: string;
-	fileUrlPath?: string;
-}
+interface EnumMemberAttributes extends Name, FileUrl, Signature, ReleaseTag {}
 
 class EnumMemberItem extends HierarchyItem {
-	protected _type: HierarchyItemType = HierarchyItemType.EnumMemberItem;
-	protected _attributes: EnumMemberAttributes;
-	protected _docs: DocsItem;
+	public type: HierarchyItemType = HierarchyItemType.EnumMemberItem;
+	public attributes: EnumMemberAttributes;
+	public docs: DocsItem;
 
 	constructor(attributes: EnumMemberAttributes, docs: DocsItem, parent?: HierarchyItem) {
-		super(attributes.displayName, parent);
-		this._attributes = attributes;
-		this._docs = docs;
-	}
+		super(attributes.name, parent);
 
-	public get attributes(): EnumMemberAttributes {
-		return this._attributes;
-	}
-
-	public get docs(): DocsItem {
-		return this._docs;
+		this.attributes = attributes;
+		this.docs = docs;
 	}
 
 	public toObject(): object {
 		return {
 			...super.toObject(),
-			attributes: this._attributes,
-			docs: this._docs.toObject()
+			attributes: this.attributes,
+			docs: this.docs.toObject()
 		};
 	}
 }

@@ -1,39 +1,26 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
+import { FileUrl, Name, Signature, Parameters, Overload, Protected, ReleaseTag } from "./Attributes";
 
-interface ConstructorAttributes {
-	displayName: string;
-	signature: string;
-	fileUrlPath?: string;
-	overloadIndex: number;
-	isProtected: boolean;
-	parameters: {
-		name: string;
-		type: string;
-		isOptional: boolean;
-	}[];
-}
+interface ConstructorAttributes extends Name, ReleaseTag, Signature, FileUrl, Overload, Protected, Parameters {}
 
 class ConstructorItem extends HierarchyItem {
-	protected _type: HierarchyItemType = HierarchyItemType.ConstructorItem;
-	protected _attributes: ConstructorAttributes;
-	protected _docs: DocsItem;
+	public type: HierarchyItemType = HierarchyItemType.ConstructorItem;
+	public attributes: ConstructorAttributes;
+	public docs: DocsItem;
 
 	constructor(attributes: ConstructorAttributes, docs: DocsItem, parent?: HierarchyItem) {
-		super(attributes.displayName, parent);
-		this._attributes = attributes;
-		this._docs = docs;
-	}
+		super(attributes.name, parent);
 
-	public get attributes(): ConstructorAttributes {
-		return this._attributes;
+		this.attributes = attributes;
+		this.docs = docs;
 	}
 
 	public toObject(): object {
 		return {
 			...super.toObject(),
-			attributes: this._attributes,
-			docs: this._docs.toObject()
+			attributes: this.attributes,
+			docs: this.docs.toObject()
 		};
 	}
 }

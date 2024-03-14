@@ -25,19 +25,20 @@ enum HierarchyItemType {
 }
 
 class HierarchyItem {
-	protected _name: string;
-	protected _uri: string;
-	protected _type: HierarchyItemType;
-	protected _docs?: DocsItem;
+	public type: HierarchyItemType = HierarchyItemType.HierarchyItem;
+	public name: string;
+	public uri: string;
 
-	protected _children: HierarchyItem[] = [];
-	protected _parent: HierarchyItem | undefined = undefined;
+	public docs?: DocsItem;
+
+	public children: HierarchyItem[] = [];
+	public parent: HierarchyItem | undefined = undefined;
 
 	constructor(name: string, parent?: HierarchyItem) {
-		this._type = HierarchyItemType.HierarchyItem;
-		this._name = name;
-		this._parent = parent;
-		this._uri = this._createUri(name, parent);
+		this.name = name;
+		this.uri = this._createUri(name, parent);
+
+		if (parent) this.parent = parent;
 	}
 
 	protected _createUri(name: string, parent?: HierarchyItem): string {
@@ -49,38 +50,15 @@ class HierarchyItem {
 	}
 
 	public addChild<T extends HierarchyItem>(child: T): T {
-		const length = this._children.push(child);
-		return this._children[length - 1] as T;
+		const length = this.children.push(child);
+		return this.children[length - 1] as T;
 	}
 
-	public addDocs(docs: DocsItem): void {
-		this._docs = docs;
-	}
-
-	public get type(): HierarchyItemType {
-		return this._type;
-	}
-
-	public get name(): string {
-		return this._name;
-	}
-
-	public get uri(): string {
-		return this._uri;
-	}
-
-	public get children(): HierarchyItem[] {
-		return this._children;
-	}
-
-	public get parent(): HierarchyItem | undefined {
-		return this._parent;
-	}
-
+	// TODO: Fix to first go to root and then find the item
 	public findByUrl(url: string): HierarchyItem | undefined {
-		if (this._uri === url) return this;
+		if (this.uri === url) return this;
 
-		for (const child of this._children) {
+		for (const child of this.children) {
 			const result = child.findByUrl(url);
 			if (result) {
 				return result;
@@ -92,10 +70,10 @@ class HierarchyItem {
 
 	public toObject(): object {
 		return {
-			name: this._name,
-			url: this._uri,
-			type: this._type,
-			children: this._children.map((child) => child.toObject())
+			type: this.type,
+			name: this.name,
+			uri: this.uri,
+			children: this.children.map((child) => child.toObject())
 		};
 	}
 }

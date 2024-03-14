@@ -1,39 +1,34 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
+import { EventProperty, FileUrl, Name, Optional, Readonly, ReleaseTag, Signature, Type } from "./Attributes";
 
-interface PropertySignatureAttributes {
-	displayName: string;
-	fileUrlPath?: string;
-	isEventProperty: boolean;
-	isOptional: boolean;
-	isReadonly: boolean;
-	type: string;
-}
+interface PropertySignatureAttributes
+	extends Name,
+		Signature,
+		ReleaseTag,
+		FileUrl,
+		EventProperty,
+		Optional,
+		Readonly,
+		Type {}
 
 class PropertySignatureItem extends HierarchyItem {
-	protected _type: HierarchyItemType = HierarchyItemType.PropertySignatureItem;
-	protected _attributes: PropertySignatureAttributes;
-	protected _docs: DocsItem;
+	public type: HierarchyItemType = HierarchyItemType.PropertySignatureItem;
+	public attributes: PropertySignatureAttributes;
+	public docs: DocsItem;
 
 	constructor(attributes: PropertySignatureAttributes, docs: DocsItem, parent?: HierarchyItem) {
-		super(attributes.displayName, parent);
-		this._attributes = attributes;
-		this._docs = docs;
-	}
+		super(attributes.name, parent);
 
-	public get attributes(): PropertySignatureAttributes {
-		return this._attributes;
-	}
-
-	public get docs(): DocsItem {
-		return this._docs;
+		this.attributes = attributes;
+		this.docs = docs;
 	}
 
 	public toObject(): object {
 		return {
 			...super.toObject(),
-			attributes: this._attributes,
-			docs: this._docs.toObject()
+			attributes: this.attributes,
+			docs: this.docs.toObject()
 		};
 	}
 }

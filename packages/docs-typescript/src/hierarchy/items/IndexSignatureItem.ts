@@ -1,39 +1,34 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
+import { FileUrl, Name, Overload, Parameters, Readonly, ReleaseTag, Returns, Signature } from "./Attributes";
 
-interface IndexSignatureAttributes {
-	displayName: string;
-	fileUrlPath?: string;
-	parameters: { name: string; type: string; isOptional: boolean }[];
-	isReadonly: boolean;
-	overloadIndex: number;
-	returnType: string;
-}
+interface IndexSignatureAttributes
+	extends Name,
+		Signature,
+		ReleaseTag,
+		Parameters,
+		Overload,
+		Returns,
+		FileUrl,
+		Readonly {}
 
 class IndexSignatureItem extends HierarchyItem {
-	protected _type: HierarchyItemType = HierarchyItemType.IndexSignatureItem;
-	protected _attributes: IndexSignatureAttributes;
-	protected _docs: DocsItem;
+	public type: HierarchyItemType = HierarchyItemType.IndexSignatureItem;
+	public attributes: IndexSignatureAttributes;
+	public docs: DocsItem;
 
 	constructor(attributes: IndexSignatureAttributes, docs: DocsItem, parent?: HierarchyItem) {
-		super(attributes.displayName, parent);
-		this._attributes = attributes;
-		this._docs = docs;
-	}
+		super(attributes.name, parent);
 
-	public get attributes(): IndexSignatureAttributes {
-		return this._attributes;
-	}
-
-	public get docs(): DocsItem {
-		return this._docs;
+		this.attributes = attributes;
+		this.docs = docs;
 	}
 
 	public toObject(): object {
 		return {
 			...super.toObject(),
-			attributes: this._attributes,
-			docs: this._docs.toObject()
+			attributes: this.attributes,
+			docs: this.docs.toObject()
 		};
 	}
 }

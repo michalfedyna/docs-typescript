@@ -1,39 +1,45 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
+import {
+	Exported,
+	FileUrl,
+	Name,
+	Overload,
+	Parameters,
+	ReleaseTag,
+	Returns,
+	Signature,
+	TypeParameters
+} from "./Attributes";
 
-interface FunctionAttributes {
-	displayName: string;
-	fileUrlPath?: string;
-	overloadIndex: number;
-	parameters: { name: string; type: string; isOptional: boolean }[];
-	returnType: string;
-	typeParameters: { name: string; isOptional: boolean; constraint: string; default: string }[];
-}
+interface FunctionAttributes
+	extends Name,
+		Signature,
+		Exported,
+		Overload,
+		Parameters,
+		Returns,
+		TypeParameters,
+		ReleaseTag,
+		FileUrl {}
 
 class FunctionItem extends HierarchyItem {
-	protected _type: HierarchyItemType = HierarchyItemType.FunctionItem;
-	protected _attributes: FunctionAttributes;
-	protected _docs: DocsItem;
+	public type: HierarchyItemType = HierarchyItemType.FunctionItem;
+	public attributes: FunctionAttributes;
+	public docs: DocsItem;
 
 	constructor(attributes: FunctionAttributes, docs: DocsItem, parent?: HierarchyItem) {
-		super(attributes.displayName, parent);
-		this._attributes = attributes;
-		this._docs = docs;
-	}
+		super(attributes.name, parent);
 
-	public get attributes(): FunctionAttributes {
-		return this._attributes;
-	}
-
-	public get docs(): DocsItem {
-		return this._docs;
+		this.attributes = attributes;
+		this.docs = docs;
 	}
 
 	public toObject(): object {
 		return {
 			...super.toObject(),
-			attributes: this._attributes,
-			docs: this._docs.toObject()
+			attributes: this.attributes,
+			docs: this.docs.toObject()
 		};
 	}
 }

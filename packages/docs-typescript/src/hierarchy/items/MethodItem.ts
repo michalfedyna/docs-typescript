@@ -1,46 +1,49 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
+import {
+	Abstract,
+	FileUrl,
+	Name,
+	Optional,
+	Overload,
+	Parameters,
+	Protected,
+	ReleaseTag,
+	Returns,
+	Signature,
+	Static
+} from "./Attributes";
 
-interface MethodAttributes {
-	displayName: string;
-	fileUrlPath?: string;
-	isAbstract: boolean;
-	isOptional: boolean;
-	isProtected: boolean;
-	isStatic: boolean;
-	overloadIndex: number;
-	returnType: string;
-	parameters: {
-		name: string;
-		type: string;
-		isOptional: boolean;
-	}[];
-}
+interface MethodAttributes
+	extends Name,
+		ReleaseTag,
+		FileUrl,
+		Signature,
+		Abstract,
+		Optional,
+		Static,
+		Protected,
+		Overload,
+		Returns,
+		Parameters {}
 
 class MethodItem extends HierarchyItem {
-	protected _type = HierarchyItemType.MethodItem;
-	protected _attributes: MethodAttributes;
-	protected _docs: DocsItem;
+	public type = HierarchyItemType.MethodItem;
+	public attributes: MethodAttributes;
+	public docs: DocsItem;
 
 	constructor(attributes: MethodAttributes, docs: DocsItem, parent?: HierarchyItem) {
-		super(attributes.displayName, parent);
-		this._attributes = attributes;
-		this._docs = docs;
-	}
+		super(attributes.name, parent);
 
-	public get attributes(): MethodAttributes {
-		return this._attributes;
-	}
-
-	public get docs(): DocsItem {
-		return this._docs;
+		this.attributes = attributes;
+		this.docs = docs;
 	}
 
 	public toObject(): object {
 		return {
 			...super.toObject(),
-			attributes: this._attributes,
-			docs: this._docs.toObject()
+			attributes: this.attributes,
+			docs: this.docs.toObject()
 		};
 	}
 }

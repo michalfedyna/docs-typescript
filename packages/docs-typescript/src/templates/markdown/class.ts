@@ -5,7 +5,7 @@ interface ClassContext {
 	name: string;
 	signature: string;
 	isAbstract: boolean;
-	constructorContext: ConstructorContext;
+	constructors: ConstructorContext[];
 }
 
 const ClassTemplate = Handlebars.compile<ClassContext>(`
@@ -19,7 +19,9 @@ const ClassTemplate = Handlebars.compile<ClassContext>(`
 {{signature}}
 \`\`\`
 
-{{> constructor constructorContext}}
+{{#each constructors}}
+{{> constructor this }}
+{{/each}}
 `);
 
 export { ClassContext, ClassTemplate };

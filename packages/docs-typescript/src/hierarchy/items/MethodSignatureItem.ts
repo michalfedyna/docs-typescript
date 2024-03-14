@@ -1,40 +1,45 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
+import {
+	FileUrl,
+	Name,
+	Optional,
+	Overload,
+	Parameters,
+	ReleaseTag,
+	Returns,
+	Signature,
+	TypeParameters
+} from "./Attributes";
 
-interface MethodSignatureAttributes {
-	displayName: string;
-	fileUrlPath?: string;
-	isOptional: boolean;
-	returnType: string;
-	overloadIndex: number;
-	parameters: { name: string; type: string; isOptional: boolean }[];
-	typeParameters: { name: string; isOptional: boolean; constraint: string; default: string }[];
-}
+interface MethodSignatureAttributes
+	extends Name,
+		Signature,
+		ReleaseTag,
+		FileUrl,
+		Optional,
+		Returns,
+		Overload,
+		Parameters,
+		TypeParameters {}
 
 class MethodSignatureItem extends HierarchyItem {
-	protected _type: HierarchyItemType = HierarchyItemType.MethodSignatureItem;
-	protected _attributes: MethodSignatureAttributes;
-	protected _docs: DocsItem;
+	public type: HierarchyItemType = HierarchyItemType.MethodSignatureItem;
+	public attributes: MethodSignatureAttributes;
+	public docs: DocsItem;
 
 	constructor(attributes: MethodSignatureAttributes, docs: DocsItem, parent?: HierarchyItem) {
-		super(attributes.displayName, parent);
-		this._attributes = attributes;
-		this._docs = docs;
-	}
+		super(attributes.name, parent);
 
-	public get attributes(): MethodSignatureAttributes {
-		return this._attributes;
-	}
-
-	public get docs(): DocsItem {
-		return this._docs;
+		this.attributes = attributes;
+		this.docs = docs;
 	}
 
 	public toObject(): object {
 		return {
 			...super.toObject(),
-			attributes: this._attributes,
-			docs: this._docs.toObject()
+			attributes: this.attributes,
+			docs: this.docs.toObject()
 		};
 	}
 }

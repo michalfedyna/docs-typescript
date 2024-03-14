@@ -39,6 +39,14 @@ class ImplementingClass implements SomeInterface {
   }
 }
 
+class ConstructorOverloadingClass {
+  constructor();
+  constructor(name: string);
+  constructor(name?: string) {
+    console.log("ConstructorOverloadingClass.constructor");
+  }
+}
+
 export {
   SomeAbstractClass,
   SomeClass,
@@ -46,4 +54,5 @@ export {
   DerivedClass,
   SomeInterface,
   ImplementingClass,
+  ConstructorOverloadingClass,
 };

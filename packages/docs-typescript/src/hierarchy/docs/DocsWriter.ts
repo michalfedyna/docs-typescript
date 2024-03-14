@@ -30,7 +30,7 @@ type Doc =
 	  };
 
 class DocWriter {
-	private _docs: Doc[] = [];
+	public docs: Doc[] = [];
 
 	public writeCode(line: string, language?: string) {
 		return this._writeLine({ type: DocType.Code, language: language, content: this._writeLines(line) });
@@ -45,8 +45,8 @@ class DocWriter {
 	}
 
 	public writeParagraph(): DocWriter | undefined {
-		const index = this._docs.push({ type: DocType.Paragraph, content: new DocWriter() });
-		const doc = this._docs[index - 1];
+		const index = this.docs.push({ type: DocType.Paragraph, content: new DocWriter() });
+		const doc = this.docs[index - 1];
 		if (doc.type === DocType.Paragraph) {
 			return doc.content;
 		}
@@ -56,12 +56,8 @@ class DocWriter {
 		return this._writeLine({ type: DocType.Link, content });
 	}
 
-	public get docs(): Doc[] {
-		return this._docs;
-	}
-
 	private _writeLine(line: Doc) {
-		this._docs.push(line);
+		this.docs.push(line);
 		return this;
 	}
 

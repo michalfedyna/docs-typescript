@@ -1,34 +1,26 @@
 import { HierarchyItem, HierarchyItemType } from "./HierarchyItem";
 import { DocsItem } from "../docs/DocsItem";
+import { Name } from "./Attributes";
 
-interface EntryPointAttributes {
-	displayName: string;
-}
+interface EntryPointAttributes extends Name {}
 
 class EntryPointItem extends HierarchyItem {
-	protected _type: HierarchyItemType = HierarchyItemType.EntryPointItem;
-	protected _attributes: EntryPointAttributes;
-	protected _docs: DocsItem;
+	public type: HierarchyItemType = HierarchyItemType.EntryPointItem;
+	public attributes: EntryPointAttributes;
+	public docs: DocsItem;
 
 	constructor(attributes: EntryPointAttributes, docs: DocsItem, parent?: HierarchyItem) {
-		super(attributes.displayName, parent);
-		this._attributes = attributes;
-		this._docs = docs;
-	}
+		super(attributes.name, parent);
 
-	public get attributes(): EntryPointAttributes {
-		return this._attributes;
-	}
-
-	public get docs(): DocsItem {
-		return this._docs;
+		this.attributes = attributes;
+		this.docs = docs;
 	}
 
 	public toObject(): object {
 		return {
 			...super.toObject(),
-			attributes: this._attributes,
-			docs: this._docs.toObject()
+			attributes: this.attributes,
+			docs: this.docs.toObject()
 		};
 	}
 }
