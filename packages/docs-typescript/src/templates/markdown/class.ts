@@ -7,16 +7,7 @@ interface ClassContext {
 	attributes: ClassAttributes;
 	docs: DocsAttributes;
 	constructors: ConstructorContext[];
-}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasddddddddsesxdddddddddcexdscccccxz                     nmmmmmmmmmn n
-
-
-
-
-
-
-
-
-''
+}
 
 const ClassTemplate = Handlebars.compile<ClassContext>(`
 {{#if attributes.isAbstract}}

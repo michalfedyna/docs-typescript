@@ -17,24 +17,24 @@ import {
 	ApiVariable,
 	ReleaseTag
 } from "@microsoft/api-extractor-model";
-import { PackageAttributes } from "../hierarchy/items/PackageItem";
-import { NamespaceAttributes } from "../hierarchy/items/NamespaceItem";
-import { ClassAttributes } from "../hierarchy/items/ClassItem";
-import { ConstructorAttributes } from "../hierarchy/items/ConstructorItem";
-import { PropertyAttributes } from "../hierarchy/items/PropertyItem";
-import { MethodAttributes } from "../hierarchy/items/MethodItem";
-import { InterfaceAttributes } from "../hierarchy/items/InterfaceItem";
-import { ConstructorSignatureAttributes } from "../hierarchy/items/ConstructorSignatureItem";
-import { MethodSignatureAttributes } from "../hierarchy/items/MethodSignatureItem";
-import { PropertySignatureAttributes } from "../hierarchy/items/PropertySignatureItem";
-import { IndexSignatureAttributes } from "../hierarchy/items/IndexSignatureItem";
-import { TypeAliasAttributes } from "../hierarchy/items/TypeAliasItem";
-import { VariableAttributes } from "../hierarchy/items/VariableItem";
-import { FunctionAttributes } from "../hierarchy/items/FunctionItem";
-import { EnumAttributes } from "../hierarchy/items/EnumItem";
-import { EnumMemberAttributes } from "../hierarchy/items/EnumMemberItem";
+import { PackageAttributes } from "../../hierarchy/items/PackageItem";
+import { NamespaceAttributes } from "../../hierarchy/items/NamespaceItem";
+import { ClassAttributes } from "../../hierarchy/items/ClassItem";
+import { ConstructorAttributes } from "../../hierarchy/items/ConstructorItem";
+import { PropertyAttributes } from "../../hierarchy/items/PropertyItem";
+import { MethodAttributes } from "../../hierarchy/items/MethodItem";
+import { InterfaceAttributes } from "../../hierarchy/items/InterfaceItem";
+import { ConstructorSignatureAttributes } from "../../hierarchy/items/ConstructorSignatureItem";
+import { MethodSignatureAttributes } from "../../hierarchy/items/MethodSignatureItem";
+import { PropertySignatureAttributes } from "../../hierarchy/items/PropertySignatureItem";
+import { IndexSignatureAttributes } from "../../hierarchy/items/IndexSignatureItem";
+import { TypeAliasAttributes } from "../../hierarchy/items/TypeAliasItem";
+import { VariableAttributes } from "../../hierarchy/items/VariableItem";
+import { FunctionAttributes } from "../../hierarchy/items/FunctionItem";
+import { EnumAttributes } from "../../hierarchy/items/EnumItem";
+import { EnumMemberAttributes } from "../../hierarchy/items/EnumMemberItem";
 
-namespace AttributesExtractors {
+namespace Extractors {
 	export function apiPackage(apiPackage: ApiPackage): PackageAttributes {
 		const { displayName } = apiPackage;
 
@@ -328,4 +328,4 @@ namespace AttributesExtractors {
 	}
 }
 
-export { AttributesExtractors };
+export { Extractors };

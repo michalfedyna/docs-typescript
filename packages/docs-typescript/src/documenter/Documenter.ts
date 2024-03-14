@@ -45,7 +45,7 @@ import { EnumItem } from "../hierarchy/items/EnumItem";
 import { EnumMemberItem } from "../hierarchy/items/EnumMemberItem";
 import { DocsAttributes, DocsItem } from "../hierarchy/docs/DocsItem";
 import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "../utils/docsNodesMatchers";
-import { AttributesExtractors } from "./AttributesExtractors";
+import { Extractors } from "./api/Extractors";
 import { DocsConfig } from "../config/DocsConfig";
 import { Emitter } from "../emitters/Emitter";
 import { HTMLEmitter } from "../emitters/HTMLEmitter";
@@ -187,14 +187,14 @@ class Documenter {
 			child = parent;
 		} else if (isPackage(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiPackage(apiItem);
+			const attributes = Extractors.apiPackage(apiItem);
 
 			const packageItem = new PackageItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(packageItem, parent);
 		} else if (isNamespace(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiNamespace(apiItem);
+			const attributes = Extractors.apiNamespace(apiItem);
 
 			const namespaceItem = new NamespaceItem(attributes, docs, parent);
 
@@ -213,98 +213,98 @@ class Documenter {
 			child = this._hierarchy.addItem(propsItem, parent);
 		} else if (isClass(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiClass(apiItem);
+			const attributes = Extractors.apiClass(apiItem);
 
 			const classItem = new ClassItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(classItem, parent);
 		} else if (isConstructor(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiConstructor(apiItem);
+			const attributes = Extractors.apiConstructor(apiItem);
 
 			const constructorItem = new ConstructorItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(constructorItem, parent);
 		} else if (isProperty(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiProperty(apiItem);
+			const attributes = Extractors.apiProperty(apiItem);
 
 			const propertyItem = new PropertyItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(propertyItem, parent);
 		} else if (isMethod(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiMethod(apiItem);
+			const attributes = Extractors.apiMethod(apiItem);
 
 			const methodItem = new MethodItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(methodItem, parent);
 		} else if (isFunction(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiFunction(apiItem);
+			const attributes = Extractors.apiFunction(apiItem);
 
 			const functionItem = new FunctionItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(functionItem, parent);
 		} else if (isVariable(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiVariable(apiItem);
+			const attributes = Extractors.apiVariable(apiItem);
 
 			const variableItem = new VariableItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(variableItem, parent);
 		} else if (isInterface(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiInterface(apiItem);
+			const attributes = Extractors.apiInterface(apiItem);
 
 			const interfaceItem = new InterfaceItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(interfaceItem, parent);
 		} else if (isConstructorSignature(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiConstructorSignature(apiItem);
+			const attributes = Extractors.apiConstructorSignature(apiItem);
 
 			const constructorSignatureItem = new ConstructorSignatureItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(constructorSignatureItem, parent);
 		} else if (isPropertySignature(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiPropertySignature(apiItem);
+			const attributes = Extractors.apiPropertySignature(apiItem);
 
 			const propertySignatureItem = new PropertySignatureItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(propertySignatureItem, parent);
 		} else if (isMethodSignature(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiMethodSignature(apiItem);
+			const attributes = Extractors.apiMethodSignature(apiItem);
 
 			const methodSignatureItem = new MethodSignatureItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(methodSignatureItem, parent);
 		} else if (isIndexSignature(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiIndexSignature(apiItem);
+			const attributes = Extractors.apiIndexSignature(apiItem);
 
 			const indexSignatureItem = new IndexSignatureItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(indexSignatureItem, parent);
 		} else if (isTypeAlias(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiTypeAlias(apiItem);
+			const attributes = Extractors.apiTypeAlias(apiItem);
 
 			const typeAliasItem = new TypeAliasItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(typeAliasItem, parent);
 		} else if (isEnum(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiEnum(apiItem);
+			const attributes = Extractors.apiEnum(apiItem);
 
 			const enumItem = new EnumItem(attributes, docs, parent);
 
 			child = this._hierarchy.addItem(enumItem, parent);
 		} else if (isEnumMember(apiItem)) {
 			const docs = new DocsItem(docsAttributes);
-			const attributes = AttributesExtractors.apiEnumMember(apiItem);
+			const attributes = Extractors.apiEnumMember(apiItem);
 
 			const enumMemberItem = new EnumMemberItem(attributes, docs, parent);
 
