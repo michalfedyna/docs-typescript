@@ -17,22 +17,23 @@ import {
 	ApiVariable,
 	ReleaseTag
 } from "@microsoft/api-extractor-model";
-import { PackageAttributes } from "../../hierarchy/items/PackageItem";
-import { NamespaceAttributes } from "../../hierarchy/items/NamespaceItem";
-import { ClassAttributes } from "../../hierarchy/items/ClassItem";
-import { ConstructorAttributes } from "../../hierarchy/items/ConstructorItem";
-import { PropertyAttributes } from "../../hierarchy/items/PropertyItem";
-import { MethodAttributes } from "../../hierarchy/items/MethodItem";
-import { InterfaceAttributes } from "../../hierarchy/items/InterfaceItem";
-import { ConstructorSignatureAttributes } from "../../hierarchy/items/ConstructorSignatureItem";
-import { MethodSignatureAttributes } from "../../hierarchy/items/MethodSignatureItem";
-import { PropertySignatureAttributes } from "../../hierarchy/items/PropertySignatureItem";
-import { IndexSignatureAttributes } from "../../hierarchy/items/IndexSignatureItem";
-import { TypeAliasAttributes } from "../../hierarchy/items/TypeAliasItem";
-import { VariableAttributes } from "../../hierarchy/items/VariableItem";
-import { FunctionAttributes } from "../../hierarchy/items/FunctionItem";
-import { EnumAttributes } from "../../hierarchy/items/EnumItem";
-import { EnumMemberAttributes } from "../../hierarchy/items/EnumMemberItem";
+
+import { PackageAttributes } from "./PackageNode";
+import { NamespaceAttributes } from "./NamespaceNode";
+import { ClassAttributes } from "./ClassNode";
+import { ConstructorAttributes } from "./ConstructorNode";
+import { PropertyAttributes } from "./PropertyNode";
+import { MethodAttributes } from "./MethodNode";
+import { InterfaceAttributes } from "./InterfaceNode";
+import { ConstructorSignatureAttributes } from "./ConstructorSignatureNode";
+import { PropertySignatureAttributes } from "./PropertySignatureNode";
+import { MethodSignatureAttributes } from "./MethodSignatureNode";
+import { IndexSignatureAttributes } from "./IndexSignatureNode";
+import { TypeAliasAttributes } from "./TypeAliasNode";
+import { VariableAttributes } from "./VariableNode";
+import { FunctionAttributes } from "./FunctionNode";
+import { EnumAttributes } from "./EnumNode";
+import { EnumMemberAttributes } from "./EnumMemberNode";
 
 namespace Extractors {
 	export function apiPackage(apiPackage: ApiPackage): PackageAttributes {

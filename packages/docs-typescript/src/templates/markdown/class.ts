@@ -1,7 +1,7 @@
 import Handlebars from "handlebars";
 import { ConstructorContext } from "./constructor";
-import { ClassAttributes } from "../../hierarchy/items/ClassItem";
 import { DocsAttributes } from "../../hierarchy/docs/DocsItemAttributes";
+import { ClassAttributes } from "../../documenter/api/ClassNode";
 
 interface ClassContext {
 	attributes: ClassAttributes;

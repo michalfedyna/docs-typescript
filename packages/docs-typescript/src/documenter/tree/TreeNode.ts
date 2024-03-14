@@ -2,16 +2,16 @@ class TreeNode<T = unknown> {
 	public type: string = "Node";
 	public value: T;
 
-	public children: TreeNode<T>[] = [];
-	public parent?: TreeNode<T>;
+	public children: TreeNode[] = [];
+	public parent?: TreeNode;
 
-	constructor(value: T, parent?: TreeNode<T>) {
+	constructor(value: T, parent?: TreeNode) {
 		this.value = value;
 
 		if (parent) this.parent = parent;
 	}
 
-	public addChild<K extends TreeNode<T>>(child: K, parent?: TreeNode<T>): K {
+	public addChild<K extends TreeNode>(child: K, parent?: TreeNode): K {
 		if (parent) return parent.addChild(child);
 
 		const index = this.children.push(child);

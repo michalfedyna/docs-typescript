@@ -1,27 +1,15 @@
 import { DocsConfig } from "../config/DocsConfig";
-import { HierarchyItem } from "../hierarchy/items/HierarchyItem";
-
-enum Sections {
-	Header = "header",
-	Remarks = "remarks",
-	Example = "example",
-	Properties = "properties",
-	Methods = "methods"
-}
-
-interface Page {
-	url: string;
-	content: string;
-}
+import { RootNode } from "../documenter/api/RootNode";
+import { TreeNode } from "../documenter/tree/TreeNode";
 
 abstract class Emitter {
 	constructor(protected readonly _config: DocsConfig) {}
 
-	abstract emit(item: HierarchyItem): void;
+	abstract emit(item: RootNode): void;
 
-	protected abstract _emitPage(item: HierarchyItem): void;
+	protected abstract _emitPage(item: TreeNode): void;
 
 	protected abstract _toFile(content: string, url: string): void;
 }
 
-export { Emitter, Sections };
+export { Emitter };

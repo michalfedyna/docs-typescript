@@ -1,7 +1,5 @@
 import { ApiDocumentedItem, ApiItem, ApiModel } from "@microsoft/api-extractor-model";
 import { DocNode } from "@microsoft/tsdoc";
-import { Hierarchy } from "../hierarchy/Hierarchy";
-import { HierarchyItem } from "../hierarchy/items/HierarchyItem";
 import {
 	isClass,
 	isConstructor,
@@ -24,26 +22,7 @@ import {
 	isTypeAlias,
 	isVariable
 } from "../utils/apiItemsMatchers";
-import { NamespaceItem } from "../hierarchy/items/NamespaceItem";
-import { JSXItem } from "../hierarchy/items/JSXItem";
-import { HookItem } from "../hierarchy/items/HookItem";
-import { PackageItem } from "../hierarchy/items/PackageItem";
-import { ClassItem } from "../hierarchy/items/ClassItem";
-import { ConstructorItem } from "../hierarchy/items/ConstructorItem";
-import { PropertyItem } from "../hierarchy/items/PropertyItem";
-import { MethodItem } from "../hierarchy/items/MethodItem";
-import { PropsItem } from "../hierarchy/items/PropsItem";
-import { VariableItem } from "../hierarchy/items/VariableItem";
-import { InterfaceItem } from "../hierarchy/items/InterfaceItem";
-import { TypeAliasItem } from "../hierarchy/items/TypeAliasItem";
-import { ConstructorSignatureItem } from "../hierarchy/items/ConstructorSignatureItem";
-import { PropertySignatureItem } from "../hierarchy/items/PropertySignatureItem";
-import { MethodSignatureItem } from "../hierarchy/items/MethodSignatureItem";
-import { IndexSignatureItem } from "../hierarchy/items/IndexSignatureItem";
-import { FunctionItem } from "../hierarchy/items/FunctionItem";
-import { EnumItem } from "../hierarchy/items/EnumItem";
-import { EnumMemberItem } from "../hierarchy/items/EnumMemberItem";
-import { DocsAttributes, DocsItem } from "../hierarchy/docs/DocsItem";
+import { DocsAttributes } from "../hierarchy/docs/DocsItem";
 import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "../utils/docsNodesMatchers";
 import { Extractors } from "./api/Extractors";
 import { DocsConfig } from "../config/DocsConfig";
@@ -52,17 +31,35 @@ import { HTMLEmitter } from "../emitters/HTMLEmitter";
 import { MDEmitter } from "../emitters/MDEmitter";
 import { MDXEmitter } from "../emitters/MDXEmitter";
 import { DocWriter } from "../hierarchy/docs/DocsWriter";
+import { RootNode } from "./api/RootNode";
+import { ApiNode } from "./tree/ApiNode";
+import { PackageNode } from "./api/PackageNode";
+import { NamespaceNode } from "./api/NamespaceNode";
+import { ClassNode } from "./api/ClassNode";
+import { ConstructorNode } from "./api/ConstructorNode";
+import { PropertyNode } from "./api/PropertyNode";
+import { MethodNode } from "./api/MethodNode";
+import { FunctionNode } from "./api/FunctionNode";
+import { VariableNode } from "./api/VariableNode";
+import { InterfaceNode } from "./api/InterfaceNode";
+import { ConstructorSignatureNode } from "./api/ConstructorSignatureNode";
+import { PropertySignatureNode } from "./api/PropertySignatureNode";
+import { MethodSignatureNode } from "./api/MethodSignatureNode";
+import { IndexSignatureNode } from "./api/IndexSignatureNode";
+import { TypeAliasNode } from "./api/TypeAliasNode";
+import { EnumNode } from "./api/EnumNode";
+import { EnumMemberNode } from "./api/EnumMemberNode";
 
 class Documenter {
-	private readonly _apiModel: ApiModel;
-	private readonly _hierarchy: Hierarchy;
-	private readonly _config: DocsConfig;
-	private readonly _emitter: Emitter;
+	public readonly apiModel: ApiModel;
+	public readonly apiTree: RootNode;
+	public readonly config: DocsConfig;
+	public readonly emitter: Emitter;
 
 	constructor(apiModel: ApiModel, config: DocsConfig) {
-		this._apiModel = apiModel;
-		this._config = config;
-		this._hierarchy = new Hierarchy("");
+		this.apiModel = apiModel;
+		this.config = config;
+		this.apiTree = new RootNode();
 
 		switch (config.outputFormat) {
 			// case "html":
@@ -77,23 +74,23 @@ class Documenter {
 			// 	this._emitter = new MDXEmitter(config);
 			// 	break;
 			default:
-				this._emitter = new MDEmitter(config);
+				this.emitter = new MDEmitter(config);
 		}
 	}
 
 	public emit(): void {
 		this._buildHierarchy();
 		// console.log(JSON.stringify(this._hierarchy.toObject(), null, 2));
-		this._emitter.emit(this._hierarchy);
+		this.emitter.emit(this.apiTree);
 	}
 
 	private _buildHierarchy(): void {
-		this._traverseApiItems(this._apiModel, this._hierarchy);
+		this._traverseApiItems(this.apiModel, this.apiTree);
 	}
 
-	private _traverseApiItems(apiItem: ApiItem, parent?: HierarchyItem): void {
-		let child: HierarchyItem | undefined;
-		let docsAttributes: DocsAttributes = {};
+	private _traverseApiItems(apiItem: ApiItem, parent?: ApiNode): void {
+		let child: ApiNode | undefined;
+		let docs: DocsAttributes = {};
 
 		if (apiItem instanceof ApiDocumentedItem && apiItem.tsdocComment) {
 			const {
@@ -119,66 +116,66 @@ class Documenter {
 			const errorBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@error");
 			const authorBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@author");
 
-			docsAttributes.summary = { content: this._traverseDocNodes(summarySection, new DocWriter()) };
+			docs.summary = { content: this._traverseDocNodes(summarySection, new DocWriter()) };
 
-			docsAttributes.remarks = remarksBlock
+			docs.remarks = remarksBlock
 				? { content: this._traverseDocNodes(remarksBlock.content, new DocWriter()) }
 				: undefined;
 
-			docsAttributes.returns = returnsBlock
+			docs.returns = returnsBlock
 				? { content: this._traverseDocNodes(returnsBlock.content, new DocWriter()) }
 				: undefined;
 
-			docsAttributes.deprecated = deprecatedBlock
+			docs.deprecated = deprecatedBlock
 				? { content: this._traverseDocNodes(deprecatedBlock.content, new DocWriter()) }
 				: undefined;
 
-			docsAttributes.typeParams = typeParams
+			docs.typeParams = typeParams
 				? typeParams.blocks.map((block) => ({
 						name: block.parameterName,
 						content: this._traverseDocNodes(block.content, new DocWriter())
 					}))
 				: undefined;
 
-			docsAttributes.params = params
+			docs.params = params
 				? params.blocks.map((block) => ({
 						name: block.parameterName,
 						content: this._traverseDocNodes(block.content, new DocWriter())
 					}))
 				: undefined;
 
-			docsAttributes.see = seeBlocks
+			docs.see = seeBlocks
 				? seeBlocks.map((block) => ({
 						content: this._traverseDocNodes(block.content, new DocWriter())
 					}))
 				: undefined;
 
-			docsAttributes.examples = examplesBlocks.map((block, index) => ({
+			docs.examples = examplesBlocks.map((block, index) => ({
 				name: examplesBlocks.length > 1 ? `Example ${index}` : "Example",
 				content: this._traverseDocNodes(block.content, new DocWriter())
 			}));
 
-			docsAttributes.defaultValue = defaultValueBlocks.length
+			docs.defaultValue = defaultValueBlocks.length
 				? { content: this._traverseDocNodes(defaultValueBlocks[0].content, new DocWriter()) }
 				: undefined;
 
-			docsAttributes.since = sinceBlocks.map((block) => ({
+			docs.since = sinceBlocks.map((block) => ({
 				content: this._traverseDocNodes(block.content, new DocWriter())
 			}));
 
-			docsAttributes.infos = infoBlocks.map((block) => ({
+			docs.infos = infoBlocks.map((block) => ({
 				content: this._traverseDocNodes(block.content, new DocWriter())
 			}));
 
-			docsAttributes.warnings = warningBlocks.map((block) => ({
+			docs.warnings = warningBlocks.map((block) => ({
 				content: this._traverseDocNodes(block.content, new DocWriter())
 			}));
 
-			docsAttributes.errors = errorBlocks.map((block) => ({
+			docs.errors = errorBlocks.map((block) => ({
 				content: this._traverseDocNodes(block.content, new DocWriter())
 			}));
 
-			docsAttributes.authors = authorBlocks.map((block) => ({
+			docs.authors = authorBlocks.map((block) => ({
 				content: this._traverseDocNodes(block.content, new DocWriter())
 			}));
 		}
@@ -186,129 +183,94 @@ class Documenter {
 		if (isEntryPoint(apiItem)) {
 			child = parent;
 		} else if (isPackage(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiPackage(apiItem);
+			const packageNode = new PackageNode({ attributes, docs, name: attributes.name }, parent);
 
-			const packageItem = new PackageItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(packageItem, parent);
+			child = this.apiTree.addChild(packageNode, parent);
 		} else if (isNamespace(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiNamespace(apiItem);
+			const namespaceNode = new NamespaceNode({ attributes, docs, name: attributes.name }, parent);
 
-			const namespaceItem = new NamespaceItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(namespaceItem, parent);
+			child = this.apiTree.addChild(namespaceNode, parent);
 		} else if (isJSX(apiItem)) {
-			const jsxItem = new JSXItem(apiItem.displayName, parent);
-
-			child = this._hierarchy.addItem(jsxItem, parent);
+			// TODO: Implement
 		} else if (isReactHook(apiItem)) {
-			const hookItem = new HookItem(apiItem.displayName, parent);
-
-			child = this._hierarchy.addItem(hookItem, parent);
+			// TODO: Implement
 		} else if (isProps(apiItem)) {
-			const propsItem = new PropsItem(apiItem.displayName, parent);
-
-			child = this._hierarchy.addItem(propsItem, parent);
+			// TODO: Implement
 		} else if (isClass(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiClass(apiItem);
+			const classNode = new ClassNode({ attributes, docs, name: attributes.name }, parent);
 
-			const classItem = new ClassItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(classItem, parent);
+			child = this.apiTree.addChild(classNode, parent);
 		} else if (isConstructor(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiConstructor(apiItem);
+			const constructorNode = new ConstructorNode({ attributes, docs, name: attributes.name }, parent);
 
-			const constructorItem = new ConstructorItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(constructorItem, parent);
+			child = this.apiTree.addChild(constructorNode, parent);
 		} else if (isProperty(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiProperty(apiItem);
+			const propertyNode = new PropertyNode({ attributes, docs, name: attributes.name }, parent);
 
-			const propertyItem = new PropertyItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(propertyItem, parent);
+			child = this.apiTree.addChild(propertyNode, parent);
 		} else if (isMethod(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiMethod(apiItem);
+			const methodNode = new MethodNode({ attributes, docs, name: attributes.name }, parent);
 
-			const methodItem = new MethodItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(methodItem, parent);
+			child = this.apiTree.addChild(methodNode, parent);
 		} else if (isFunction(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiFunction(apiItem);
+			const functionNode = new FunctionNode({ attributes, docs, name: attributes.name }, parent);
 
-			const functionItem = new FunctionItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(functionItem, parent);
+			child = this.apiTree.addChild(functionNode, parent);
 		} else if (isVariable(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiVariable(apiItem);
 
-			const variableItem = new VariableItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(variableItem, parent);
+			const variableNode = new VariableNode({ attributes, docs, name: attributes.name }, parent);
+			const child = this.apiTree.addChild(variableNode, parent);
 		} else if (isInterface(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiInterface(apiItem);
+			const interfaceNode = new InterfaceNode({ attributes, docs, name: attributes.name }, parent);
 
-			const interfaceItem = new InterfaceItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(interfaceItem, parent);
+			child = this.apiTree.addChild(interfaceNode, parent);
 		} else if (isConstructorSignature(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiConstructorSignature(apiItem);
+			const constructorSignatureNode = new ConstructorSignatureNode(
+				{ attributes, docs, name: attributes.name },
+				parent
+			);
 
-			const constructorSignatureItem = new ConstructorSignatureItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(constructorSignatureItem, parent);
+			child = this.apiTree.addChild(constructorSignatureNode, parent);
 		} else if (isPropertySignature(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiPropertySignature(apiItem);
+			const propertySignatureNode = new PropertySignatureNode({ attributes, docs, name: attributes.name }, parent);
 
-			const propertySignatureItem = new PropertySignatureItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(propertySignatureItem, parent);
+			child = this.apiTree.addChild(propertySignatureNode, parent);
 		} else if (isMethodSignature(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiMethodSignature(apiItem);
+			const methodSignatureNode = new MethodSignatureNode({ attributes, docs, name: attributes.name }, parent);
 
-			const methodSignatureItem = new MethodSignatureItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(methodSignatureItem, parent);
+			child = this.apiTree.addChild(methodSignatureNode, parent);
 		} else if (isIndexSignature(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiIndexSignature(apiItem);
+			const indexSignatureNode = new IndexSignatureNode({ attributes, docs, name: attributes.name }, parent);
 
-			const indexSignatureItem = new IndexSignatureItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(indexSignatureItem, parent);
+			child = this.apiTree.addChild(indexSignatureNode, parent);
 		} else if (isTypeAlias(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiTypeAlias(apiItem);
+			const typeAliasNode = new TypeAliasNode({ attributes, docs, name: attributes.name }, parent);
 
-			const typeAliasItem = new TypeAliasItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(typeAliasItem, parent);
+			child = this.apiTree.addChild(typeAliasNode, parent);
 		} else if (isEnum(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiEnum(apiItem);
+			const enumNode = new EnumNode({ attributes, docs, name: attributes.name }, parent);
 
-			const enumItem = new EnumItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(enumItem, parent);
+			child = this.apiTree.addChild(enumNode, parent);
 		} else if (isEnumMember(apiItem)) {
-			const docs = new DocsItem(docsAttributes);
 			const attributes = Extractors.apiEnumMember(apiItem);
+			const enumMemberNode = new EnumMemberNode({ attributes, docs, name: attributes.name }, parent);
 
-			const enumMemberItem = new EnumMemberItem(attributes, docs, parent);
-
-			child = this._hierarchy.addItem(enumMemberItem, parent);
+			child = this.apiTree.addChild(enumMemberNode, parent);
 		}
 
 		for (const member of apiItem.members) {

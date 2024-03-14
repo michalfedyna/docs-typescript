@@ -12,26 +12,36 @@ enum ApiNodeType {
 	MethodNode = "MethodNode",
 	FunctionNode = "FunctionNode",
 	VariableNode = "VariableNode",
-	InterfaceNode = "InterfaceNode"
+	InterfaceNode = "InterfaceNode",
+	ConstructorSignatureNode = "ConstructorSignatureNode",
+	PropertySignatureNode = "PropertySignatureNode",
+	MethodSignatureNode = "MethodSignatureNode",
+	IndexSignatureNode = "IndexSignatureNode",
+	TypeAliasNode = "TypeAliasNode",
+	EnumNode = "EnumNode",
+	EnumMemberNode = "EnumMemberNode"
 }
 
-interface ApiNodeValue<T extends object = object> {
+interface ApiNodeValue<T> {
 	name: string;
-	api: T;
+	attributes: T;
 	docs: DocsAttributes;
 }
 
-class ApiNode<T extends {}> extends TreeNode<ApiNodeValue<T>> {
+class ApiNode<T = unknown> extends TreeNode<ApiNodeValue<T>> {
 	public type: ApiNodeType = ApiNodeType.ApiNode;
 	public uri: string;
 
-	constructor(value: ApiNodeValue<T>, parent?: TreeNode<ApiNodeValue<T>>) {
+	public children: ApiNode[] = [];
+	public parent?: ApiNode;
+
+	constructor(value: ApiNodeValue<T>, parent?: ApiNode) {
 		super(value, parent);
 
 		this.uri = this._createURI(value.name, parent);
 	}
 
-	protected _createURI(name: string, parent?: TreeNode<ApiNodeValue<T>>): string {
+	protected _createURI(name: string, parent?: ApiNode): string {
 		if (parent) {
 			return this._createURI(parent.value.name, parent.parent) + "/" + name;
 		}

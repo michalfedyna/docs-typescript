@@ -1,34 +1,32 @@
 import * as fs from "fs";
 import path from "path";
 
-import { ClassItem } from "../hierarchy/items/ClassItem";
-import { ConstructorItem } from "../hierarchy/items/ConstructorItem";
 import { Emitter } from "./Emitter";
-import { HierarchyItem, HierarchyItemType } from "../hierarchy/items/HierarchyItem";
 import { Template } from "./Template";
 import { ClassContext } from "../templates/markdown/class";
 import { ConstructorContext } from "../templates/markdown/constructor";
-import { Debug } from "../utils/Debug";
-import { PackageItem } from "../hierarchy/items/PackageItem";
 import { PackageContext } from "../templates/markdown/package";
-import { NamespaceItem } from "../hierarchy/items/NamespaceItem";
+import { RootNode } from "../documenter/api/RootNode";
+import { ApiNodeType } from "../documenter/tree/ApiNode";
+import { PackageNode } from "../documenter/api/PackageNode";
+import { TreeNode } from "../documenter/tree/TreeNode";
+import { NamespaceNode } from "../documenter/api/NamespaceNode";
+import { ClassNode } from "../documenter/api/ClassNode";
+import { ConstructorNode } from "../documenter/api/ConstructorNode";
 
 class MDEmitter extends Emitter {
-	emit(item: HierarchyItem): void {
+	emit(item: RootNode): void {
 		this._emitPage(item);
 	}
 
-	protected _emitPage(item: HierarchyItem) {
+	protected _emitPage(item: TreeNode) {
 		for (const child of item.children) {
 			this._emitPage(child);
 		}
 
 		switch (item.type) {
-			case HierarchyItemType.EntryPointItem: {
-				break;
-			}
-			case HierarchyItemType.PackageItem: {
-				const packageItem = item as PackageItem;
+			case ApiNodeType.PackageNode: {
+				const packageItem = item as PackageNode;
 				const context: PackageContext = {};
 
 				const content = new Template("markdown", "package").render(context);
@@ -36,23 +34,23 @@ class MDEmitter extends Emitter {
 
 				break;
 			}
-			case HierarchyItemType.NamespaceItem: {
-				const namespaceItem = item as NamespaceItem;
+			case ApiNodeType.NamespaceNode: {
+				const namespaceItem = item as NamespaceNode;
 
 				break;
 			}
-			case HierarchyItemType.ClassItem: {
-				const classItem = item as ClassItem;
+			case ApiNodeType.ClassNode: {
+				const classItem = item as ClassNode;
 				const constructorItems = classItem.children
-					.map((child) => (child instanceof ConstructorItem ? child : null))
-					.filter((child) => !!child) as ConstructorItem[];
+					.map((child) => (child instanceof ConstructorNode ? child : null))
+					.filter((child) => !!child) as ConstructorNode[];
 
 				const context: ClassContext = {
-					attributes: classItem.attributes,
-					docs: classItem.docs,
+					attributes: classItem.value.attributes,
+					docs: classItem.value.docs,
 					constructors: constructorItems.map((constructorItem) => ({
-						attributes: constructorItem.attributes,
-						docs: constructorItem.docs
+						attributes: constructorItem.value.attributes,
+						docs: constructorItem.value.docs
 					}))
 				};
 
@@ -61,12 +59,12 @@ class MDEmitter extends Emitter {
 
 				break;
 			}
-			case HierarchyItemType.ConstructorItem: {
-				const constructorItem = item as ConstructorItem;
+			case ApiNodeType.ConstructorNode: {
+				const constructorItem = item as ConstructorNode;
 
 				const context: ConstructorContext = {
-					attributes: constructorItem.attributes,
-					docs: constructorItem.docs
+					attributes: constructorItem.value.attributes,
+					docs: constructorItem.value.docs
 				};
 
 				const content = new Template("markdown", "constructor").render(context);
