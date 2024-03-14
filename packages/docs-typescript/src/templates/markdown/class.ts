@@ -1,22 +1,34 @@
 import Handlebars from "handlebars";
 import { ConstructorContext } from "./constructor";
+import { ClassAttributes } from "../../hierarchy/items/ClassItem";
+import { DocsAttributes } from "../../hierarchy/docs/DocsItemAttributes";
 
 interface ClassContext {
-	name: string;
-	signature: string;
-	isAbstract: boolean;
+	attributes: ClassAttributes;
+	docs: DocsAttributes;
 	constructors: ConstructorContext[];
-}
+}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasddddddddsesxdddddddddcexdscccccxz                     nmmmmmmmmmn n
+
+
+
+
+
+
+
+
+''
 
 const ClassTemplate = Handlebars.compile<ClassContext>(`
-{{#if isAbstract}}
-# \`Abstract\` {{name}}
+{{#if attributes.isAbstract}}
+# \`Abstract\` {{attributes.name}}
 {{else}}
-# {{name}}
+# {{attributes.name}}
 {{/if}}
 
+{{> docs docs }}
+
 \`\`\`typescript
-{{signature}}
+{{attributes.signature}}
 \`\`\`
 
 {{#each constructors}}

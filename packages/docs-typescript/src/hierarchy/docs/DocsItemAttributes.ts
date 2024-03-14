@@ -1,62 +1,62 @@
 import { DocWriter } from "./DocsWriter";
 
 interface DocsSummary {
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsRemarks {
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsReturns {
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsDeprecated {
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsTypeParams {
 	name: string;
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsSee {
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsParam {
 	name: string;
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsDefaultValue {
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsExample {
 	name: string;
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsSince {
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsInfo {
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsWarning {
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsError {
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsAuthor {
-	content: DocWriter;
+	content: string;
 }
 
 interface DocsAttributes {

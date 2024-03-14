@@ -22,6 +22,9 @@ class SomeClass extends SomeAbstractClass {
 
 /**
  * BaseClass exported from class.ts
+ *
+ * @remarks
+ * As a base class, this class has a constructor that takes a `name` parameter.
  */
 class BaseClass {
   constructor(public name: string) {

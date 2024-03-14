@@ -1,15 +1,17 @@
 import Handlebars from "handlebars";
+import { ConstructorAttributes } from "../../hierarchy/items/ConstructorItem";
+import { DocsAttributes } from "../../hierarchy/docs/DocsItemAttributes";
 
 interface ConstructorContext {
-	name: string;
-	signature: string;
+	attributes: ConstructorAttributes;
+	docs: DocsAttributes;
 }
 
 const ConstructorTemplate = Handlebars.compile<ConstructorContext>(`
-# {{name}}
+# {{attributes.name}}
 
 \`\`\`typescript
-{{signature}}
+{{attributes.signature}}
 \`\`\`
 `);
 

@@ -32,6 +32,25 @@ type Doc =
 class DocWriter {
 	public docs: Doc[] = [];
 
+	public toString(): string {
+		return this.docs
+			.map((doc) => {
+				switch (doc.type) {
+					case DocType.Content:
+						return doc.content;
+					case DocType.Code:
+						return "```" + (doc.language ? doc.language : "") + "\n" + doc.content.join("\n") + "\n```";
+					case DocType.InlineCode:
+						return "`" + doc.content + "`";
+					case DocType.Link:
+						return "[" + doc.content + "]";
+					case DocType.Paragraph:
+						return "\n" + doc.content.toString() + "\n";
+				}
+			})
+			.join("");
+	}
+
 	public writeCode(line: string, language?: string) {
 		return this._writeLine({ type: DocType.Code, language: language, content: this._writeLines(line) });
 	}

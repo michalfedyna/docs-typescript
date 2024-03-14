@@ -1,9 +1,13 @@
 import Handlebars, { TemplateDelegate } from "handlebars";
 import { ClassTemplate } from "../templates/markdown/class";
 import { ConstructorTemplate } from "../templates/markdown/constructor";
+import { PackageTemplate } from "../templates/markdown/package";
+import { DocsTemplate } from "../templates/markdown/docs";
 
 const Templates = {
 	markdown: {
+		docs: DocsTemplate,
+		package: PackageTemplate,
 		class: ClassTemplate,
 		constructor: ConstructorTemplate
 	}
