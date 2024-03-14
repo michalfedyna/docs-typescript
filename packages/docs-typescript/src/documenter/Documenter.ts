@@ -107,9 +107,9 @@ class Documenter {
 				customBlocks
 			} = apiItem.tsdocComment;
 
-			console.log("--------------");
-			console.log(apiItem.displayName, apiItem.kind);
-			console.log("--------------");
+			// console.log("--------------");
+			// console.log(apiItem.displayName, apiItem.kind);
+			// console.log("--------------");
 
 			const defaultValueBlock = customBlocks.filter((block) => block.blockTag.tagName === "@defaultValue");
 			const examplesBlock = customBlocks.filter((block) => block.blockTag.tagName === "@example");

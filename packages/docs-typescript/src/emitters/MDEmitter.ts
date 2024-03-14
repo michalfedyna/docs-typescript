@@ -3,11 +3,11 @@ import path from "path";
 
 import { ClassItem } from "../hierarchy/items/ClassItem";
 import { ConstructorItem } from "../hierarchy/items/ConstructorItem";
-import { Debug } from "../utils/Debug";
 import { Emitter } from "./Emitter";
 import { HierarchyItem, HierarchyItemType } from "../hierarchy/items/HierarchyItem";
-import { MDWriter } from "./MDWriter";
 import { Template } from "../utils/Template";
+import { ClassContext } from "../templates/markdown/class";
+import { ConstructorContext } from "../templates/markdown/constructor";
 
 class MDEmitter extends Emitter {
 	emit(item: HierarchyItem): void {
@@ -31,28 +31,32 @@ class MDEmitter extends Emitter {
 			}
 			case HierarchyItemType.ClassItem: {
 				const classItem = item as ClassItem;
+				const constructorItem = classItem.children[0] as ConstructorItem;
 
-				const context = {
+				const context: ClassContext = {
 					name: classItem.attributes.displayName,
 					signature: classItem.attributes.signature,
-					isAbstract: classItem.attributes.isAbstract
+					isAbstract: classItem.attributes.isAbstract,
+					constructorContext: {
+						name: constructorItem.attributes.displayName,
+						signature: constructorItem.attributes.signature
+					}
 				};
 
-				const content = new Template(this._config.outputFormat, "class").render(context);
-
+				const content = new Template("markdown", "class").render(context);
 				this._toFile(content, classItem.uri);
 				break;
 			}
 			case HierarchyItemType.ConstructorItem: {
 				const constructorItem = item as ConstructorItem;
-				const writer = new MDWriter();
 
-				writer.header(1, constructorItem.parent?.name + " Constructor");
+				const context: ConstructorContext = {
+					name: constructorItem.attributes.displayName,
+					signature: constructorItem.attributes.signature
+				};
 
-				writer.header(2, "Signature");
-				writer.code("typescript", constructorItem.attributes.signature);
-
-				this._toFile(writer.toString(), constructorItem.uri);
+				const content = new Template("markdown", "constructor").render(context);
+				this._toFile(content, constructorItem.uri);
 				break;
 			}
 		}
