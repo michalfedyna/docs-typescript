@@ -1,5 +1,5 @@
 import { Exported, FileUrl, Name, ReleaseTag, Signature } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "../tree/ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode";
 
 interface NamespaceAttributes extends Name, Signature, Exported, ReleaseTag, FileUrl {}
 

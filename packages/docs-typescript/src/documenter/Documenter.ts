@@ -1,5 +1,5 @@
 import { ApiDocumentedItem, ApiItem, ApiModel } from "@microsoft/api-extractor-model";
-import { DocNode } from "@microsoft/tsdoc";
+import { DocNode as ApiDocNode } from "@microsoft/tsdoc";
 import {
 	isClass,
 	isConstructor,
@@ -22,7 +22,7 @@ import {
 	isTypeAlias,
 	isVariable
 } from "../utils/apiItemsMatchers";
-import { DocsAttributes } from "../hierarchy/docs/DocsItem";
+import { DocsAttributes } from "./docs/DocsAttributes";
 import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "../utils/docsNodesMatchers";
 import { Extractors } from "./api/Extractors";
 import { DocsConfig } from "../config/DocsConfig";
@@ -30,9 +30,8 @@ import { Emitter } from "../emitters/Emitter";
 import { HTMLEmitter } from "../emitters/HTMLEmitter";
 import { MDEmitter } from "../emitters/MDEmitter";
 import { MDXEmitter } from "../emitters/MDXEmitter";
-import { DocWriter } from "../hierarchy/docs/DocsWriter";
 import { RootNode } from "./api/RootNode";
-import { ApiNode } from "./tree/ApiNode";
+import { ApiNode } from "./api/ApiNode";
 import { PackageNode } from "./api/PackageNode";
 import { NamespaceNode } from "./api/NamespaceNode";
 import { ClassNode } from "./api/ClassNode";
@@ -49,6 +48,10 @@ import { IndexSignatureNode } from "./api/IndexSignatureNode";
 import { TypeAliasNode } from "./api/TypeAliasNode";
 import { EnumNode } from "./api/EnumNode";
 import { EnumMemberNode } from "./api/EnumMemberNode";
+import { DocNode } from "./docs/DocNode";
+import { RootDocNode } from "./docs/RootDocNode";
+import { PlainTextDocNode } from "./docs/PlainTextDocNode";
+import { ParagraphDocNode } from "./docs/ParagraphDocNode";
 
 class Documenter {
 	public readonly apiModel: ApiModel;
@@ -80,7 +83,7 @@ class Documenter {
 
 	public emit(): void {
 		this._buildHierarchy();
-		// console.log(JSON.stringify(this._hierarchy.toObject(), null, 2));
+		console.log(JSON.stringify(this.apiTree.toObject(), null, 2));
 		this.emitter.emit(this.apiTree);
 	}
 
@@ -88,7 +91,7 @@ class Documenter {
 		this._traverseApiItems(this.apiModel, this.apiTree);
 	}
 
-	private _traverseApiItems(apiItem: ApiItem, parent?: ApiNode): void {
+	private _traverseApiItems(apiItem: ApiItem, parent: ApiNode): void {
 		let child: ApiNode | undefined;
 		let docs: DocsAttributes = {};
 
@@ -104,10 +107,6 @@ class Documenter {
 				customBlocks
 			} = apiItem.tsdocComment;
 
-			// console.log("--------------");
-			// console.log(apiItem.displayName, apiItem.kind);
-			// console.log("--------------");
-
 			const defaultValueBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@defaultValue");
 			const examplesBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@example");
 			const sinceBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@since");
@@ -116,82 +115,83 @@ class Documenter {
 			const errorBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@error");
 			const authorBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@author");
 
-			docs.summary = { content: this._traverseDocNodes(summarySection, new DocWriter()) };
+			docs.summary = this._traverseDocNodes(summarySection);
+			docs.remarks = this._traverseDocNodes(remarksBlock);
+			docs.returns = this._traverseDocNodes(returnsBlock);
+			docs.deprecated = this._traverseDocNodes(deprecatedBlock);
 
-			docs.remarks = remarksBlock
-				? { content: this._traverseDocNodes(remarksBlock.content, new DocWriter()) }
-				: undefined;
+			if (typeParams.blocks.length > 0) {
+				docs.typeParams = typeParams.blocks
+					.map((block) => this._traverseDocNodes(block))
+					.filter((node): node is RootDocNode => node !== undefined);
+			}
 
-			docs.returns = returnsBlock
-				? { content: this._traverseDocNodes(returnsBlock.content, new DocWriter()) }
-				: undefined;
+			if (params.blocks.length > 0) {
+				docs.params = params.blocks
+					.map((block) => this._traverseDocNodes(block))
+					.filter((node): node is RootDocNode => node !== undefined);
+			}
 
-			docs.deprecated = deprecatedBlock
-				? { content: this._traverseDocNodes(deprecatedBlock.content, new DocWriter()) }
-				: undefined;
+			if (seeBlocks.length > 0) {
+				docs.see = seeBlocks
+					.map((block) => this._traverseDocNodes(block))
+					.filter((node): node is RootDocNode => node !== undefined);
+			}
 
-			docs.typeParams = typeParams
-				? typeParams.blocks.map((block) => ({
-						name: block.parameterName,
-						content: this._traverseDocNodes(block.content, new DocWriter())
-					}))
-				: undefined;
+			if (examplesBlocks.length > 0) {
+				docs.examples = examplesBlocks
+					.map((block) => this._traverseDocNodes(block))
+					.filter((node): node is RootDocNode => node !== undefined);
+			}
 
-			docs.params = params
-				? params.blocks.map((block) => ({
-						name: block.parameterName,
-						content: this._traverseDocNodes(block.content, new DocWriter())
-					}))
-				: undefined;
+			if (defaultValueBlocks.length > 0) {
+				docs.defaultValue = defaultValueBlocks
+					.map((block) => this._traverseDocNodes(block))
+					.filter((node): node is RootDocNode => node !== undefined);
+			}
 
-			docs.see = seeBlocks
-				? seeBlocks.map((block) => ({
-						content: this._traverseDocNodes(block.content, new DocWriter())
-					}))
-				: undefined;
+			if (sinceBlocks.length > 0) {
+				docs.since = sinceBlocks
+					.map((block) => this._traverseDocNodes(block))
+					.filter((node): node is RootDocNode => node !== undefined);
+			}
 
-			docs.examples = examplesBlocks.map((block, index) => ({
-				name: examplesBlocks.length > 1 ? `Example ${index}` : "Example",
-				content: this._traverseDocNodes(block.content, new DocWriter())
-			}));
+			if (infoBlocks.length > 0) {
+				docs.infos = infoBlocks
+					.map((block) => this._traverseDocNodes(block))
+					.filter((node): node is RootDocNode => node !== undefined);
+			}
 
-			docs.defaultValue = defaultValueBlocks.length
-				? { content: this._traverseDocNodes(defaultValueBlocks[0].content, new DocWriter()) }
-				: undefined;
+			if (warningBlocks.length > 0) {
+				docs.warnings = warningBlocks
+					.map((block) => this._traverseDocNodes(block))
+					.filter((node): node is RootDocNode => node !== undefined);
+			}
 
-			docs.since = sinceBlocks.map((block) => ({
-				content: this._traverseDocNodes(block.content, new DocWriter())
-			}));
+			if (errorBlocks.length > 0) {
+				docs.errors = errorBlocks
+					.map((block) => this._traverseDocNodes(block))
+					.filter((node): node is RootDocNode => node !== undefined);
+			}
 
-			docs.infos = infoBlocks.map((block) => ({
-				content: this._traverseDocNodes(block.content, new DocWriter())
-			}));
-
-			docs.warnings = warningBlocks.map((block) => ({
-				content: this._traverseDocNodes(block.content, new DocWriter())
-			}));
-
-			docs.errors = errorBlocks.map((block) => ({
-				content: this._traverseDocNodes(block.content, new DocWriter())
-			}));
-
-			docs.authors = authorBlocks.map((block) => ({
-				content: this._traverseDocNodes(block.content, new DocWriter())
-			}));
+			if (authorBlocks.length > 0) {
+				docs.authors = authorBlocks
+					.map((block) => this._traverseDocNodes(block))
+					.filter((node): node is RootDocNode => node !== undefined);
+			}
 		}
 
-		if (isEntryPoint(apiItem)) {
-			child = parent;
-		} else if (isPackage(apiItem)) {
+		if (isPackage(apiItem)) {
 			const attributes = Extractors.apiPackage(apiItem);
-			const packageNode = new PackageNode({ attributes, docs, name: attributes.name }, parent);
+			const packageNode = new PackageNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(packageNode, parent);
+			child = parent.addChild(packageNode);
 		} else if (isNamespace(apiItem)) {
+			// TODO: Move extractor to node method
 			const attributes = Extractors.apiNamespace(apiItem);
-			const namespaceNode = new NamespaceNode({ attributes, docs, name: attributes.name }, parent);
+			const namespaceNode = new NamespaceNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(namespaceNode, parent);
+			child = parent.addChild(namespaceNode);
 		} else if (isJSX(apiItem)) {
 			// TODO: Implement
 		} else if (isReactHook(apiItem)) {
@@ -200,105 +200,108 @@ class Documenter {
 			// TODO: Implement
 		} else if (isClass(apiItem)) {
 			const attributes = Extractors.apiClass(apiItem);
-			const classNode = new ClassNode({ attributes, docs, name: attributes.name }, parent);
+			const classNode = new ClassNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(classNode, parent);
+			child = parent.addChild(classNode);
 		} else if (isConstructor(apiItem)) {
 			const attributes = Extractors.apiConstructor(apiItem);
-			const constructorNode = new ConstructorNode({ attributes, docs, name: attributes.name }, parent);
+			const constructorNode = new ConstructorNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(constructorNode, parent);
+			child = parent.addChild(constructorNode);
 		} else if (isProperty(apiItem)) {
 			const attributes = Extractors.apiProperty(apiItem);
-			const propertyNode = new PropertyNode({ attributes, docs, name: attributes.name }, parent);
+			const propertyNode = new PropertyNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(propertyNode, parent);
+			child = parent.addChild(propertyNode);
 		} else if (isMethod(apiItem)) {
 			const attributes = Extractors.apiMethod(apiItem);
-			const methodNode = new MethodNode({ attributes, docs, name: attributes.name }, parent);
+			const methodNode = new MethodNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(methodNode, parent);
+			child = parent.addChild(methodNode);
 		} else if (isFunction(apiItem)) {
 			const attributes = Extractors.apiFunction(apiItem);
-			const functionNode = new FunctionNode({ attributes, docs, name: attributes.name }, parent);
+			const functionNode = new FunctionNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(functionNode, parent);
+			child = parent.addChild(functionNode);
 		} else if (isVariable(apiItem)) {
 			const attributes = Extractors.apiVariable(apiItem);
 
-			const variableNode = new VariableNode({ attributes, docs, name: attributes.name }, parent);
-			const child = this.apiTree.addChild(variableNode, parent);
+			const variableNode = new VariableNode({ attributes, docs, name: attributes.name });
+			child = parent.addChild(variableNode);
 		} else if (isInterface(apiItem)) {
 			const attributes = Extractors.apiInterface(apiItem);
-			const interfaceNode = new InterfaceNode({ attributes, docs, name: attributes.name }, parent);
+			const interfaceNode = new InterfaceNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(interfaceNode, parent);
+			child = parent.addChild(interfaceNode);
 		} else if (isConstructorSignature(apiItem)) {
 			const attributes = Extractors.apiConstructorSignature(apiItem);
-			const constructorSignatureNode = new ConstructorSignatureNode(
-				{ attributes, docs, name: attributes.name },
-				parent
-			);
+			const constructorSignatureNode = new ConstructorSignatureNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(constructorSignatureNode, parent);
+			child = parent.addChild(constructorSignatureNode);
 		} else if (isPropertySignature(apiItem)) {
 			const attributes = Extractors.apiPropertySignature(apiItem);
-			const propertySignatureNode = new PropertySignatureNode({ attributes, docs, name: attributes.name }, parent);
+			const propertySignatureNode = new PropertySignatureNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(propertySignatureNode, parent);
+			child = parent.addChild(propertySignatureNode);
 		} else if (isMethodSignature(apiItem)) {
 			const attributes = Extractors.apiMethodSignature(apiItem);
-			const methodSignatureNode = new MethodSignatureNode({ attributes, docs, name: attributes.name }, parent);
+			const methodSignatureNode = new MethodSignatureNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(methodSignatureNode, parent);
+			child = parent.addChild(methodSignatureNode);
 		} else if (isIndexSignature(apiItem)) {
 			const attributes = Extractors.apiIndexSignature(apiItem);
-			const indexSignatureNode = new IndexSignatureNode({ attributes, docs, name: attributes.name }, parent);
+			const indexSignatureNode = new IndexSignatureNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(indexSignatureNode, parent);
+			child = parent.addChild(indexSignatureNode);
 		} else if (isTypeAlias(apiItem)) {
 			const attributes = Extractors.apiTypeAlias(apiItem);
-			const typeAliasNode = new TypeAliasNode({ attributes, docs, name: attributes.name }, parent);
+			const typeAliasNode = new TypeAliasNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(typeAliasNode, parent);
+			child = parent.addChild(typeAliasNode);
 		} else if (isEnum(apiItem)) {
 			const attributes = Extractors.apiEnum(apiItem);
-			const enumNode = new EnumNode({ attributes, docs, name: attributes.name }, parent);
+			const enumNode = new EnumNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(enumNode, parent);
+			child = parent.addChild(enumNode);
 		} else if (isEnumMember(apiItem)) {
 			const attributes = Extractors.apiEnumMember(apiItem);
-			const enumMemberNode = new EnumMemberNode({ attributes, docs, name: attributes.name }, parent);
+			const enumMemberNode = new EnumMemberNode({ attributes, docs, name: attributes.name });
 
-			child = this.apiTree.addChild(enumMemberNode, parent);
+			child = parent.addChild(enumMemberNode);
 		}
 
 		for (const member of apiItem.members) {
-			this._traverseApiItems(member, child);
+			this._traverseApiItems(member, child || parent);
 		}
 	}
 
-	private _traverseDocNodes(docNode: DocNode, writer: DocWriter, level: number = 0): string {
-		// console.log(" ".repeat(level * 2) + docNode.kind);
+	private _traverseDocNodes(apiDocNode?: ApiDocNode, parent?: DocNode): RootDocNode | undefined {
+		if (!apiDocNode) return;
 
-		if (isPlainText(docNode)) {
-			writer.writeContent(docNode.text);
-		} else if (isParagraph(docNode)) {
-			writer = writer.writeParagraph() || writer;
-		} else if (isSoftBreak(docNode)) {
-		} else if (isLinkTag(docNode)) {
-			writer.writeLink(docNode.linkText || docNode.urlDestination! || "");
-		} else if (isCodeSpan(docNode)) {
-			writer.writeInlineCode(docNode.code);
-		} else if (isFencedCode(docNode)) {
-			writer.writeCode(docNode.code, docNode.language);
+		if (!parent) parent = new RootDocNode();
+
+		let child: DocNode | undefined;
+
+		if (isPlainText(apiDocNode)) {
+			const attributes = { text: apiDocNode.text };
+			const plainTextNode = new PlainTextDocNode({ attributes: attributes });
+
+			child = parent.addChild(plainTextNode);
+		} else if (isParagraph(apiDocNode)) {
+			const paragraphNode = new ParagraphDocNode({ attributes: {} });
+
+			child = parent.addChild(paragraphNode);
+		} else if (isSoftBreak(apiDocNode)) {
+		} else if (isLinkTag(apiDocNode)) {
+		} else if (isCodeSpan(apiDocNode)) {
+		} else if (isFencedCode(apiDocNode)) {
 		}
 
-		for (const childNode of docNode.getChildNodes()) {
-			this._traverseDocNodes(childNode, writer, level + 1);
+		for (const member of apiDocNode.getChildNodes()) {
+			this._traverseDocNodes(member, child || parent);
 		}
 
-		return writer.toString();
+		return child || parent;
 	}
 }
 

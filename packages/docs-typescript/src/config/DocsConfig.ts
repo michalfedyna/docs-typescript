@@ -19,7 +19,7 @@ class DocsConfig implements Config {
 		apiJsonPath,
 		rootPath = ".",
 		outputFormat = "markdown",
-		outputPath = "docs",
+		outputPath = "/docs",
 		singlePage = false,
 		framework = false
 	}: Config) {

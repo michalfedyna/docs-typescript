@@ -1,5 +1,5 @@
 import { Exported, FileUrl, Name, ReleaseTag, Signature, Type, TypeParameters } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "../tree/ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode";
 
 interface TypeAliasAttributes extends Name, Signature, ReleaseTag, Type, TypeParameters, FileUrl, Exported {}
 

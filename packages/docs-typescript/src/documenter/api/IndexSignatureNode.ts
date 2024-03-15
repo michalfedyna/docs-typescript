@@ -1,5 +1,5 @@
 import { FileUrl, Name, Overload, Parameters, Readonly, ReleaseTag, Returns, Signature } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "../tree/ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode";
 
 interface IndexSignatureAttributes
 	extends Name,

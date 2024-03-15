@@ -1,5 +1,5 @@
 import { Exported, FileUrl, Initializer, Name, Readonly, ReleaseTag, Signature, Type } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "../tree/ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode";
 
 interface VariableAttributes extends Name, Signature, Exported, Readonly, Initializer, ReleaseTag, Type, FileUrl {}
 

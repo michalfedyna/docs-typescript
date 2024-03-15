@@ -12,7 +12,7 @@ import {
 	Static,
 	Type
 } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "../tree/ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode";
 
 interface PropertyAttributes
 	extends Name,

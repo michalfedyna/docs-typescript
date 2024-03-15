@@ -9,7 +9,7 @@ import {
 	Signature,
 	TypeParameters
 } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "../tree/ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode";
 
 interface MethodSignatureAttributes
 	extends Name,

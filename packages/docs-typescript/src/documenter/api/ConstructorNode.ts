@@ -1,5 +1,5 @@
 import { FileUrl, Name, Overload, Parameters, Protected, ReleaseTag, Signature } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "../tree/ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode";
 
 interface ConstructorAttributes extends Name, ReleaseTag, Signature, FileUrl, Overload, Protected, Parameters {}
 

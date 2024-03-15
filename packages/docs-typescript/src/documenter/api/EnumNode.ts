@@ -1,5 +1,5 @@
 import { Exported, FileUrl, Members, Name, ReleaseTag, Signature } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "../tree/ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode";
 
 interface EnumAttributes extends Name, ReleaseTag, Signature, Exported, FileUrl, Members {}
 

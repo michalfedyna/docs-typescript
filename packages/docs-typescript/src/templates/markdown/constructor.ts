@@ -1,5 +1,5 @@
 import Handlebars from "handlebars";
-import { DocsAttributes } from "../../hierarchy/docs/DocsItemAttributes";
+import { DocsAttributes } from "../../documenter/docs/DocsAttributes";
 import { ConstructorAttributes } from "../../documenter/api/ConstructorNode";
 
 interface ConstructorContext {

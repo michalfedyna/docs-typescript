@@ -1,5 +1,5 @@
 import { EventProperty, FileUrl, Name, Optional, Readonly, ReleaseTag, Signature, Type } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "../tree/ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode";
 
 interface PropertySignatureAttributes
 	extends Name,

@@ -1,5 +1,5 @@
 import Handlebars from "handlebars";
-import { DocsAttributes } from "../../hierarchy/docs/DocsItemAttributes";
+import { DocsAttributes } from "../../documenter/docs/DocsAttributes";
 
 interface DocsContext extends DocsAttributes {}
 
@@ -8,7 +8,6 @@ const DocsTemplate = Handlebars.compile<DocsContext>(`
 ## Summary
 {{summary.content}}
 {{/if}}
-
 {{#if remarks}}
 ## Remarks
 {{remarks.content}}

@@ -11,7 +11,7 @@ import {
 	Signature,
 	Static
 } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "../tree/ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode";
 
 interface MethodAttributes
 	extends Name,

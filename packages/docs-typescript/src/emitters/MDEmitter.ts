@@ -7,9 +7,8 @@ import { ClassContext } from "../templates/markdown/class";
 import { ConstructorContext } from "../templates/markdown/constructor";
 import { PackageContext } from "../templates/markdown/package";
 import { RootNode } from "../documenter/api/RootNode";
-import { ApiNodeType } from "../documenter/tree/ApiNode";
+import { ApiNode, ApiNodeType } from "../documenter/api/ApiNode";
 import { PackageNode } from "../documenter/api/PackageNode";
-import { TreeNode } from "../documenter/tree/TreeNode";
 import { NamespaceNode } from "../documenter/api/NamespaceNode";
 import { ClassNode } from "../documenter/api/ClassNode";
 import { ConstructorNode } from "../documenter/api/ConstructorNode";
@@ -19,7 +18,7 @@ class MDEmitter extends Emitter {
 		this._emitPage(item);
 	}
 
-	protected _emitPage(item: TreeNode) {
+	protected _emitPage(item: ApiNode) {
 		for (const child of item.children) {
 			this._emitPage(child);
 		}
@@ -41,17 +40,10 @@ class MDEmitter extends Emitter {
 			}
 			case ApiNodeType.ClassNode: {
 				const classItem = item as ClassNode;
-				const constructorItems = classItem.children
-					.map((child) => (child instanceof ConstructorNode ? child : null))
-					.filter((child) => !!child) as ConstructorNode[];
 
 				const context: ClassContext = {
 					attributes: classItem.value.attributes,
-					docs: classItem.value.docs,
-					constructors: constructorItems.map((constructorItem) => ({
-						attributes: constructorItem.value.attributes,
-						docs: constructorItem.value.docs
-					}))
+					docs: {}
 				};
 
 				const content = new Template("markdown", "class").render(context);
@@ -64,7 +56,7 @@ class MDEmitter extends Emitter {
 
 				const context: ConstructorContext = {
 					attributes: constructorItem.value.attributes,
-					docs: constructorItem.value.docs
+					docs: {}
 				};
 
 				const content = new Template("markdown", "constructor").render(context);
@@ -75,8 +67,11 @@ class MDEmitter extends Emitter {
 		}
 	}
 
-	protected _toFile(content: string, url: string): void {
-		const filePath = path.resolve(process.cwd(), this._config.outputPath, url + ".md");
+	protected _toFile(content: string, url?: string): void {
+		if (!url) throw new Error("URL is required to write to file");
+
+		const filePath = path.resolve(process.cwd(), this.config.rootPath + this.config.outputPath + url + ".md");
+
 		if (!fs.existsSync(path.dirname(filePath))) fs.mkdirSync(path.dirname(filePath), { recursive: true });
 
 		fs.writeFileSync(filePath, content);

@@ -1,4 +1,4 @@
-import { ApiNode, ApiNodeType } from "../tree/ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode";
 import { Name } from "./ApiAttributes";
 
 interface PackageAttributes extends Name {}

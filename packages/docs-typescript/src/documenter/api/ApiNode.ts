@@ -1,5 +1,5 @@
-import { TreeNode } from "./TreeNode";
 import { DocsAttributes } from "../docs/DocsAttributes";
+import { DocNode } from "../docs/DocNode";
 
 enum ApiNodeType {
 	ApiNode = "ApiNode",
@@ -28,17 +28,38 @@ interface ApiNodeValue<T> {
 	docs: DocsAttributes;
 }
 
-class ApiNode<T = unknown> extends TreeNode<ApiNodeValue<T>> {
+class ApiNode<T = unknown> {
 	public type: ApiNodeType = ApiNodeType.ApiNode;
-	public uri: string;
+	public uri?: string;
+	public value: ApiNodeValue<T>;
 
 	public children: ApiNode[] = [];
 	public parent?: ApiNode;
 
-	constructor(value: ApiNodeValue<T>, parent?: ApiNode) {
-		super(value, parent);
+	constructor(value: ApiNodeValue<T>) {
+		this.value = value;
+	}
 
-		this.uri = this._createURI(value.name, parent);
+	public addChild<K extends ApiNode>(child: K): K {
+		const index = this.children.push(child);
+		child.parent = this;
+		child.uri = this._createURI(child.value.name, this);
+		return this.children[index - 1] as K;
+	}
+
+	public toObject(): object {
+		return {
+			type: this.type,
+			uri: this.uri,
+			name: this.value.name,
+			attributes: this.value.attributes,
+			docs: Object.entries(this.value.docs)
+				.map((doc) => {
+					if (doc[1] instanceof DocNode) return { [doc[0]]: doc[1].toObject() };
+				})
+				.filter((doc) => !!doc),
+			children: this.children.map((child) => child.toObject())
+		};
 	}
 
 	protected _createURI(name: string, parent?: ApiNode): string {
