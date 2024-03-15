@@ -47,7 +47,8 @@ namespace Extractors {
 	export function apiNamespace(apiNamespace: ApiNamespace): NamespaceAttributes {
 		const { displayName, fileUrlPath, isExported } = apiNamespace;
 		const releaseTag = ReleaseTag.getTagName(apiNamespace.releaseTag);
-		const signature = apiNamespace.excerpt.text;
+		// TODO: Create better signature
+		const signature = `namespace ${displayName}{}`;
 
 		return {
 			name: displayName,
@@ -68,8 +69,17 @@ namespace Extractors {
 			constraint: typeParameter.constraintExcerpt.text,
 			default: typeParameter.defaultTypeExcerpt.text
 		}));
-		const signature = apiClass.excerpt.text;
 		const releaseTag = ReleaseTag.getTagName(apiClass.releaseTag);
+
+		const abstractSignature = isAbstract ? "abstract " : "";
+		const extendsTypeSignature = extendsType ? ` extends ${extendsType}` : "";
+		const implementsTypesSignature = implementsTypes.length > 0 ? ` implements ${implementsTypes.join(" ")}` : "";
+		const typeParametersArray = typeParameters.map(
+			(typeParameter) => `${typeParameter.name}${typeParameter.default ? ` = ${typeParameter.default}` : ""}`
+		);
+		const typeParametersSignature = typeParameters.length > 0 ? `<${typeParametersArray.join(", ")}>` : "";
+
+		const signature = `${abstractSignature}class ${displayName}${typeParametersSignature}${extendsTypeSignature}${implementsTypesSignature} {}`;
 
 		return {
 			extendsType,

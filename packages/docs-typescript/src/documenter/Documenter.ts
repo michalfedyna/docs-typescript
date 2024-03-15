@@ -83,7 +83,7 @@ class Documenter {
 
 	public emit(): void {
 		this._buildHierarchy();
-		console.log(JSON.stringify(this.apiTree.toObject(), null, 2));
+		//console.log(JSON.stringify(this.apiTree.toObject(), null, 2));
 		this.emitter.emit(this.apiTree);
 	}
 

@@ -48,16 +48,19 @@ class ApiNode<T = unknown> {
 	}
 
 	public toObject(): object {
+		// TODO: This is a temporary solution
+		const docs = Object.entries(this.value.docs)
+			.map((doc) => {
+				if (doc[1] instanceof DocNode) return [[doc[0]], doc[1].toObject()];
+			})
+			.filter((doc) => doc) as [string, object][];
+
 		return {
 			type: this.type,
 			uri: this.uri,
 			name: this.value.name,
 			attributes: this.value.attributes,
-			docs: Object.entries(this.value.docs)
-				.map((doc) => {
-					if (doc[1] instanceof DocNode) return { [doc[0]]: doc[1].toObject() };
-				})
-				.filter((doc) => !!doc),
+			docs: Object.fromEntries(docs),
 			children: this.children.map((child) => child.toObject())
 		};
 	}

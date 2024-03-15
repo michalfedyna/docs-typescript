@@ -47,7 +47,7 @@ interface SomeInterface {
   someProperty: string;
 }
 
-class ImplementingClass implements SomeInterface {
+class ImplementingClass extends BaseClass implements SomeInterface {
   public someProperty: string = "ImplementingClass.someProperty";
   someMethod(): void {
     console.log("ImplementingClass.someMethod");
@@ -62,6 +62,18 @@ class ConstructorOverloadingClass {
   }
 }
 
+class TypeParameterClass<T extends unknown = unknown, K extends any = any>
+  implements SomeInterface
+{
+  someProperty: string;
+
+  constructor(someArg: T, anotherArg: K) {
+    this.someProperty = "TypeParameterClass.someProperty";
+  }
+
+  someMethod(): void {}
+}
+
 export {
   SomeAbstractClass,
   SomeClass,
@@ -70,4 +82,5 @@ export {
   SomeInterface,
   ImplementingClass,
   ConstructorOverloadingClass,
+  TypeParameterClass,
 };

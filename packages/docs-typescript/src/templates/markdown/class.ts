@@ -15,7 +15,7 @@ const ClassTemplate = Handlebars.compile<ClassContext>(
 {{/if}}
 {{> docs docs }}
 \`\`\`typescript
-{{attributes.signature}}
+{{{attributes.signature}}}
 \`\`\``
 );
 
