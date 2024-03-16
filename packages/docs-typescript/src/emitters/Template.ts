@@ -6,8 +6,9 @@ import { DocsAttributes } from "../documenter/docs/DocsAttributes";
 import { MarkdownVariableContext } from "./markdown/MarkdownVariableContext";
 import { MarkdownFunctionContext } from "./markdown/MarkdownFunctionContext";
 import { MarkdownPackageContext } from "./markdown/MarkdownPackageContext";
+import { MarkdownMembersContext } from "./markdown/MarkdownMembersContext";
 
-type HandlebarsMarkdownTemplates = "docs" | "package" | "variable" | "function";
+type HandlebarsMarkdownTemplates = "docs" | "members" | "package" | "variable" | "function";
 
 type HandlebarsMarkdownContext<T> = [T, HandlebarsMarkdownTemplates];
 
@@ -19,7 +20,10 @@ type Templates<T = unknown> = {
 
 interface Contexts extends Templates {
 	markdown: {
+		// Helpers
 		docs: DocsAttributes;
+		members: MarkdownMembersContext;
+		// API
 		package: MarkdownPackageContext;
 		variable: MarkdownVariableContext;
 		function: MarkdownFunctionContext;
@@ -29,6 +33,7 @@ interface Contexts extends Templates {
 const TemplatesPath: Templates<string> = {
 	markdown: {
 		docs: "markdown/docs.hbs",
+		members: "markdown/members.hbs",
 		package: "markdown/package.hbs",
 		variable: "markdown/variable.hbs",
 		function: "markdown/function.hbs"

@@ -56,6 +56,13 @@ class ApiNode<T = unknown> {
 		return node;
 	}
 
+	public forEach(callback: (node: ApiNode) => void): void {
+		callback(this);
+		for (const child of this.children) {
+			child.forEach(callback);
+		}
+	}
+
 	public toObject(): object {
 		// TODO: This is a temporary solution
 		const docs = Object.entries(this.value.docs)
