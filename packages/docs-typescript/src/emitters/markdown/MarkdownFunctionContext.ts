@@ -1,13 +1,13 @@
 import { DocsAttributes } from "../../documenter/docs/DocsAttributes";
 import { FunctionAttributes, FunctionNode } from "../../documenter/api/FunctionNode";
-import { HandlebarsContext } from "../Template";
+import { HandlebarsMarkdownContext } from "../Template";
 
-interface FunctionContext {
+interface MarkdownFunctionContext {
 	attributes: FunctionAttributes;
 	docs: DocsAttributes;
 }
 
-function buildFunctionContext(functionNode: FunctionNode): HandlebarsContext<FunctionContext> {
+function buildMarkdownFunctionContext(functionNode: FunctionNode): HandlebarsMarkdownContext<MarkdownFunctionContext> {
 	return [
 		{
 			attributes: functionNode.value.attributes,
@@ -17,4 +17,4 @@ function buildFunctionContext(functionNode: FunctionNode): HandlebarsContext<Fun
 	];
 }
 
-export { FunctionContext, buildFunctionContext };
+export { MarkdownFunctionContext, buildMarkdownFunctionContext };

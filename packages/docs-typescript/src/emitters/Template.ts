@@ -3,32 +3,33 @@ import path from "path";
 
 import Handlebars, { TemplateDelegate } from "handlebars";
 import { DocsAttributes } from "../documenter/docs/DocsAttributes";
-import { VariableContext } from "./context/VariableContext";
-import { FunctionContext } from "./context/FunctionContext";
+import { MarkdownVariableContext } from "./markdown/MarkdownVariableContext";
+import { MarkdownFunctionContext } from "./markdown/MarkdownFunctionContext";
+import { MarkdownPackageContext } from "./markdown/MarkdownPackageContext";
 
-type Formats = "markdown";
+type HandlebarsMarkdownTemplates = "docs" | "package" | "variable" | "function";
 
-type HandlebarsTemplates = "docs" | "variable" | "function";
-
-type HandlebarsContext<T> = [T, HandlebarsTemplates];
+type HandlebarsMarkdownContext<T> = [T, HandlebarsMarkdownTemplates];
 
 type Templates<T = unknown> = {
-	[K in Formats]: {
-		[K in HandlebarsTemplates]: T;
+	markdown: {
+		[K in HandlebarsMarkdownTemplates]: T;
 	};
 };
 
 interface Contexts extends Templates {
 	markdown: {
 		docs: DocsAttributes;
-		variable: VariableContext;
-		function: FunctionContext;
+		package: MarkdownPackageContext;
+		variable: MarkdownVariableContext;
+		function: MarkdownFunctionContext;
 	};
 }
 
 const TemplatesPath: Templates<string> = {
 	markdown: {
 		docs: "markdown/docs.hbs",
+		package: "markdown/package.hbs",
 		variable: "markdown/variable.hbs",
 		function: "markdown/function.hbs"
 	}
@@ -77,4 +78,4 @@ class Template<
 	}
 }
 
-export { Template, HandlebarsContext };
+export { Template, HandlebarsMarkdownContext };

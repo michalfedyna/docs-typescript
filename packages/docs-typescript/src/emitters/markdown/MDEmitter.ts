@@ -1,14 +1,17 @@
 import * as fs from "fs";
 import path from "path";
 
-import { Emitter } from "./Emitter";
-import { Template } from "./Template";
-import { RootNode } from "../documenter/api/RootNode";
-import { ApiNode, ApiNodeType } from "../documenter/api/ApiNode";
-import { VariableNode } from "../documenter/api/VariableNode";
-import { FunctionNode } from "../documenter/api/FunctionNode";
-import { buildVariableContext } from "./context/VariableContext";
-import { buildFunctionContext } from "./context/FunctionContext";
+import { Emitter } from "../Emitter";
+import { Template } from "../Template";
+import { RootNode } from "../../documenter/api/RootNode";
+import { ApiNode, ApiNodeType } from "../../documenter/api/ApiNode";
+import { VariableNode } from "../../documenter/api/VariableNode";
+import { FunctionNode } from "../../documenter/api/FunctionNode";
+
+import { buildMarkdownVariableContext } from "./MarkdownVariableContext";
+import { buildMarkdownFunctionContext } from "./MarkdownFunctionContext";
+import { PackageNode } from "../../documenter/api/PackageNode";
+import { buildMarkdownPackageContext } from "./MarkdownPackageContext";
 
 class MDEmitter extends Emitter {
 	public readonly format = "markdown";
@@ -23,9 +26,17 @@ class MDEmitter extends Emitter {
 		}
 
 		switch (item.type) {
+			case ApiNodeType.PackageNode: {
+				const packageItem = item as PackageNode;
+				const [context, template] = buildMarkdownPackageContext(packageItem);
+
+				const content = new Template(this.format, template).render(context);
+				this._toFile(content, packageItem.uri);
+				break;
+			}
 			case ApiNodeType.VariableNode: {
 				const variableItem = item as VariableNode;
-				const [context, template] = buildVariableContext(variableItem);
+				const [context, template] = buildMarkdownVariableContext(variableItem);
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, variableItem.uri);
@@ -34,7 +45,7 @@ class MDEmitter extends Emitter {
 			}
 			case ApiNodeType.FunctionNode: {
 				const functionItem = item as FunctionNode;
-				const [context, template] = buildFunctionContext(functionItem);
+				const [context, template] = buildMarkdownFunctionContext(functionItem);
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, functionItem.uri);
