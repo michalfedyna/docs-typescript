@@ -1,40 +1,47 @@
+import * as fs from "fs";
+import path from "path";
+
 import Handlebars, { TemplateDelegate } from "handlebars";
-import { ClassTemplate } from "../templates/markdown/class";
-import { ConstructorTemplate } from "../templates/markdown/constructor";
-import { PackageTemplate } from "../templates/markdown/package";
-import { DocsTemplate } from "../templates/markdown/docs";
+import { VariableContext, VariableTemplatePath } from "../templates/markdown/variable";
 
 const Templates = {
 	markdown: {
-		docs: DocsTemplate,
-		package: PackageTemplate,
-		class: ClassTemplate,
-		constructor: ConstructorTemplate
+		variable: VariableTemplatePath
 	}
 };
 
 type FormatKeys = keyof typeof Templates;
 type TemplateKeys<T extends FormatKeys> = keyof (typeof Templates)[T];
-type TemplateValues<T extends FormatKeys, U extends TemplateKeys<T>> = (typeof Templates)[T][U];
 
-class Template<T extends TemplateValues<U, V>, U extends FormatKeys, V extends TemplateKeys<U>> {
+class Template<T, U extends FormatKeys, V extends TemplateKeys<U>> {
+	protected _handlebars: typeof Handlebars = Handlebars;
+
 	constructor(
 		protected _format: U,
 		protected _template: V
 	) {
+		this._handlebars = Handlebars.create();
+
 		for (const template in Templates[this._format]) {
-			Handlebars.registerPartial(template, Templates[this._format][template] as TemplateDelegate);
+			const templateDelegate = this._loadTemplate(Templates[this._format][template] as string);
+			this._handlebars.registerPartial(template, templateDelegate);
 		}
 	}
 
-	// TODO: Fix typescript error of Parameters<T>[0]
-	// @ts-ignore
-	public render(context: Parameters<T>[0]): string {
-		const template = Templates[this._format][this._template] as TemplateDelegate<typeof context> | undefined;
-		if (!template) {
-			throw new Error(`Template not found: ${this._format}.${String(this._template)}`);
-		}
+	public render(context: T): string {
+		const template = this._loadTemplate<T>(Templates[this._format][this._template] as string);
 		return template(context);
+	}
+
+	protected _loadTemplate<T>(templatePath: string): TemplateDelegate<T> {
+		const filePath = path.resolve(__dirname, "../" + "templates/" + templatePath);
+
+		if (!fs.existsSync(filePath)) {
+			throw new Error(`Template not found: ${filePath}`);
+		}
+
+		const file = fs.readFileSync(filePath, "utf-8");
+		return this._handlebars.compile(file);
 	}
 }
 

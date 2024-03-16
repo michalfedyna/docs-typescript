@@ -4,7 +4,6 @@ import {
 	isClass,
 	isConstructor,
 	isConstructorSignature,
-	isEntryPoint,
 	isEnum,
 	isEnumMember,
 	isFunction,
@@ -24,7 +23,6 @@ import {
 } from "../utils/apiItemsMatchers";
 import { DocsAttributes } from "./docs/DocsAttributes";
 import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "../utils/docsNodesMatchers";
-import { Extractors } from "./api/Extractors";
 import { DocsConfig } from "../config/DocsConfig";
 import { Emitter } from "../emitters/Emitter";
 import { HTMLEmitter } from "../emitters/HTMLEmitter";
@@ -32,22 +30,25 @@ import { MDEmitter } from "../emitters/MDEmitter";
 import { MDXEmitter } from "../emitters/MDXEmitter";
 import { RootNode } from "./api/RootNode";
 import { ApiNode } from "./api/ApiNode";
-import { PackageNode } from "./api/PackageNode";
-import { NamespaceNode } from "./api/NamespaceNode";
-import { ClassNode } from "./api/ClassNode";
-import { ConstructorNode } from "./api/ConstructorNode";
-import { PropertyNode } from "./api/PropertyNode";
-import { MethodNode } from "./api/MethodNode";
-import { FunctionNode } from "./api/FunctionNode";
-import { VariableNode } from "./api/VariableNode";
-import { InterfaceNode } from "./api/InterfaceNode";
-import { ConstructorSignatureNode } from "./api/ConstructorSignatureNode";
-import { PropertySignatureNode } from "./api/PropertySignatureNode";
-import { MethodSignatureNode } from "./api/MethodSignatureNode";
-import { IndexSignatureNode } from "./api/IndexSignatureNode";
-import { TypeAliasNode } from "./api/TypeAliasNode";
-import { EnumNode } from "./api/EnumNode";
-import { EnumMemberNode } from "./api/EnumMemberNode";
+import { extractPackageAttributes, PackageNode } from "./api/PackageNode";
+import { extractNamespaceAttributes, NamespaceNode } from "./api/NamespaceNode";
+import { ClassNode, extractClassAttributes } from "./api/class/ClassNode";
+import { ConstructorNode, extractConstructorAttributes } from "./api/class/ConstructorNode";
+import { extractPropertyAttributes, PropertyNode } from "./api/class/PropertyNode";
+import { extractMethodAttributes, MethodNode } from "./api/class/MethodNode";
+import { extractFunctionAttributes, FunctionNode } from "./api/FunctionNode";
+import { extractVariableAttributes, VariableNode } from "./api/VariableNode";
+import { extractInterfaceAttributes, InterfaceNode } from "./api/interface/InterfaceNode";
+import {
+	ConstructorSignatureNode,
+	extractConstructorSignatureAttributes
+} from "./api/interface/ConstructorSignatureNode";
+import { extractPropertySignatureAttributes, PropertySignatureNode } from "./api/interface/PropertySignatureNode";
+import { extractMethodSignatureAttributes, MethodSignatureNode } from "./api/interface/MethodSignatureNode";
+import { extractIndexSignatureAttributes, IndexSignatureNode } from "./api/interface/IndexSignatureNode";
+import { extractTypeAliasAttributes, TypeAliasNode } from "./api/TypeAliasNode";
+import { EnumNode, extractEnumAttributes } from "./api/enum/EnumNode";
+import { EnumMemberNode, extractEnumMemberAttributes } from "./api/enum/EnumMemberNode";
 import { DocNode } from "./docs/DocNode";
 import { RootDocNode } from "./docs/RootDocNode";
 import { PlainTextDocNode } from "./docs/PlainTextDocNode";
@@ -182,13 +183,12 @@ class Documenter {
 		}
 
 		if (isPackage(apiItem)) {
-			const attributes = Extractors.apiPackage(apiItem);
+			const attributes = extractPackageAttributes(apiItem);
 			const packageNode = new PackageNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(packageNode);
 		} else if (isNamespace(apiItem)) {
-			// TODO: Move extractor to node method
-			const attributes = Extractors.apiNamespace(apiItem);
+			const attributes = extractNamespaceAttributes(apiItem);
 			const namespaceNode = new NamespaceNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(namespaceNode);
@@ -199,72 +199,72 @@ class Documenter {
 		} else if (isProps(apiItem)) {
 			// TODO: Implement
 		} else if (isClass(apiItem)) {
-			const attributes = Extractors.apiClass(apiItem);
+			const attributes = extractClassAttributes(apiItem);
 			const classNode = new ClassNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(classNode);
 		} else if (isConstructor(apiItem)) {
-			const attributes = Extractors.apiConstructor(apiItem);
+			const attributes = extractConstructorAttributes(apiItem);
 			const constructorNode = new ConstructorNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(constructorNode);
 		} else if (isProperty(apiItem)) {
-			const attributes = Extractors.apiProperty(apiItem);
+			const attributes = extractPropertyAttributes(apiItem);
 			const propertyNode = new PropertyNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(propertyNode);
 		} else if (isMethod(apiItem)) {
-			const attributes = Extractors.apiMethod(apiItem);
+			const attributes = extractMethodAttributes(apiItem);
 			const methodNode = new MethodNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(methodNode);
 		} else if (isFunction(apiItem)) {
-			const attributes = Extractors.apiFunction(apiItem);
+			const attributes = extractFunctionAttributes(apiItem);
 			const functionNode = new FunctionNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(functionNode);
 		} else if (isVariable(apiItem)) {
-			const attributes = Extractors.apiVariable(apiItem);
-
+			const attributes = extractVariableAttributes(apiItem);
 			const variableNode = new VariableNode({ attributes, docs, name: attributes.name });
+
 			child = parent.addChild(variableNode);
 		} else if (isInterface(apiItem)) {
-			const attributes = Extractors.apiInterface(apiItem);
+			const attributes = extractInterfaceAttributes(apiItem);
 			const interfaceNode = new InterfaceNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(interfaceNode);
 		} else if (isConstructorSignature(apiItem)) {
-			const attributes = Extractors.apiConstructorSignature(apiItem);
+			const attributes = extractConstructorSignatureAttributes(apiItem);
 			const constructorSignatureNode = new ConstructorSignatureNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(constructorSignatureNode);
 		} else if (isPropertySignature(apiItem)) {
-			const attributes = Extractors.apiPropertySignature(apiItem);
+			const attributes = extractPropertySignatureAttributes(apiItem);
 			const propertySignatureNode = new PropertySignatureNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(propertySignatureNode);
 		} else if (isMethodSignature(apiItem)) {
-			const attributes = Extractors.apiMethodSignature(apiItem);
+			const attributes = extractMethodSignatureAttributes(apiItem);
 			const methodSignatureNode = new MethodSignatureNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(methodSignatureNode);
 		} else if (isIndexSignature(apiItem)) {
-			const attributes = Extractors.apiIndexSignature(apiItem);
+			const attributes = extractIndexSignatureAttributes(apiItem);
 			const indexSignatureNode = new IndexSignatureNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(indexSignatureNode);
 		} else if (isTypeAlias(apiItem)) {
-			const attributes = Extractors.apiTypeAlias(apiItem);
+			const attributes = extractTypeAliasAttributes(apiItem);
 			const typeAliasNode = new TypeAliasNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(typeAliasNode);
 		} else if (isEnum(apiItem)) {
-			const attributes = Extractors.apiEnum(apiItem);
+			const attributes = extractEnumAttributes(apiItem);
 			const enumNode = new EnumNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(enumNode);
 		} else if (isEnumMember(apiItem)) {
-			const attributes = Extractors.apiEnumMember(apiItem);
+			const attributes = extractEnumMemberAttributes(apiItem);
 			const enumMemberNode = new EnumMemberNode({ attributes, docs, name: attributes.name });
 
 			child = parent.addChild(enumMemberNode);

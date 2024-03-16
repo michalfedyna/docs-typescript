@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
 import { DocsAttributes } from "../../documenter/docs/DocsAttributes";
-import { ClassAttributes } from "../../documenter/api/ClassNode";
+import { ClassAttributes } from "../../documenter/api/class/ClassNode";
 
 interface ClassContext {
 	attributes: ClassAttributes;

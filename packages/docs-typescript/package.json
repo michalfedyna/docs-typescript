@@ -7,8 +7,8 @@
 		"docs-typescript": "./lib/bin.js"
 	},
 	"scripts": {
-		"copy-templates": "cp -r ./src/templates ./lib",
-		"build": "tsc -b && npm run copy-templates",
+		"copy-templates": "cp -r ./src/templates/markdown/handlebars ./lib/templates/markdown",
+		"build": "rm -rf ./lib ./types && tsc -b && npm run copy-templates",
 		"clean": "rm -rf ./lib ./types node_modules",
 		"test": "jest --verbose"
 	},

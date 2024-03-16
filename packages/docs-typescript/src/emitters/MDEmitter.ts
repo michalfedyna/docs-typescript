@@ -3,15 +3,10 @@ import path from "path";
 
 import { Emitter } from "./Emitter";
 import { Template } from "./Template";
-import { ClassContext } from "../templates/markdown/class";
-import { ConstructorContext } from "../templates/markdown/constructor";
-import { PackageContext } from "../templates/markdown/package";
 import { RootNode } from "../documenter/api/RootNode";
 import { ApiNode, ApiNodeType } from "../documenter/api/ApiNode";
-import { PackageNode } from "../documenter/api/PackageNode";
-import { NamespaceNode } from "../documenter/api/NamespaceNode";
-import { ClassNode } from "../documenter/api/ClassNode";
-import { ConstructorNode } from "../documenter/api/ConstructorNode";
+import { VariableNode } from "../documenter/api/VariableNode";
+import { VariableContext } from "../templates/markdown/variable";
 
 class MDEmitter extends Emitter {
 	emit(item: RootNode): void {
@@ -24,46 +19,61 @@ class MDEmitter extends Emitter {
 		}
 
 		switch (item.type) {
-			case ApiNodeType.PackageNode: {
-				const packageItem = item as PackageNode;
-				const context: PackageContext = {};
-
-				const content = new Template("markdown", "package").render(context);
-				this._toFile(content, packageItem.uri);
-
-				break;
-			}
-			case ApiNodeType.NamespaceNode: {
-				const namespaceItem = item as NamespaceNode;
-
-				break;
-			}
-			case ApiNodeType.ClassNode: {
-				const classItem = item as ClassNode;
-
-				const context: ClassContext = {
-					attributes: classItem.value.attributes,
+			case ApiNodeType.VariableNode: {
+				const variableItem = item as VariableNode;
+				const context: VariableContext = {
+					attributes: variableItem.value.attributes,
 					docs: {}
 				};
 
-				const content = new Template("markdown", "class").render(context);
-				this._toFile(content, classItem.uri);
+				const content = new Template("markdown", "variable").render(context);
+				this._toFile(content, variableItem.uri);
 
 				break;
 			}
-			case ApiNodeType.ConstructorNode: {
-				const constructorItem = item as ConstructorNode;
-
-				const context: ConstructorContext = {
-					attributes: constructorItem.value.attributes,
-					docs: {}
-				};
-
-				const content = new Template("markdown", "constructor").render(context);
-				this._toFile(content, constructorItem.uri);
-
+			case ApiNodeType.FunctionNode: {
 				break;
 			}
+			// case ApiNodeType.PackageNode: {
+			// 	const packageItem = item as PackageNode;
+			// 	const context: PackageContext = {};
+			//
+			// 	const content = new Template("markdown", "package").render(context);
+			// 	this._toFile(content, packageItem.uri);
+			//
+			// 	break;
+			// }
+			// case ApiNodeType.NamespaceNode: {
+			// 	const namespaceItem = item as NamespaceNode;
+			//
+			// 	break;
+			// }
+			// case ApiNodeType.ClassNode: {
+			// 	const classItem = item as ClassNode;
+			//
+			// 	const context: ClassContext = {
+			// 		attributes: classItem.value.attributes,
+			// 		docs: {}
+			// 	};
+			//
+			// 	const content = new Template("markdown", "class").render(context);
+			// 	this._toFile(content, classItem.uri);
+			//
+			// 	break;
+			// }
+			// case ApiNodeType.ConstructorNode: {
+			// 	const constructorItem = item as ConstructorNode;
+			//
+			// 	const context: ConstructorContext = {
+			// 		attributes: constructorItem.value.attributes,
+			// 		docs: {}
+			// 	};
+			//
+			// 	const content = new Template("markdown", "constructor").render(context);
+			// 	this._toFile(content, constructorItem.uri);
+			//
+			// 	break;
+			// }
 		}
 	}
 

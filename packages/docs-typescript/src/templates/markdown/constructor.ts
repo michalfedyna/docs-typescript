@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
 import { DocsAttributes } from "../../documenter/docs/DocsAttributes";
-import { ConstructorAttributes } from "../../documenter/api/ConstructorNode";
+import { ConstructorAttributes } from "../../documenter/api/class/ConstructorNode";
 
 interface ConstructorContext {
 	attributes: ConstructorAttributes;
