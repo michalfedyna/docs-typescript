@@ -6,7 +6,6 @@ import { Template } from "./Template";
 import { RootNode } from "../documenter/api/RootNode";
 import { ApiNode, ApiNodeType } from "../documenter/api/ApiNode";
 import { VariableNode } from "../documenter/api/VariableNode";
-import { VariableContext } from "../templates/markdown/variable";
 
 class MDEmitter extends Emitter {
 	emit(item: RootNode): void {
@@ -21,7 +20,7 @@ class MDEmitter extends Emitter {
 		switch (item.type) {
 			case ApiNodeType.VariableNode: {
 				const variableItem = item as VariableNode;
-				const context: VariableContext = {
+				const context = {
 					attributes: variableItem.value.attributes,
 					docs: {}
 				};
