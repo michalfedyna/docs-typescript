@@ -42,7 +42,8 @@ function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes
 		default: typeParameter.defaultTypeExcerpt.text
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiFunction.releaseTag);
-	const signature = apiFunction.excerpt.text;
+
+	const signature = createSignature(apiFunction);
 
 	return {
 		fileUrlPath,
@@ -55,6 +56,15 @@ function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes
 		signature,
 		typeParameters
 	};
+}
+
+function createSignature(apiFunction: ApiFunction): string {
+	const name = apiFunction.displayName;
+	const parameters = apiFunction.parameters
+		.map((parameter) => `${parameter.name}${parameter.isOptional ? "?" : ""}: ${parameter.parameterTypeExcerpt.text}`)
+		.join(", ");
+
+	return `function ${name}(${parameters}): ${apiFunction.returnTypeExcerpt.text} {}`;
 }
 
 export { FunctionNode, FunctionAttributes, extractFunctionAttributes };

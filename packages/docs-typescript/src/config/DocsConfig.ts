@@ -1,10 +1,10 @@
 interface Config {
 	apiJsonPath: string;
-	rootPath?: string;
-	outputFormat?: "markdown" | "mdx" | "html";
-	outputPath?: string;
-	singlePage?: boolean;
-	framework?: "react" | false;
+	rootPath: string;
+	outputFormat: "markdown" | "mdx" | "html";
+	outputPath: string;
+	singlePage: boolean;
+	framework: "react" | false;
 }
 
 class DocsConfig implements Config {

@@ -6,8 +6,13 @@ import { Template } from "./Template";
 import { RootNode } from "../documenter/api/RootNode";
 import { ApiNode, ApiNodeType } from "../documenter/api/ApiNode";
 import { VariableNode } from "../documenter/api/VariableNode";
+import { FunctionNode } from "../documenter/api/FunctionNode";
+import { buildVariableContext } from "./context/VariableContext";
+import { buildFunctionContext } from "./context/FunctionContext";
 
 class MDEmitter extends Emitter {
+	public readonly format = "markdown";
+
 	emit(item: RootNode): void {
 		this._emitPage(item);
 	}
@@ -20,17 +25,19 @@ class MDEmitter extends Emitter {
 		switch (item.type) {
 			case ApiNodeType.VariableNode: {
 				const variableItem = item as VariableNode;
-				const context = {
-					attributes: variableItem.value.attributes,
-					docs: {}
-				};
+				const [context, template] = buildVariableContext(variableItem);
 
-				const content = new Template("markdown", "variable").render(context);
+				const content = new Template(this.format, template).render(context);
 				this._toFile(content, variableItem.uri);
 
 				break;
 			}
 			case ApiNodeType.FunctionNode: {
+				const functionItem = item as FunctionNode;
+				const [context, template] = buildFunctionContext(functionItem);
+
+				const content = new Template(this.format, template).render(context);
+				this._toFile(content, functionItem.uri);
 				break;
 			}
 			// case ApiNodeType.PackageNode: {

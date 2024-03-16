@@ -1,5 +1,6 @@
 import { DocsAttributes } from "../docs/DocsAttributes";
 import { DocNode } from "../docs/DocNode";
+import { RootNode } from "./RootNode";
 
 enum ApiNodeType {
 	ApiNode = "ApiNode",
@@ -45,6 +46,14 @@ class ApiNode<T = unknown> {
 		child.parent = this;
 		child.uri = this._createURI(child.value.name, this);
 		return this.children[index - 1] as K;
+	}
+
+	public getRoot(): ApiNode {
+		let node: ApiNode = this;
+		while (node.parent) {
+			node = node.parent;
+		}
+		return node;
 	}
 
 	public toObject(): object {

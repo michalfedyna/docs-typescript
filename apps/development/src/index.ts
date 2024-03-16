@@ -3,5 +3,6 @@
  * @packageDocumentation
  */
 
-export * from "./variables";
 export * from "./class";
+export * from "./variable";
+export * from "./function";

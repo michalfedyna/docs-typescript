@@ -3,33 +3,32 @@ import path from "path";
 
 import Handlebars, { TemplateDelegate } from "handlebars";
 import { DocsAttributes } from "../documenter/docs/DocsAttributes";
-import { VariableAttributes } from "../documenter/api/VariableNode";
-import { FunctionAttributes } from "../documenter/api/FunctionNode";
-
-interface ApiContext<T> {
-	attributes: T;
-	docs: DocsAttributes;
-}
+import { VariableContext } from "./context/VariableContext";
+import { FunctionContext } from "./context/FunctionContext";
 
 type Formats = "markdown";
 
-type ApiNodes = "variable" | "function";
+type HandlebarsTemplates = "docs" | "variable" | "function";
 
-type Templates = {
+type HandlebarsContext<T> = [T, HandlebarsTemplates];
+
+type Templates<T = unknown> = {
 	[K in Formats]: {
-		[K in ApiNodes]: string | ApiContext<any>;
+		[K in HandlebarsTemplates]: T;
 	};
 };
 
 interface Contexts extends Templates {
 	markdown: {
-		variable: ApiContext<VariableAttributes>;
-		function: ApiContext<FunctionAttributes>;
+		docs: DocsAttributes;
+		variable: VariableContext;
+		function: FunctionContext;
 	};
 }
 
-const TemplatesPath: Templates = {
+const TemplatesPath: Templates<string> = {
 	markdown: {
+		docs: "markdown/docs.hbs",
 		variable: "markdown/variable.hbs",
 		function: "markdown/function.hbs"
 	}
@@ -38,7 +37,7 @@ const TemplatesPath: Templates = {
 type FormatKeys = keyof Templates;
 type TemplateKeys<T extends FormatKeys> = keyof Templates[T];
 
-type TemplatesPath<T extends FormatKeys, U extends TemplateKeys<T>> = Templates[T][U];
+type TemplatesPath<T extends FormatKeys, U extends TemplateKeys<T>> = Templates<string>[T][U];
 type ContextsValues<T extends FormatKeys, U extends TemplateKeys<T>> = Contexts[T][U];
 
 class Template<
@@ -47,22 +46,22 @@ class Template<
 	U extends FormatKeys,
 	V extends TemplateKeys<U>
 > {
-	protected _handlebars: typeof Handlebars = Handlebars;
+	public handlebars: typeof Handlebars = Handlebars;
 
 	constructor(
-		protected _format: U,
-		protected _template: V
+		public format: U,
+		public template: V
 	) {
-		this._handlebars = Handlebars.create();
+		this.handlebars = Handlebars.create();
 
-		for (const template in TemplatesPath[this._format]) {
-			const templateDelegate = this._loadTemplate(TemplatesPath[this._format][template] as T);
-			this._handlebars.registerPartial(template, templateDelegate);
+		for (const template in TemplatesPath[this.format]) {
+			const templateDelegate = this._loadTemplate(TemplatesPath[this.format][template] as T);
+			this.handlebars.registerPartial(template, templateDelegate);
 		}
 	}
 
 	public render(context: K): string {
-		const template = this._loadTemplate(TemplatesPath[this._format][this._template] as T);
+		const template = this._loadTemplate(TemplatesPath[this.format][this.template] as T);
 		return template(context);
 	}
 
@@ -74,8 +73,8 @@ class Template<
 		}
 
 		const file = fs.readFileSync(filePath, "utf-8");
-		return this._handlebars.compile(file);
+		return this.handlebars.compile(file);
 	}
 }
 
-export { Template };
+export { Template, HandlebarsContext };
