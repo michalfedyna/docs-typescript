@@ -7,8 +7,9 @@ import { MarkdownVariableContext } from "./markdown/MarkdownVariableContext";
 import { MarkdownFunctionContext } from "./markdown/MarkdownFunctionContext";
 import { MarkdownPackageContext } from "./markdown/MarkdownPackageContext";
 import { MarkdownMembersContext } from "./markdown/MarkdownMembersContext";
+import { MarkdownNamespaceContext } from "./markdown/MarkdownNamespaceContext";
 
-type HandlebarsMarkdownTemplates = "docs" | "members" | "package" | "variable" | "function";
+type HandlebarsMarkdownTemplates = "docs" | "members" | "package" | "namespace" | "variable" | "function";
 
 type HandlebarsMarkdownContext<T> = [T, HandlebarsMarkdownTemplates];
 
@@ -25,6 +26,7 @@ interface Contexts extends Templates {
 		members: MarkdownMembersContext;
 		// API
 		package: MarkdownPackageContext;
+		namespace: MarkdownNamespaceContext;
 		variable: MarkdownVariableContext;
 		function: MarkdownFunctionContext;
 	};
@@ -35,6 +37,7 @@ const TemplatesPath: Templates<string> = {
 		docs: "markdown/docs.hbs",
 		members: "markdown/members.hbs",
 		package: "markdown/package.hbs",
+		namespace: "markdown/namespace.hbs",
 		variable: "markdown/variable.hbs",
 		function: "markdown/function.hbs"
 	}

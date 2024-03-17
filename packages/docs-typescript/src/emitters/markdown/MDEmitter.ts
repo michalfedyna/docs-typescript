@@ -12,6 +12,8 @@ import { buildMarkdownVariableContext } from "./MarkdownVariableContext";
 import { buildMarkdownFunctionContext } from "./MarkdownFunctionContext";
 import { PackageNode } from "../../documenter/api/PackageNode";
 import { buildMarkdownPackageContext } from "./MarkdownPackageContext";
+import { NamespaceNode } from "../../documenter/api/NamespaceNode";
+import { buildMarkdownNamespaceContext } from "./MarkdownNamespaceContext";
 
 class MDEmitter extends Emitter {
 	public readonly format = "markdown";
@@ -32,6 +34,14 @@ class MDEmitter extends Emitter {
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, packageItem.uri);
+				break;
+			}
+			case ApiNodeType.NamespaceNode: {
+				const namespaceItem = item as NamespaceNode;
+				const [context, template] = buildMarkdownNamespaceContext(namespaceItem);
+
+				const content = new Template(this.format, template).render(context);
+				this._toFile(content, namespaceItem.uri);
 				break;
 			}
 			case ApiNodeType.VariableNode: {

@@ -10,6 +10,7 @@ interface Members {
 interface MarkdownPackageContext {
 	name: string;
 	members: Members;
+	summary?: string;
 }
 
 function buildMarkdownPackageContext(packageNode: PackageNode): HandlebarsMarkdownContext<MarkdownPackageContext> {
