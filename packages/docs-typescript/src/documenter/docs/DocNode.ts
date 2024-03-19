@@ -2,7 +2,11 @@ enum DocNodeType {
 	DocNode = "DocNode",
 	RootDocNode = "RootDocNode",
 	PlainTextDocNode = "PlainTextDocNode",
-	ParagraphDocNode = "ParagraphDocNode"
+	ParagraphDocNode = "ParagraphDocNode",
+	SoftBreakDocNode = "SoftBreakDocNode",
+	LinkTagDocNode = "LinkTagDocNode",
+	CodeSpanDocNode = "CodeSpanDocNode",
+	FancedCodeDocNode = "FancedCodeDocNode"
 }
 
 interface DocNodeValue<T> {
@@ -24,6 +28,13 @@ class DocNode<T = unknown> {
 		const index = this.children.push(child);
 		child.parent = this;
 		return this.children[index - 1] as K;
+	}
+
+	public forEach(callback: (node: DocNode) => void): void {
+		callback(this);
+		for (const child of this.children) {
+			child.forEach(callback);
+		}
 	}
 
 	public toObject(): object {

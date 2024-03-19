@@ -1,3 +1,8 @@
 {{#each members}}
-- [{{this.name}}](.{{this.url}}.md)
+#### [{{this.name}}](.{{this.url}}.md)
+{{#if this.signature}}
+```typescript
+{{{this.signature}}}
+```
+{{/if}}
 {{/each}}

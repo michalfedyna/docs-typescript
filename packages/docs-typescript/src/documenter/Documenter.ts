@@ -53,6 +53,9 @@ import { DocNode } from "./docs/DocNode";
 import { RootDocNode } from "./docs/RootDocNode";
 import { PlainTextDocNode } from "./docs/PlainTextDocNode";
 import { ParagraphDocNode } from "./docs/ParagraphDocNode";
+import { SoftBreakDocNode } from "./docs/SoftBreakDocNode";
+import { CodeSpanDocNode } from "./docs/CodeSpanDocNode";
+import { FancedCodeDocNode } from "./docs/FancedCodeDocNode";
 
 class Documenter {
 	public readonly apiModel: ApiModel;
@@ -84,7 +87,7 @@ class Documenter {
 
 	public emit(): void {
 		this._buildHierarchy();
-		//console.log(JSON.stringify(this.apiTree.toObject(), null, 2));
+		console.log(JSON.stringify(this.apiTree.toObject(), null, 2));
 		this.emitter.emit(this.apiTree);
 	}
 
@@ -95,6 +98,10 @@ class Documenter {
 	private _traverseApiItems(apiItem: ApiItem, parent: ApiNode): void {
 		let child: ApiNode | undefined;
 		let docs: DocsAttributes = {};
+
+		console.log("---");
+		console.log(apiItem.kind, apiItem.displayName);
+		console.log("---");
 
 		if (apiItem instanceof ApiDocumentedItem && apiItem.tsdocComment) {
 			const {
@@ -275,10 +282,12 @@ class Documenter {
 		}
 	}
 
-	private _traverseDocNodes(apiDocNode?: ApiDocNode, parent?: DocNode): RootDocNode | undefined {
+	private _traverseDocNodes(apiDocNode?: ApiDocNode, parent?: DocNode, level: number = 0): RootDocNode | undefined {
 		if (!apiDocNode) return;
 
 		if (!parent) parent = new RootDocNode();
+
+		console.log("---".repeat(level), apiDocNode.kind);
 
 		let child: DocNode | undefined;
 
@@ -286,19 +295,30 @@ class Documenter {
 			const attributes = { text: apiDocNode.text };
 			const plainTextNode = new PlainTextDocNode({ attributes: attributes });
 
-			child = parent.addChild(plainTextNode);
+			parent.addChild(plainTextNode);
 		} else if (isParagraph(apiDocNode)) {
 			const paragraphNode = new ParagraphDocNode({ attributes: {} });
 
 			child = parent.addChild(paragraphNode);
 		} else if (isSoftBreak(apiDocNode)) {
+			const softBreakNode = new SoftBreakDocNode({ attributes: {} });
+
+			parent.addChild(softBreakNode);
 		} else if (isLinkTag(apiDocNode)) {
 		} else if (isCodeSpan(apiDocNode)) {
+			const attributes = { code: apiDocNode.code };
+			const codeSpanDocNode = new CodeSpanDocNode({ attributes });
+
+			parent.addChild(codeSpanDocNode);
 		} else if (isFencedCode(apiDocNode)) {
+			const attributes = { code: apiDocNode.code };
+			const fancedCodeDocNode = new FancedCodeDocNode({ attributes });
+
+			parent.addChild(fancedCodeDocNode);
 		}
 
 		for (const member of apiDocNode.getChildNodes()) {
-			this._traverseDocNodes(member, child || parent);
+			this._traverseDocNodes(member, child || parent, level++);
 		}
 
 		return child || parent;

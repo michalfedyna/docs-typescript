@@ -7,8 +7,8 @@ With support for different frameworks. Alternative to [api-documenter](https://w
 
 - [ ] Markdown support
 - [ ] Docusaurus (MDX) support
-- [ ] HTML support
 - [ ] Project website
+- [ ] HTML support
 - [ ] Create and use api-extractor alternative in form of [extractor-typescript](https://github.com/michalfedyna/extractor-typescript)
 
 ## Examples

@@ -1,5 +1,12 @@
+interface Member {
+	name: string;
+	url: string;
+	signature?: string;
+	summary?: string;
+}
+
 interface MarkdownMembersContext {
-	members: { name: string; url: string }[];
+	[key: string]: { name: string; members: Member[] };
 }
 
 export { MarkdownMembersContext };

@@ -1,10 +1,10 @@
 .idea
 node_modules
+.DS_Store
 lib
 types
 coverage
 declarations
-apps/development/docs
 apps/development/tsconfig.docs.json
 apps/development/tsdoc.json
 apps/development/docs.config.json

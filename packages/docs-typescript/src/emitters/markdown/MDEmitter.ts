@@ -5,14 +5,16 @@ import { Emitter } from "../Emitter";
 import { Template } from "../Template";
 import { RootNode } from "../../documenter/api/RootNode";
 import { ApiNode, ApiNodeType } from "../../documenter/api/ApiNode";
+
 import { VariableNode } from "../../documenter/api/VariableNode";
 import { FunctionNode } from "../../documenter/api/FunctionNode";
+import { ClassNode } from "../../documenter/api/class/ClassNode";
+import { PackageNode } from "../../documenter/api/PackageNode";
+import { NamespaceNode } from "../../documenter/api/NamespaceNode";
 
 import { buildMarkdownVariableContext } from "./MarkdownVariableContext";
 import { buildMarkdownFunctionContext } from "./MarkdownFunctionContext";
-import { PackageNode } from "../../documenter/api/PackageNode";
 import { buildMarkdownPackageContext } from "./MarkdownPackageContext";
-import { NamespaceNode } from "../../documenter/api/NamespaceNode";
 import { buildMarkdownNamespaceContext } from "./MarkdownNamespaceContext";
 
 class MDEmitter extends Emitter {
@@ -44,6 +46,11 @@ class MDEmitter extends Emitter {
 				this._toFile(content, namespaceItem.uri);
 				break;
 			}
+			case ApiNodeType.ClassNode: {
+				const classItem = item as ClassNode;
+
+				break;
+			}
 			case ApiNodeType.VariableNode: {
 				const variableItem = item as VariableNode;
 				const [context, template] = buildMarkdownVariableContext(variableItem);
@@ -61,46 +68,6 @@ class MDEmitter extends Emitter {
 				this._toFile(content, functionItem.uri);
 				break;
 			}
-			// case ApiNodeType.PackageNode: {
-			// 	const packageItem = item as PackageNode;
-			// 	const context: PackageContext = {};
-			//
-			// 	const content = new Template("markdown", "package").render(context);
-			// 	this._toFile(content, packageItem.uri);
-			//
-			// 	break;
-			// }
-			// case ApiNodeType.NamespaceNode: {
-			// 	const namespaceItem = item as NamespaceNode;
-			//
-			// 	break;
-			// }
-			// case ApiNodeType.ClassNode: {
-			// 	const classItem = item as ClassNode;
-			//
-			// 	const context: ClassContext = {
-			// 		attributes: classItem.value.attributes,
-			// 		docs: {}
-			// 	};
-			//
-			// 	const content = new Template("markdown", "class").render(context);
-			// 	this._toFile(content, classItem.uri);
-			//
-			// 	break;
-			// }
-			// case ApiNodeType.ConstructorNode: {
-			// 	const constructorItem = item as ConstructorNode;
-			//
-			// 	const context: ConstructorContext = {
-			// 		attributes: constructorItem.value.attributes,
-			// 		docs: {}
-			// 	};
-			//
-			// 	const content = new Template("markdown", "constructor").render(context);
-			// 	this._toFile(content, constructorItem.uri);
-			//
-			// 	break;
-			// }
 		}
 	}
 

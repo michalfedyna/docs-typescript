@@ -1,12 +1,17 @@
 import { DocsAttributes } from "../../documenter/docs/DocsAttributes";
 
 interface MarkdownDocsContext {
-	docs: DocsAttributes;
+	summary: string[];
+	remarks: string[];
 }
 
 function buildMarkdownDocsContext(docs: DocsAttributes): MarkdownDocsContext {
+	const summary: string[] = [];
+	const remarks: string[] = [];
+
 	return {
-		docs
+		summary,
+		remarks
 	};
 }
 

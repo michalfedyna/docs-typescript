@@ -20,6 +20,19 @@ class SomeClass extends SomeAbstractClass {
   }
 }
 
+class AnotherClass {
+  public hello: string = "Hello";
+  public world: string = "World";
+
+  constructor(hello: string) {
+    this.hello = hello;
+  }
+}
+
+class YetAnotherClass {
+  constructor(public hello: string = "World") {}
+}
+
 /**
  * BaseClass exported from class.ts
  *
@@ -75,6 +88,8 @@ class TypeParameterClass<T extends unknown = unknown, K extends any = any>
 }
 
 export {
+  AnotherClass,
+  YetAnotherClass,
   SomeAbstractClass,
   SomeClass,
   BaseClass,

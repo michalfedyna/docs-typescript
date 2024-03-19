@@ -1,6 +1,22 @@
 import { DocsAttributes } from "../docs/DocsAttributes";
 import { DocNode } from "../docs/DocNode";
 import { RootNode } from "./RootNode";
+import { PackageNode } from "./PackageNode";
+import { NamespaceNode } from "./NamespaceNode";
+import { ClassNode } from "./class/ClassNode";
+import { ConstructorNode } from "./class/ConstructorNode";
+import { PropertyNode } from "./class/PropertyNode";
+import { MethodNode } from "./class/MethodNode";
+import { FunctionNode } from "./FunctionNode";
+import { VariableNode } from "./VariableNode";
+import { InterfaceNode } from "./interface/InterfaceNode";
+import { ConstructorSignatureNode } from "./interface/ConstructorSignatureNode";
+import { PropertySignatureNode } from "./interface/PropertySignatureNode";
+import { MethodSignatureNode } from "./interface/MethodSignatureNode";
+import { IndexSignatureNode } from "./interface/IndexSignatureNode";
+import { TypeAliasNode } from "./TypeAliasNode";
+import { EnumNode } from "./enum/EnumNode";
+import { EnumMemberNode } from "./enum/EnumMemberNode";
 
 enum ApiNodeType {
 	ApiNode = "ApiNode",
@@ -22,6 +38,27 @@ enum ApiNodeType {
 	EnumNode = "EnumNode",
 	EnumMemberNode = "EnumMemberNode"
 }
+
+type CallbackArray = {
+	[ApiNodeType.ApiNode]?: (node: ApiNode) => void;
+	[ApiNodeType.RootNode]?: (node: RootNode) => void;
+	[ApiNodeType.PackageNode]?: (node: PackageNode) => void;
+	[ApiNodeType.NamespaceNode]?: (node: NamespaceNode) => void;
+	[ApiNodeType.ClassNode]?: (node: ClassNode) => void;
+	[ApiNodeType.ConstructorNode]?: (node: ConstructorNode) => void;
+	[ApiNodeType.PropertyNode]?: (node: PropertyNode) => void;
+	[ApiNodeType.MethodNode]?: (node: MethodNode) => void;
+	[ApiNodeType.FunctionNode]?: (node: FunctionNode) => void;
+	[ApiNodeType.VariableNode]?: (node: VariableNode) => void;
+	[ApiNodeType.InterfaceNode]?: (node: InterfaceNode) => void;
+	[ApiNodeType.ConstructorSignatureNode]?: (node: ConstructorSignatureNode) => void;
+	[ApiNodeType.PropertySignatureNode]?: (node: PropertySignatureNode) => void;
+	[ApiNodeType.MethodSignatureNode]?: (node: MethodSignatureNode) => void;
+	[ApiNodeType.IndexSignatureNode]?: (node: IndexSignatureNode) => void;
+	[ApiNodeType.TypeAliasNode]?: (node: TypeAliasNode) => void;
+	[ApiNodeType.EnumNode]?: (node: EnumNode) => void;
+	[ApiNodeType.EnumMemberNode]?: (node: EnumMemberNode) => void;
+};
 
 interface ApiNodeValue<T> {
 	name: string;
@@ -56,8 +93,68 @@ class ApiNode<T = unknown> {
 		return node;
 	}
 
-	public forEach(callback: (node: ApiNode) => void): void {
-		callback(this);
+	public forEach(callback: ((node: ApiNode) => void) | CallbackArray): void {
+		if (typeof callback === "function") {
+			callback(this);
+		} else {
+			switch (this.type) {
+				case ApiNodeType.ApiNode:
+					callback[ApiNodeType.ApiNode]?.(this);
+					break;
+				case ApiNodeType.RootNode:
+					callback[ApiNodeType.RootNode]?.(this as RootNode);
+					break;
+				case ApiNodeType.PackageNode:
+					callback[ApiNodeType.PackageNode]?.(this as PackageNode);
+					break;
+				case ApiNodeType.NamespaceNode:
+					callback[ApiNodeType.NamespaceNode]?.(this as NamespaceNode);
+					break;
+				case ApiNodeType.ClassNode:
+					callback[ApiNodeType.ClassNode]?.(this as ClassNode);
+					break;
+				case ApiNodeType.ConstructorNode:
+					callback[ApiNodeType.ConstructorNode]?.(this as ConstructorNode);
+					break;
+				case ApiNodeType.PropertyNode:
+					callback[ApiNodeType.PropertyNode]?.(this as PropertyNode);
+					break;
+				case ApiNodeType.MethodNode:
+					callback[ApiNodeType.MethodNode]?.(this as MethodNode);
+					break;
+				case ApiNodeType.FunctionNode:
+					callback[ApiNodeType.FunctionNode]?.(this as FunctionNode);
+					break;
+				case ApiNodeType.VariableNode:
+					callback[ApiNodeType.VariableNode]?.(this as VariableNode);
+					break;
+				case ApiNodeType.InterfaceNode:
+					callback[ApiNodeType.InterfaceNode]?.(this as InterfaceNode);
+					break;
+				case ApiNodeType.ConstructorSignatureNode:
+					callback[ApiNodeType.ConstructorSignatureNode]?.(this as ConstructorSignatureNode);
+					break;
+				case ApiNodeType.PropertySignatureNode:
+					callback[ApiNodeType.PropertySignatureNode]?.(this as PropertySignatureNode);
+					break;
+				case ApiNodeType.MethodSignatureNode:
+					callback[ApiNodeType.MethodSignatureNode]?.(this as MethodSignatureNode);
+					break;
+				case ApiNodeType.IndexSignatureNode:
+					callback[ApiNodeType.IndexSignatureNode]?.(this as IndexSignatureNode);
+					break;
+				case ApiNodeType.TypeAliasNode:
+					callback[ApiNodeType.TypeAliasNode]?.(this as TypeAliasNode);
+					break;
+				case ApiNodeType.EnumNode:
+					callback[ApiNodeType.EnumNode]?.(this as EnumNode);
+					break;
+				case ApiNodeType.EnumMemberNode:
+					callback[ApiNodeType.EnumMemberNode]?.(this as EnumMemberNode);
+					break;
+			}
+		}
+
 		for (const child of this.children) {
 			child.forEach(callback);
 		}

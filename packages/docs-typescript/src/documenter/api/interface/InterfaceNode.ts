@@ -18,6 +18,7 @@ function extractInterfaceAttributes(apiInterface: ApiInterface): InterfaceAttrib
 	}));
 	const extendsTypes = apiInterface.extendsTypes.map((extendsType) => extendsType.excerpt.text);
 	const releaseTag = ApiReleaseTag.getTagName(apiInterface.releaseTag);
+
 	const signature = apiInterface.excerpt.text;
 
 	return { name: displayName, fileUrlPath, extendsTypes, isExported, signature, releaseTag, typeParameters };
