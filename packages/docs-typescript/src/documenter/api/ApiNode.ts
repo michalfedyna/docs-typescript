@@ -1,5 +1,6 @@
 import { DocsAttributes } from "../docs/DocsAttributes";
 import { DocNode } from "../docs/DocNode";
+
 import { RootNode } from "./RootNode";
 import { PackageNode } from "./PackageNode";
 import { NamespaceNode } from "./NamespaceNode";
