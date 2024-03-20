@@ -5,7 +5,7 @@ class RootNode extends ApiNode<{}> {
 
 	constructor() {
 		super({ name: "", docs: {}, attributes: {} });
-		this.uri = this._createURI("");
+		this.uri = this._createURI(this);
 	}
 }
 

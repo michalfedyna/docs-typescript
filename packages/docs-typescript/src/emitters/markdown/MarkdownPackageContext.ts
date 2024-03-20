@@ -74,7 +74,7 @@ function buildMarkdownPackageContext(packageNode: PackageNode): HandlebarsMarkdo
 		},
 		[ApiNodeType.TypeAliasNode]: (typeAliasNode) => {
 			if (!members.typeAliases) {
-				members.typeAliases = { members: [], name: "Type Aliases" };
+				members.typeAliases = { members: [], name: "Types" };
 			}
 
 			const attributes: Member = {

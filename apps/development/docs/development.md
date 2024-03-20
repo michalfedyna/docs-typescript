@@ -4,13 +4,13 @@ Test library for docs-typescript development
 
 ## Classes
 
-### [AnotherClass](./development/AnotherClass.md)
+### [AnotherClass](./development/classes/AnotherClass.md)
 
 ```typescript
 class AnotherClass {}
 ```
 
-### [BaseClass](./development/BaseClass.md)
+### [BaseClass](./development/classes/BaseClass.md)
 
 BaseClass exported from class.ts
 Should be used with care!
@@ -19,25 +19,25 @@ Should be used with care!
 class BaseClass {}
 ```
 
-### [ConstructorOverloadingClass](./development/ConstructorOverloadingClass.md)
+### [ConstructorOverloadingClass](./development/classes/ConstructorOverloadingClass.md)
 
 ```typescript
 class ConstructorOverloadingClass {}
 ```
 
-### [DerivedClass](./development/DerivedClass.md)
+### [DerivedClass](./development/classes/DerivedClass.md)
 
 ```typescript
 class DerivedClass extends BaseClass {}
 ```
 
-### [ImplementingClass](./development/ImplementingClass.md)
+### [ImplementingClass](./development/classes/ImplementingClass.md)
 
 ```typescript
 class ImplementingClass extends BaseClass implements SomeInterface {}
 ```
 
-### [SomeAbstractClass](./development/SomeAbstractClass.md)
+### [SomeAbstractClass](./development/classes/SomeAbstractClass.md)
 
 Abstract class exported from class.ts
 Should be implemented!
@@ -46,7 +46,7 @@ Should be implemented!
 abstract class SomeAbstractClass {}
 ```
 
-### [SomeClass](./development/SomeClass.md)
+### [SomeClass](./development/classes/SomeClass.md)
 
 SomeClass exported from class.ts
 
@@ -54,14 +54,14 @@ SomeClass exported from class.ts
 class SomeClass extends SomeAbstractClass {}
 ```
 
-### [TypeParameterClass](./development/TypeParameterClass.md)
+### [TypeParameterClass](./development/classes/TypeParameterClass.md)
 
 ```typescript
 class TypeParameterClass<T extends unknown = unknown, K extends any = any>
   implements SomeInterface {}
 ```
 
-### [YetAnotherClass](./development/YetAnotherClass.md)
+### [YetAnotherClass](./development/classes/YetAnotherClass.md)
 
 ```typescript
 class YetAnotherClass {}
@@ -69,7 +69,7 @@ class YetAnotherClass {}
 
 ## Functions
 
-### [basicFunction](./development/basicFunction.md)
+### [basicFunction](./development/functions/basicFunction.md)
 
 Some function that return `Hello World` `string`
 
@@ -77,31 +77,31 @@ Some function that return `Hello World` `string`
 function basicFunction(): string {}
 ```
 
-### [functionWithOptionalParams](./development/functionWithOptionalParams.md)
+### [functionWithOptionalParams](./development/functions/functionWithOptionalParams.md)
 
 ```typescript
 function functionWithOptionalParams(a: number, b?: number): number {}
 ```
 
-### [functionWithParams](./development/functionWithParams.md)
+### [functionWithParams](./development/functions/functionWithParams.md)
 
 ```typescript
 function functionWithParams(a: number, b: number, c: string | number): number {}
 ```
 
-### [functionWithTypeParams](./development/functionWithTypeParams.md)
+### [functionWithTypeParams](./development/functions/functionWithTypeParams.md)
 
 ```typescript
 function functionWithTypeParams<T extends string, K>(a: T, b: K): (T | K)[] {}
 ```
 
-### [overloadedFunction](./development/overloadedFunction.md)
+### [overloadedFunction](./development/functions/overloadedFunction.md)
 
 ```typescript
 function overloadedFunction(a: string): unknown {}
 ```
 
-### [overloadedFunction](./development/overloadedFunction.md)
+### [overloadedFunction](./development/functions/overloadedFunction.md)
 
 ```typescript
 function overloadedFunction(a: number): unknown {}
@@ -109,37 +109,37 @@ function overloadedFunction(a: number): unknown {}
 
 ## Variables
 
-### [booleanVariable](./development/booleanVariable.md)
+### [booleanVariable](./development/variables/booleanVariable.md)
 
 ```typescript
 var booleanVariable: boolean;
 ```
 
-### [constVariable](./development/constVariable.md)
+### [constVariable](./development/variables/constVariable.md)
 
 ```typescript
 var constVariable = "const variable";
 ```
 
-### [constVariableObject](./development/constVariableObject.md)
+### [constVariableObject](./development/variables/constVariableObject.md)
 
 ```typescript
 var constVariableObject: {};
 ```
 
-### [letVariable](./development/letVariable.md)
+### [letVariable](./development/variables/letVariable.md)
 
 ```typescript
 var letVariable: string;
 ```
 
-### [numberVariable](./development/numberVariable.md)
+### [numberVariable](./development/variables/numberVariable.md)
 
 ```typescript
 var numberVariable: number;
 ```
 
-### [stringVariable](./development/stringVariable.md)
+### [stringVariable](./development/variables/stringVariable.md)
 
 ```typescript
 var stringVariable: string;
@@ -147,7 +147,7 @@ var stringVariable: string;
 
 ## Enums
 
-### [SimpleEnum](./development/SimpleEnum.md)
+### [SimpleEnum](./development/enums/SimpleEnum.md)
 
 ```typescript
 declare enum SimpleEnum
@@ -155,21 +155,21 @@ declare enum SimpleEnum
 
 ## Interfaces
 
-### [SimpleInterface](./development/SimpleInterface.md)
+### [SimpleInterface](./development/interfaces/SimpleInterface.md)
 
 ```typescript
 interface SimpleInterface
 ```
 
-### [SomeInterface](./development/SomeInterface.md)
+### [SomeInterface](./development/interfaces/SomeInterface.md)
 
 ```typescript
 interface SomeInterface
 ```
 
-## Type Aliases
+## Types
 
-### [SimpleType](./development/SimpleType.md)
+### [SimpleType](./development/types/SimpleType.md)
 
 ```typescript
 type SimpleType = {

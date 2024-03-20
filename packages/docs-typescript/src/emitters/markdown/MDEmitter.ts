@@ -76,6 +76,7 @@ class MDEmitter extends Emitter {
 		if (!url) throw new Error("URL is required to write to file");
 
 		const filePath = path.resolve(process.cwd(), this.config.rootPath + this.config.outputPath + url + ".md");
+		console.log("Path", filePath);
 
 		if (!fs.existsSync(path.dirname(filePath))) fs.mkdirSync(path.dirname(filePath), { recursive: true });
 

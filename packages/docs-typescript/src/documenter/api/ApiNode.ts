@@ -81,7 +81,7 @@ class ApiNode<T = unknown> {
 	public addChild<K extends ApiNode>(child: K): K {
 		const index = this.children.push(child);
 		child.parent = this;
-		child.uri = this._createURI(child.value.name, this);
+		child.uri = this._createURI(child, this);
 		return this.children[index - 1] as K;
 	}
 
@@ -175,12 +175,24 @@ class ApiNode<T = unknown> {
 		};
 	}
 
-	protected _createURI(name: string, parent?: ApiNode): string {
-		if (parent) {
-			return this._createURI(parent.value.name, parent.parent) + "/" + name;
-		}
+	protected _createURI(child: ApiNode, parent?: ApiNode): string {
+		const { name } = child.value;
 
-		return name;
+		if (!parent) return child.value.name;
+
+		if (child.type === ApiNodeType.VariableNode) return this._createURI(parent, parent.parent) + "/variables/" + name;
+
+		if (child.type === ApiNodeType.FunctionNode) return this._createURI(parent, parent.parent) + "/functions/" + name;
+
+		if (child.type === ApiNodeType.EnumNode) return this._createURI(parent, parent.parent) + "/enums/" + name;
+
+		if (child.type === ApiNodeType.TypeAliasNode) return this._createURI(parent, parent.parent) + "/types/" + name;
+
+		if (child.type === ApiNodeType.InterfaceNode) return this._createURI(parent, parent.parent) + "/interfaces/" + name;
+
+		if (child.type === ApiNodeType.ClassNode) return this._createURI(parent, parent.parent) + "/classes/" + name;
+
+		return this._createURI(parent, parent.parent) + "/" + name;
 	}
 }
 
