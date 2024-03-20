@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # Available scripts
-# - Build - builds docs-typescript and extracts docs from development package
+# - develop - builds docs-typescript and extracts docs from development package
 
 case $1 in
-build)
+develop)
 	pnpm -r run build && cd apps/development
+	rm -rf docs
 	npm run extract && npm run docs
 	cd ../..
 	;;
