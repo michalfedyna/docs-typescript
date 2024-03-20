@@ -107,6 +107,40 @@ function overloadedFunction(a: string): unknown {}
 function overloadedFunction(a: number): unknown {}
 ```
 
+## Interfaces
+
+### [BasicInterface](./development/interfaces/BasicInterface.md)
+
+```typescript
+interface BasicInterface {}
+```
+
+### [ConstrainedInterface](./development/interfaces/ConstrainedInterface.md)
+
+```typescript
+interface ConstrainedInterface<T extends string = string>
+  extends SimpleInterface,
+    BasicInterface {}
+```
+
+### [ExtendingInterdace](./development/interfaces/ExtendingInterdace.md)
+
+```typescript
+interface ExtendingInterdace extends SimpleInterface {}
+```
+
+### [SimpleInterface](./development/interfaces/SimpleInterface.md)
+
+```typescript
+interface SimpleInterface {}
+```
+
+### [SomeInterface](./development/interfaces/SomeInterface.md)
+
+```typescript
+interface SomeInterface {}
+```
+
 ## Variables
 
 ### [booleanVariable](./development/variables/booleanVariable.md)
@@ -150,21 +184,7 @@ var stringVariable: string;
 ### [SimpleEnum](./development/enums/SimpleEnum.md)
 
 ```typescript
-declare enum SimpleEnum
-```
-
-## Interfaces
-
-### [SimpleInterface](./development/interfaces/SimpleInterface.md)
-
-```typescript
-interface SimpleInterface
-```
-
-### [SomeInterface](./development/interfaces/SomeInterface.md)
-
-```typescript
-interface SomeInterface
+enum SimpleEnum {}
 ```
 
 ## Types

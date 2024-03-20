@@ -14,7 +14,10 @@ function extractEnumAttributes(apiEnum: ApiEnum): EnumAttributes {
 		name: member.name
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiEnum.releaseTag);
-	const signature = apiEnum.excerpt.text;
+
+
+
+	const signature = `enum ${displayName} {}`;
 
 	return { name: displayName, releaseTag, isExported, signature, fileUrlPath, members };
 }

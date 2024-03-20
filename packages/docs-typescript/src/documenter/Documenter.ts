@@ -25,8 +25,8 @@ import { DocsAttributes } from "./docs/DocsAttributes";
 import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "../utils/docsNodesMatchers";
 import { DocsConfig } from "../config/DocsConfig";
 import { Emitter } from "../emitters/Emitter";
-import { HTMLEmitter } from "../emitters/html/HTMLEmitter";
 import { MDEmitter } from "../emitters/markdown/MDEmitter";
+import { HTMLEmitter } from "../emitters/html/HTMLEmitter";
 import { MDXEmitter } from "../emitters/mdx/MDXEmitter";
 import { RootNode } from "./api/RootNode";
 import { ApiNode } from "./api/ApiNode";
@@ -99,10 +99,6 @@ class Documenter {
 	private _traverseApiItems(apiItem: ApiItem, parent: ApiNode): void {
 		let child: ApiNode | undefined;
 		let docs: DocsAttributes = {};
-
-		console.log("---");
-		console.log(apiItem.kind, apiItem.displayName);
-		console.log("---");
 
 		if (apiItem instanceof ApiDocumentedItem && apiItem.tsdocComment) {
 			const {
@@ -287,8 +283,6 @@ class Documenter {
 		if (!apiDocNode) return;
 
 		if (!parent) parent = new RootDocNode();
-
-		console.log("---".repeat(level), apiDocNode.kind);
 
 		let child: DocNode | undefined;
 

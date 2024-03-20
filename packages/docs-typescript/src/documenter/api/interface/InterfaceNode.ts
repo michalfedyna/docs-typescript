@@ -19,7 +19,16 @@ function extractInterfaceAttributes(apiInterface: ApiInterface): InterfaceAttrib
 	const extendsTypes = apiInterface.extendsTypes.map((extendsType) => extendsType.excerpt.text);
 	const releaseTag = ApiReleaseTag.getTagName(apiInterface.releaseTag);
 
-	const signature = apiInterface.excerpt.text;
+	const extendsTypesSignature = extendsTypes.length > 0 ? ` extends ${extendsTypes.join(", ")}` : "";
+
+	const typeParametersArray = typeParameters.map(
+		(typeParameter) =>
+			`${typeParameter.name}${typeParameter.constraint ? ` extends ${typeParameter.constraint}` : ""}${typeParameter.default ? ` = ${typeParameter.default}` : ""}`
+	);
+
+	const typeParametersSignature = typeParametersArray.length > 0 ? `<${typeParametersArray.join(", ")}>` : "";
+
+	const signature = `interface ${displayName}${typeParametersSignature}${extendsTypesSignature} {}`;
 
 	return { name: displayName, fileUrlPath, extendsTypes, isExported, signature, releaseTag, typeParameters };
 }
