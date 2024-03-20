@@ -1,6 +1,6 @@
 import { HandlebarsMarkdownContext } from "../Template";
 import { MarkdownDocsContext, buildMarkdownDocsContext } from "./MarkdownDocsContext";
-import { MarkdownMembersContext } from "./MarkdownMembersContext";
+import { MarkdownMembersContext, Member } from "./MarkdownMembersContext";
 import { PackageNode } from "../../documenter/api/PackageNode";
 import { ApiNodeType } from "../../documenter/api/ApiNode";
 
@@ -21,10 +21,11 @@ function buildMarkdownPackageContext(packageNode: PackageNode): HandlebarsMarkdo
 				members.functions = { members: [], name: "Functions" };
 			}
 
-			const attributes = {
+			const attributes: Member = {
 				name: functionNode.value.name,
 				url: functionNode.uri || "",
-				signature: functionNode.value.attributes.signature
+				signature: functionNode.value.attributes.signature,
+				summary: buildMarkdownDocsContext(functionNode.value.docs).summary
 			};
 
 			members.functions.members.push(attributes);
@@ -34,10 +35,11 @@ function buildMarkdownPackageContext(packageNode: PackageNode): HandlebarsMarkdo
 				members.variables = { members: [], name: "Variables" };
 			}
 
-			const attributes = {
+			const attributes: Member = {
 				name: variableNode.value.name,
 				url: variableNode.uri || "",
-				signature: variableNode.value.attributes.signature
+				signature: variableNode.value.attributes.signature,
+				summary: buildMarkdownDocsContext(variableNode.value.docs).summary
 			};
 
 			members.variables.members.push(attributes);
@@ -47,11 +49,11 @@ function buildMarkdownPackageContext(packageNode: PackageNode): HandlebarsMarkdo
 				members.classes = { members: [], name: "Classes" };
 			}
 
-			const attributes = {
+			const attributes: Member = {
 				name: classNode.value.name,
-
 				url: classNode.uri || "",
-				signature: classNode.value.attributes.signature
+				signature: classNode.value.attributes.signature,
+				summary: buildMarkdownDocsContext(classNode.value.docs).summary
 			};
 
 			members.classes.members.push(attributes);
@@ -61,10 +63,11 @@ function buildMarkdownPackageContext(packageNode: PackageNode): HandlebarsMarkdo
 				members.interfaces = { members: [], name: "Interfaces" };
 			}
 
-			const attributes = {
+			const attributes: Member = {
 				name: interfaceNode.value.name,
 				url: interfaceNode.uri || "",
-				signature: interfaceNode.value.attributes.signature
+				signature: interfaceNode.value.attributes.signature,
+				summary: buildMarkdownDocsContext(interfaceNode.value.docs).summary
 			};
 
 			members.interfaces.members.push(attributes);
@@ -74,10 +77,11 @@ function buildMarkdownPackageContext(packageNode: PackageNode): HandlebarsMarkdo
 				members.typeAliases = { members: [], name: "Type Aliases" };
 			}
 
-			const attributes = {
+			const attributes: Member = {
 				name: typeAliasNode.value.name,
 				url: typeAliasNode.uri || "",
-				signature: typeAliasNode.value.attributes.signature
+				signature: typeAliasNode.value.attributes.signature,
+				summary: buildMarkdownDocsContext(typeAliasNode.value.docs).summary
 			};
 
 			members.typeAliases.members.push(attributes);
@@ -87,10 +91,11 @@ function buildMarkdownPackageContext(packageNode: PackageNode): HandlebarsMarkdo
 				members.enums = { members: [], name: "Enums" };
 			}
 
-			const attributes = {
+			const attributes: Member = {
 				name: enumNode.value.name,
 				url: enumNode.uri || "",
-				signature: enumNode.value.attributes.signature
+				signature: enumNode.value.attributes.signature,
+				summary: buildMarkdownDocsContext(enumNode.value.docs).summary
 			};
 
 			members.enums.members.push(attributes);

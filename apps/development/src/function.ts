@@ -1,3 +1,6 @@
+/**
+ *  Some function that return `Hello World` `string` 
+ */
 function someFunction() {
   return "Hello, World!";
 }

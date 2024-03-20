@@ -18,7 +18,6 @@ enum DocNodeType {
 }
 
 type CallbackArray = {
-	[DocNodeType.DocNode]?: (node: DocNode) => void;
 	[DocNodeType.RootDocNode]?: (node: RootDocNode) => void;
 	[DocNodeType.PlainTextDocNode]?: (node: PlainTextDocNode) => void;
 	[DocNodeType.ParagraphDocNode]?: (node: ParagraphDocNode) => void;
@@ -28,9 +27,7 @@ type CallbackArray = {
 	[DocNodeType.FancedCodeDocNode]?: (node: FancedCodeDocNode) => void;
 };
 
-interface DocNodeValue<T> {
-	attributes: T;
-}
+type DocNodeValue<T> = T;
 
 class DocNode<T = unknown> {
 	public type: DocNodeType = DocNodeType.DocNode;
@@ -54,9 +51,6 @@ class DocNode<T = unknown> {
 			callback(this);
 		} else {
 			switch (this.type) {
-				case DocNodeType.DocNode:
-					callback[DocNodeType.DocNode]?.(this);
-					break;
 				case DocNodeType.RootDocNode:
 					callback[DocNodeType.RootDocNode]?.(this as RootDocNode);
 					break;
@@ -88,7 +82,7 @@ class DocNode<T = unknown> {
 	public toObject(): object {
 		return {
 			type: this.type,
-			attributes: this.value.attributes,
+			attributes: this.value,
 			children: this.children.map((child) => child.toObject())
 		};
 	}

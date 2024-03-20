@@ -10,6 +10,7 @@
 		"copy-templates": "cp -r ./src/templates/markdown ./lib/templates",
 		"build": "rm -rf ./lib ./types && tsc -b && npm run copy-templates",
 		"clean": "rm -rf ./lib ./types node_modules",
+    "lint": "tsc --noEmit",
 		"test": "jest --verbose"
 	},
 	"repository": {

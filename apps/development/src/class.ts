@@ -1,5 +1,7 @@
 /**
  * Abstract class exported from class.ts
+ *
+ * Should be implemented!
  */
 abstract class SomeAbstractClass {
   abstract someMethod(): void;
@@ -36,6 +38,7 @@ class YetAnotherClass {
 /**
  * BaseClass exported from class.ts
  *
+ * Should be used with care!
  * @remarks
  * As a base class, this class has a constructor that takes a `name` parameter.
  */

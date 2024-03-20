@@ -41,7 +41,6 @@ enum ApiNodeType {
 }
 
 type CallbackArray = {
-	[ApiNodeType.ApiNode]?: (node: ApiNode) => void;
 	[ApiNodeType.RootNode]?: (node: RootNode) => void;
 	[ApiNodeType.PackageNode]?: (node: PackageNode) => void;
 	[ApiNodeType.NamespaceNode]?: (node: NamespaceNode) => void;
@@ -99,9 +98,6 @@ class ApiNode<T = unknown> {
 			callback(this);
 		} else {
 			switch (this.type) {
-				case ApiNodeType.ApiNode:
-					callback[ApiNodeType.ApiNode]?.(this);
-					break;
 				case ApiNodeType.RootNode:
 					callback[ApiNodeType.RootNode]?.(this as RootNode);
 					break;

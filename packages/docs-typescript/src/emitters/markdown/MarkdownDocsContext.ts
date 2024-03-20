@@ -1,16 +1,24 @@
-import { CallbackArray } from "../../documenter/docs/DocNode";
+import { CallbackArray, DocNodeType } from "../../documenter/docs/DocNode";
 import { DocsAttributes } from "../../documenter/docs/DocsAttributes";
 
 interface MarkdownDocsContext {
-	summary: string[];
-	remarks: string[];
+	summary?: string[];
+	remarks?: string[];
 }
 
 function buildMarkdownDocsContext(docs: DocsAttributes): MarkdownDocsContext {
-	const summary: string[] = [];
-	const remarks: string[] = [];
+	let summary: string[] | undefined;
+	let remarks: string[] | undefined;
 
-	docs.summary?.forEach(buildDoc(summary));
+	if (docs.summary) {
+		summary = [];
+		docs.summary?.forEach(buildDoc(summary));
+	}
+
+	if (docs.summary) {
+		remarks = [];
+		docs.remarks?.forEach(buildDoc(remarks));
+	}
 
 	return {
 		summary,
@@ -19,7 +27,17 @@ function buildMarkdownDocsContext(docs: DocsAttributes): MarkdownDocsContext {
 }
 
 function buildDoc(array: string[]): CallbackArray {
-	return {};
+	return {
+		[DocNodeType.ParagraphDocNode]: () => {
+			array.push("");
+		},
+		[DocNodeType.PlainTextDocNode]: (node) => {
+			array[array.length - 1] += node.value.text;
+		},
+		[DocNodeType.CodeSpanDocNode]: (node) => {
+			array[array.length - 1] += "`" + node.value.code + "`";
+		}
+	};
 }
 
 export { MarkdownDocsContext, buildMarkdownDocsContext };

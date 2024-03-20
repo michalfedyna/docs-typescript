@@ -6,6 +6,10 @@
 class AnotherClass {}
 ```
 #### [BaseClass](./development/BaseClass.md)
+BaseClass exported from class.ts
+
+Should be used with care!
+
 ```typescript
 class BaseClass {}
 ```
@@ -22,10 +26,16 @@ class DerivedClass extends BaseClass {}
 class ImplementingClass extends BaseClass implements SomeInterface {}
 ```
 #### [SomeAbstractClass](./development/SomeAbstractClass.md)
+Abstract class exported from class.ts
+
+Should be implemented!
+
 ```typescript
 abstract class SomeAbstractClass {}
 ```
 #### [SomeClass](./development/SomeClass.md)
+SomeClass exported from class.ts
+
 ```typescript
 class SomeClass extends SomeAbstractClass {}
 ```
@@ -72,6 +82,8 @@ function functionWithOptionalParams(a: number, b?: number): number {}
 function functionWithParams(a: number, b: number, c: string | number): number {}
 ```
 #### [someFunction](./development/someFunction.md)
+Some function that return `Hello World` `string`
+
 ```typescript
 function someFunction(): string {}
 ```

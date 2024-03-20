@@ -56,6 +56,7 @@ import { ParagraphDocNode } from "./docs/ParagraphDocNode";
 import { SoftBreakDocNode } from "./docs/SoftBreakDocNode";
 import { CodeSpanDocNode } from "./docs/CodeSpanDocNode";
 import { FancedCodeDocNode } from "./docs/FancedCodeDocNode";
+import { LinkTagDocNode } from "./docs/LinkTagNode";
 
 class Documenter {
 	public readonly apiModel: ApiModel;
@@ -291,28 +292,33 @@ class Documenter {
 
 		let child: DocNode | undefined;
 
+		// TODO: extract attributes extraction to funcitons in DocNode implementations
 		if (isPlainText(apiDocNode)) {
 			const attributes = { text: apiDocNode.text };
-			const plainTextNode = new PlainTextDocNode({ attributes: attributes });
+			const plainTextNode = new PlainTextDocNode(attributes);
 
 			parent.addChild(plainTextNode);
 		} else if (isParagraph(apiDocNode)) {
-			const paragraphNode = new ParagraphDocNode({ attributes: {} });
+			const paragraphNode = new ParagraphDocNode({});
 
 			child = parent.addChild(paragraphNode);
 		} else if (isSoftBreak(apiDocNode)) {
-			const softBreakNode = new SoftBreakDocNode({ attributes: {} });
+			const softBreakNode = new SoftBreakDocNode({});
 
 			parent.addChild(softBreakNode);
 		} else if (isLinkTag(apiDocNode)) {
+			const attributes = {};
+			const linkTagNode = new LinkTagDocNode(attributes);
+
+			parent.addChild(linkTagNode);
 		} else if (isCodeSpan(apiDocNode)) {
 			const attributes = { code: apiDocNode.code };
-			const codeSpanDocNode = new CodeSpanDocNode({ attributes });
+			const codeSpanDocNode = new CodeSpanDocNode(attributes);
 
 			parent.addChild(codeSpanDocNode);
 		} else if (isFencedCode(apiDocNode)) {
 			const attributes = { code: apiDocNode.code };
-			const fancedCodeDocNode = new FancedCodeDocNode({ attributes });
+			const fancedCodeDocNode = new FancedCodeDocNode(attributes);
 
 			parent.addChild(fancedCodeDocNode);
 		}

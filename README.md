@@ -6,8 +6,10 @@ With support for different frameworks. Alternative to [api-documenter](https://w
 ## Roadmap
 
 - [ ] Markdown support
+- [ ] React support
 - [ ] Docusaurus (MDX) support
 - [ ] Project website
+- [ ] [Mermaid support](https://mermaid.js.org)
 - [ ] HTML support
 - [ ] Create and use api-extractor alternative in form of [extractor-typescript](https://github.com/michalfedyna/extractor-typescript)
 

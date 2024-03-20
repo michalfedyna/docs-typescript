@@ -1,5 +1,11 @@
 {{#each members}}
 #### [{{this.name}}](.{{this.url}}.md)
+{{#if this.summary}}
+{{#each this.summary}}
+{{{this}}}
+
+{{/each}}
+{{/if}}
 {{#if this.signature}}
 ```typescript
 {{{this.signature}}}
