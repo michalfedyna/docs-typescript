@@ -1,6 +1,7 @@
 # constVariableObject
 
 ## Signature
+
 ```typescript
-var constVariableObject: {}
+var constVariableObject: {};
 ```

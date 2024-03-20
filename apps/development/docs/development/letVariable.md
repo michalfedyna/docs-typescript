@@ -1,6 +1,7 @@
 # letVariable
 
 ## Signature
+
 ```typescript
-var letVariable: string
+var letVariable: string;
 ```

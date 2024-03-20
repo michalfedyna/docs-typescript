@@ -1,6 +1,7 @@
 # stringVariable
 
 ## Signature
+
 ```typescript
-var stringVariable: string
+var stringVariable: string;
 ```

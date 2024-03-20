@@ -1,7 +1,7 @@
 /**
- *  Some function that return `Hello World` `string` 
+ *  Some function that return `Hello World` `string`
  */
-function someFunction() {
+function basicFunction() {
   return "Hello, World!";
 }
 
@@ -14,4 +14,20 @@ function functionWithOptionalParams(a: number, b?: number) {
   return a + (b || 0);
 }
 
-export { someFunction, functionWithParams, functionWithOptionalParams };
+function functionWithTypeParams<T extends string, K>(a: T, b: K) {
+  return [a, b];
+}
+
+function overloadedFunction(a: string): unknown;
+function overloadedFunction(a: number): unknown;
+function overloadedFunction(a: string | number): unknown {
+  return a;
+}
+
+export {
+  basicFunction,
+  functionWithParams,
+  functionWithOptionalParams,
+  functionWithTypeParams,
+  overloadedFunction,
+};

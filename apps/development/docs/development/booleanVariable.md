@@ -1,6 +1,7 @@
 # booleanVariable
 
 ## Signature
+
 ```typescript
-var booleanVariable: boolean
+var booleanVariable: boolean;
 ```

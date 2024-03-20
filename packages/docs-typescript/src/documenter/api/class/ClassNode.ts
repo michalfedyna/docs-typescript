@@ -30,7 +30,7 @@ class ClassNode extends ApiNode<ClassAttributes> {
 function extractClassAttributes(apiClass: ApiClass): ClassAttributes {
 	const { displayName, isAbstract, fileUrlPath, isExported } = apiClass;
 	const extendsType = apiClass.extendsType?.excerpt.text;
-	const implementsTypes = apiClass.implementsTypes.map((type) => type.excerpt.text);
+	const implementedTypes = apiClass.implementsTypes.map((type) => type.excerpt.text);
 	const typeParameters = apiClass.typeParameters.map((typeParameter) => ({
 		name: typeParameter.name,
 		isOptional: typeParameter.isOptional,
@@ -41,9 +41,10 @@ function extractClassAttributes(apiClass: ApiClass): ClassAttributes {
 
 	const abstractSignature = isAbstract ? "abstract " : "";
 	const extendsTypeSignature = extendsType ? ` extends ${extendsType}` : "";
-	const implementsTypesSignature = implementsTypes.length > 0 ? ` implements ${implementsTypes.join(" ")}` : "";
+	const implementsTypesSignature = implementedTypes.length > 0 ? ` implements ${implementedTypes.join(" ")}` : "";
 	const typeParametersArray = typeParameters.map(
-		(typeParameter) => `${typeParameter.name}${typeParameter.default ? ` = ${typeParameter.default}` : ""}`
+		(typeParameter) =>
+			`${typeParameter.name}${typeParameter.constraint ? ` extends ${typeParameter.constraint}` : ""}${typeParameter.default ? ` = ${typeParameter.default}` : ""}`
 	);
 	const typeParametersSignature = typeParameters.length > 0 ? `<${typeParametersArray.join(", ")}>` : "";
 
@@ -52,7 +53,7 @@ function extractClassAttributes(apiClass: ApiClass): ClassAttributes {
 	return {
 		extendsType,
 		fileUrlPath,
-		implementedTypes: implementsTypes,
+		implementedTypes,
 		isAbstract,
 		isExported,
 		name: displayName,

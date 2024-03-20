@@ -10,7 +10,7 @@
 		"copy-templates": "cp -r ./src/templates/markdown ./lib/templates",
 		"build": "rm -rf ./lib ./types && tsc -b && npm run copy-templates",
 		"clean": "rm -rf ./lib ./types node_modules",
-    "lint": "tsc --noEmit",
+		"lint": "tsc --noEmit",
 		"test": "jest --verbose"
 	},
 	"repository": {
@@ -33,8 +33,10 @@
 		"@microsoft/api-extractor-model": "7.28.10",
 		"@microsoft/tsdoc": "0.14.2",
 		"@microsoft/tsdoc-config": "^0.16.2",
+		"@prettier/sync": "^0.5.1",
 		"commander": "12.0.0",
 		"handlebars": "^4.7.8",
+		"prettier": "^3.2.5",
 		"shelljs": "^0.8.5",
 		"typescript": "5.3.3"
 	},

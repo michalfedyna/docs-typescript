@@ -1,6 +1,10 @@
 # Documentation for `{{name}}` package
-
+{{#if this.docs.summary}}
+{{#each this.docs.summary}}
+{{{this}}}
+{{/each}}
+{{/if}}
 {{#each members}}
-### {{this.name}}
+## {{this.name}}
 {{> members this}}
 {{/each}}

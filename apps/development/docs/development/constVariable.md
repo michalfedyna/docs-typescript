@@ -1,6 +1,7 @@
 # constVariable
 
 ## Signature
+
 ```typescript
-var constVariable = "const variable"
+var constVariable = "const variable";
 ```

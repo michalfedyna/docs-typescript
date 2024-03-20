@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import path from "path";
+import prettier from "@prettier/sync";
 
 import { Emitter } from "../Emitter";
 import { Template } from "../Template";
@@ -78,7 +79,8 @@ class MDEmitter extends Emitter {
 
 		if (!fs.existsSync(path.dirname(filePath))) fs.mkdirSync(path.dirname(filePath), { recursive: true });
 
-		fs.writeFileSync(filePath, content);
+		const formatedContent = prettier.format(content, { parser: "markdown" });
+		fs.writeFileSync(filePath, formatedContent);
 	}
 }
 

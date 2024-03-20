@@ -43,7 +43,19 @@ function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiFunction.releaseTag);
 
-	const signature = createSignature(apiFunction);
+	// TODO: Overloads
+
+	const parametersSignature = parameters
+		.map((parameter) => `${parameter.name}${parameter.isOptional ? "?" : ""}: ${parameter.type}`)
+		.join(", ");
+
+	const typeParametersArray = typeParameters.map(
+		(typeParameter) =>
+			`${typeParameter.name}${typeParameter.constraint ? ` extends ${typeParameter.constraint}` : ""}${typeParameter.default ? ` = ${typeParameter.default}` : ""}`
+	);
+	const typeParametersSignature = typeParameters.length > 0 ? `<${typeParametersArray.join(", ")}>` : "";
+
+	const signature = `function ${displayName}${typeParametersSignature}(${parametersSignature}): ${returnType} {}`;
 
 	return {
 		fileUrlPath,
@@ -56,15 +68,6 @@ function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes
 		signature,
 		typeParameters
 	};
-}
-
-function createSignature(apiFunction: ApiFunction): string {
-	const name = apiFunction.displayName;
-	const parameters = apiFunction.parameters
-		.map((parameter) => `${parameter.name}${parameter.isOptional ? "?" : ""}: ${parameter.parameterTypeExcerpt.text}`)
-		.join(", ");
-
-	return `function ${name}(${parameters}): ${apiFunction.returnTypeExcerpt.text} {}`;
 }
 
 export { FunctionNode, FunctionAttributes, extractFunctionAttributes };

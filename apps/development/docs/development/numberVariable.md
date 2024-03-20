@@ -1,6 +1,7 @@
 # numberVariable
 
 ## Signature
+
 ```typescript
-var numberVariable: number
+var numberVariable: number;
 ```
