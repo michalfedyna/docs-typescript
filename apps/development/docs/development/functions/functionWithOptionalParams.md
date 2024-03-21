@@ -10,8 +10,8 @@ This is function with optional params
 
 - ### _a_ : `number`
 
-Param `a` takes number
+  - Param `a` takes number
 
 - ### _b_ : `number` | _optional_
 
-Param `b` takes number and is optional
+  - Param `b` takes number and is optional

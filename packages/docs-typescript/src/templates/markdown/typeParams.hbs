@@ -4,7 +4,7 @@
 
 - ### *{{this.name}}* {{#if this.constraint}}extends `{{this.constraint}}`{{/if}} {{#if this.default}}= `{{this.default}}` {{/if}} {{#if this.isOptional}}| *optional*{{/if}}
 
-{{> summary this.doc }}
+{{#if this.doc}}  - {{> summary this.doc }}{{/if}}
 
 {{/each}}
 {{/if}}

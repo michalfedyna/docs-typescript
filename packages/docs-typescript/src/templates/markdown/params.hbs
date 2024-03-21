@@ -4,7 +4,7 @@
 
 - ### *{{this.name}}* : `{{this.type}}` {{#if this.isOptional}}| *optional*{{/if}}
 
-{{> summary this.doc }}
+{{#if this.doc}}  - {{> summary this.doc }}{{/if}}
 
 {{/each}}
 {{/if}}
