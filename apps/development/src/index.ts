@@ -9,4 +9,3 @@ export * from "./function";
 export * from "./interface";
 export * from "./enum";
 export * from "./type";
-

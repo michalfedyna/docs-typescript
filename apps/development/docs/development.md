@@ -148,6 +148,39 @@ interface SimpleInterface {}
 interface SomeInterface {}
 ```
 
+## Types
+
+### [BasicTypeAlias](./development/types/BasicTypeAlias.md)
+
+BasicTypeAlias example with few properties
+
+```typescript
+type BasicTypeAlias = {
+  hello: string;
+  world: string;
+  number: number;
+};
+```
+
+### [SimpleType](./development/types/SimpleType.md)
+
+```typescript
+type SimpleType = {
+  hello: string;
+};
+```
+
+### [TypeParamsAlias](./development/types/TypeParamsAlias.md)
+
+TypeAlias with typeParams
+
+```typescript
+type TypeParamsAlias<T extends string = string> = {
+  hello: T;
+  world?: T;
+};
+```
+
 ## Variables
 
 ### [booleanVariable](./development/variables/booleanVariable.md)
@@ -195,14 +228,4 @@ var stringVariable: string;
 
 ```typescript
 enum SimpleEnum {}
-```
-
-## Types
-
-### [SimpleType](./development/types/SimpleType.md)
-
-```typescript
-type SimpleType = {
-  hello: string;
-};
 ```

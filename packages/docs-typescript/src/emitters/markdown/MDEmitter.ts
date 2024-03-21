@@ -17,6 +17,8 @@ import { buildMarkdownVariableContext } from "./MarkdownVariableContext";
 import { buildMarkdownFunctionContext } from "./MarkdownFunctionContext";
 import { buildMarkdownPackageContext } from "./MarkdownPackageContext";
 import { buildMarkdownNamespaceContext } from "./MarkdownNamespaceContext";
+import { TypeAliasNode } from "../../documenter/api/TypeAliasNode";
+import { buildMarkdownTypeAliasContext } from "./MarkdownTypeAliasContext";
 
 class MDEmitter extends Emitter {
 	public readonly format = "markdown";
@@ -69,6 +71,13 @@ class MDEmitter extends Emitter {
 				this._toFile(content, functionItem.uri);
 				break;
 			}
+      case ApiNodeType.TypeAliasNode: {
+        const typeAliasItem = item as TypeAliasNode;
+        const [context, template] = buildMarkdownTypeAliasContext(typeAliasItem)
+
+				const content = new Template(this.format, template).render(context);
+				this._toFile(content, typeAliasItem.uri);
+      }
 		}
 	}
 

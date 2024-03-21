@@ -15,7 +15,7 @@ interface MarkdownFunctionContext {
 }
 
 function buildMarkdownFunctionContext(functionNode: FunctionNode): HandlebarsMarkdownContext<MarkdownFunctionContext> {
-	const { name, signature, returnType, releaseTag } = functionNode.value.attributes;
+	const { name, signature } = functionNode.value.attributes;
 	const docs = buildMarkdownDocsContext(functionNode.value.docs);
 	const parameters = buildMarkdownParamsContext(functionNode.value.attributes.parameters);
 	const typeParameters = buildMarkdownTypeParmas(functionNode.value.attributes.typeParameters);

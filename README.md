@@ -13,7 +13,7 @@ For all the details see **[DocsTypescript.com](docstypescript.com)**, for API do
 - [**Markdown on Github | Single Page** _(press to see)_]()
 - [**Markdown with Docusaurus** _(press to see)_]()
 
-## Supported tags
+## Supported [TSDoc](https://tsdoc.org) tags
 
 - `@remarks`
 - `@example`
@@ -26,6 +26,7 @@ For all the details see **[DocsTypescript.com](docstypescript.com)**, for API do
 - [ ] Markdown support
 - [ ] Single page / Multi page
 - [ ] Project website
+- [ ] Suport for `@link` tag 
 - [ ] React support (categories for components/hooks/providers)
 - [ ] [Mermaid support](https://mermaid.js.org) to present inheritance and dependencies
 - [ ] Create and use api-extractor alternative in form of [extractor-typescript](https://github.com/michalfedyna/extractor-typescript)

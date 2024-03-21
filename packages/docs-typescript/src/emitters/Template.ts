@@ -11,6 +11,7 @@ import { MarkdownDocsContext } from "./markdown/MarkdownDocsContext";
 import { MarkdownParamsContext } from "./markdown/MarkdownParamsContext";
 import { MarkdownTypeParamsContext } from "./markdown/MarkdownTypeParamsContext";
 import { MarkdownReturnsContext } from "./markdown/MarkdownReturnsContext";
+import { MarkdownTypeAliasContext } from "./markdown/MarkdownTypeAliasContext";
 
 type HandlebarsMarkdownTemplates =
 	| "signature"
@@ -25,7 +26,8 @@ type HandlebarsMarkdownTemplates =
 	| "package"
 	| "namespace"
 	| "variable"
-	| "function";
+	| "function"
+	| "typeAlias";
 
 type HandlebarsMarkdownContext<T> = [T, HandlebarsMarkdownTemplates];
 
@@ -54,6 +56,7 @@ interface Contexts extends Templates {
 		namespace: MarkdownNamespaceContext;
 		variable: MarkdownVariableContext;
 		function: MarkdownFunctionContext;
+		typeAlias: MarkdownTypeAliasContext;
 	};
 }
 
@@ -74,7 +77,8 @@ const TemplatesPath: Templates<string> = {
 		package: "markdown/package.hbs",
 		namespace: "markdown/namespace.hbs",
 		variable: "markdown/variable.hbs",
-		function: "markdown/function.hbs"
+		function: "markdown/function.hbs",
+		typeAlias: "markdown/typeAlias.hbs"
 	}
 };
 
