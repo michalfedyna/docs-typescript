@@ -1,8 +1,8 @@
 .idea
 node_modules
 .DS_Store
-lib
-types
+packages/docs-typescript/lib
+packages/docs-typescript/types
 coverage
 declarations
 apps/development/tsconfig.docs.json
