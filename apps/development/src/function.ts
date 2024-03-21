@@ -26,6 +26,8 @@ function functionWithOptionalParams(a: number, b?: number) {
  *
  * @typeParam T - Type param `T` extends string and is default to string
  * @typeParam K - Type param `T`is default to string
+ *
+ * @returns Returns tuple of `a` and `b` argument
  */
 function functionWithTypeParams<T extends string = string, K = string>(
   a: T,

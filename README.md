@@ -13,6 +13,14 @@ For all the details see **[DocsTypescript.com](docstypescript.com)**, for API do
 - [**Markdown on Github | Single Page** _(press to see)_]()
 - [**Markdown with Docusaurus** _(press to see)_]()
 
+## Supported tags
+
+- `@remarks`
+- `@example`
+- `@type`
+- `@typeParam`
+- `@returns`
+
 ## Roadmap
 
 - [ ] Markdown support

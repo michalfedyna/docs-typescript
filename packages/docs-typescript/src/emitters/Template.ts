@@ -10,12 +10,14 @@ import { MarkdownNamespaceContext } from "./markdown/MarkdownNamespaceContext";
 import { MarkdownDocsContext } from "./markdown/MarkdownDocsContext";
 import { MarkdownParamsContext } from "./markdown/MarkdownParamsContext";
 import { MarkdownTypeParamsContext } from "./markdown/MarkdownTypeParamsContext";
+import { MarkdownReturnsContext } from "./markdown/MarkdownReturnsContext";
 
 type HandlebarsMarkdownTemplates =
 	| "signature"
 	| "docs"
 	| "summary"
 	| "remarks"
+	| "returns"
 	| "params"
 	| "typeParams"
 	| "examples"
@@ -43,9 +45,10 @@ interface Contexts extends Templates {
 		members: MarkdownMembersContext;
 		// Api Helpers
 		signature: string;
-    // TODO: Change to parameters
+		// TODO: Change to parameters
 		params: MarkdownParamsContext;
 		typeParams: MarkdownTypeParamsContext;
+		returns: MarkdownReturnsContext;
 		// API
 		package: MarkdownPackageContext;
 		namespace: MarkdownNamespaceContext;
@@ -66,6 +69,7 @@ const TemplatesPath: Templates<string> = {
 		// Api Helpers
 		params: "markdown/params.hbs",
 		typeParams: "markdown/typeParams.hbs",
+		returns: "markdown/returns.hbs",
 		// API
 		package: "markdown/package.hbs",
 		namespace: "markdown/namespace.hbs",

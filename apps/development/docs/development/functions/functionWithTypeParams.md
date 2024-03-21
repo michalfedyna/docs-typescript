@@ -24,3 +24,9 @@ Function with type parameters to show how library handles typeParam TsDoc tag
 - ### _a_ : `T`
 
 - ### _b_ : `K`
+
+## Returns
+
+- ### `(T | K)[]`
+
+  - Returns tuple of `a` and `b` argument

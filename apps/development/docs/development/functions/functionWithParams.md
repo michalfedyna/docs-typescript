@@ -11,3 +11,7 @@ function functionWithParams(a: number, b: number, c: string | number): number {}
 - ### _b_ : `number`
 
 - ### _c_ : `string | number`
+
+## Returns
+
+- ### `number`

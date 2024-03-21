@@ -5,12 +5,14 @@ interface MarkdownDocsContext {
 	summary?: string[];
 	remarks?: string[];
 	examples?: string[];
+	returns?: string[];
 }
 
 function buildMarkdownDocsContext(docs: DocsAttributes): MarkdownDocsContext {
 	let summary: MarkdownDocsContext["summary"];
 	let remarks: MarkdownDocsContext["remarks"];
 	let examples: MarkdownDocsContext["examples"];
+	let returns: MarkdownDocsContext["returns"];
 
 	if (docs.summary) {
 		summary = [];
@@ -27,10 +29,16 @@ function buildMarkdownDocsContext(docs: DocsAttributes): MarkdownDocsContext {
 		docs.examples.forEach((example) => example.forEach(buildDoc(examples as string[])));
 	}
 
+	if (docs.returns) {
+		returns = [];
+		docs.returns.forEach(buildDoc(returns));
+	}
+
 	return {
 		summary,
 		remarks,
-		examples
+		examples,
+		returns
 	};
 }
 
