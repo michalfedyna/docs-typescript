@@ -79,6 +79,8 @@ function basicFunction(): string {}
 
 ### [functionWithOptionalParams](./development/functions/functionWithOptionalParams.md)
 
+This is function with optional params
+
 ```typescript
 function functionWithOptionalParams(a: number, b?: number): number {}
 ```
@@ -91,8 +93,13 @@ function functionWithParams(a: number, b: number, c: string | number): number {}
 
 ### [functionWithTypeParams](./development/functions/functionWithTypeParams.md)
 
+Function with type parameters to show how library handles typeParam TsDoc tag
+
 ```typescript
-function functionWithTypeParams<T extends string, K>(a: T, b: K): (T | K)[] {}
+function functionWithTypeParams<T extends string = string, K = string>(
+  a: T,
+  b: K,
+): (T | K)[] {}
 ```
 
 ### [overloadedFunction](./development/functions/overloadedFunction.md)
@@ -144,6 +151,9 @@ interface SomeInterface {}
 ## Variables
 
 ### [booleanVariable](./development/variables/booleanVariable.md)
+
+This is boolean varaible
+And this will be example how to use that variable
 
 ```typescript
 var booleanVariable: boolean;

@@ -2,6 +2,7 @@ import { DocNode, DocNodeType } from "./DocNode";
 
 interface FancedCodeDocNodeAttributes {
 	code: string;
+	language: string;
 }
 
 class FancedCodeDocNode extends DocNode<FancedCodeDocNodeAttributes> {

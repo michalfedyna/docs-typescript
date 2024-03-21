@@ -2,14 +2,28 @@ import * as fs from "fs";
 import path from "path";
 
 import Handlebars, { TemplateDelegate } from "handlebars";
-import { DocsAttributes } from "../documenter/docs/DocsAttributes";
 import { MarkdownVariableContext } from "./markdown/MarkdownVariableContext";
 import { MarkdownFunctionContext } from "./markdown/MarkdownFunctionContext";
 import { MarkdownPackageContext } from "./markdown/MarkdownPackageContext";
 import { MarkdownMembersContext } from "./markdown/MarkdownMembersContext";
 import { MarkdownNamespaceContext } from "./markdown/MarkdownNamespaceContext";
+import { MarkdownDocsContext } from "./markdown/MarkdownDocsContext";
+import { MarkdownParamsContext } from "./markdown/MarkdownParamsContext";
+import { MarkdownTypeParamsContext } from "./markdown/MarkdownTypeParamsContext";
 
-type HandlebarsMarkdownTemplates = "docs" | "members" | "package" | "namespace" | "variable" | "function";
+type HandlebarsMarkdownTemplates =
+	| "signature"
+	| "docs"
+	| "summary"
+	| "remarks"
+	| "params"
+	| "typeParams"
+	| "examples"
+	| "members"
+	| "package"
+	| "namespace"
+	| "variable"
+	| "function";
 
 type HandlebarsMarkdownContext<T> = [T, HandlebarsMarkdownTemplates];
 
@@ -21,9 +35,17 @@ type Templates<T = unknown> = {
 
 interface Contexts extends Templates {
 	markdown: {
-		// Helpers
-		docs: DocsAttributes;
+		// Docs Helpers
+		docs: MarkdownDocsContext;
+		summary: MarkdownDocsContext["summary"];
+		remarks: MarkdownDocsContext["remarks"];
+		examples: MarkdownDocsContext["examples"];
 		members: MarkdownMembersContext;
+		// Api Helpers
+		signature: string;
+    // TODO: Change to parameters
+		params: MarkdownParamsContext;
+		typeParams: MarkdownTypeParamsContext;
 		// API
 		package: MarkdownPackageContext;
 		namespace: MarkdownNamespaceContext;
@@ -34,8 +56,17 @@ interface Contexts extends Templates {
 
 const TemplatesPath: Templates<string> = {
 	markdown: {
+		// Docs Helpers
+		signature: "markdown/signature.hbs",
 		docs: "markdown/docs.hbs",
+		summary: "markdown/summary.hbs",
+		remarks: "markdown/remarks.hbs",
+		examples: "markdown/examples.hbs",
 		members: "markdown/members.hbs",
+		// Api Helpers
+		params: "markdown/params.hbs",
+		typeParams: "markdown/typeParams.hbs",
+		// API
 		package: "markdown/package.hbs",
 		namespace: "markdown/namespace.hbs",
 		variable: "markdown/variable.hbs",

@@ -1,17 +1,30 @@
-import { DocsAttributes } from "../../documenter/docs/DocsAttributes";
-import { FunctionAttributes, FunctionNode } from "../../documenter/api/FunctionNode";
+import { FunctionNode } from "../../documenter/api/FunctionNode";
 import { HandlebarsMarkdownContext } from "../Template";
+import { MarkdownDocsContext, buildMarkdownDocsContext } from "./MarkdownDocsContext";
+import { MarkdownParamsContext, buildMarkdownParamsContext } from "./MarkdownParamsContext";
+import { MarkdownTypeParamsContext, buildMarkdownTypeParmas } from "./MarkdownTypeParamsContext";
 
 interface MarkdownFunctionContext {
-	attributes: FunctionAttributes;
-	docs: DocsAttributes;
+	name: string;
+	signature: string;
+	parameters: MarkdownParamsContext;
+	typeParameters: MarkdownTypeParamsContext;
+	docs: MarkdownDocsContext;
 }
 
 function buildMarkdownFunctionContext(functionNode: FunctionNode): HandlebarsMarkdownContext<MarkdownFunctionContext> {
+	const { name, signature, returnType, releaseTag } = functionNode.value.attributes;
+	const docs = buildMarkdownDocsContext(functionNode.value.docs);
+	const parameters = buildMarkdownParamsContext(functionNode.value.attributes.parameters);
+	const typeParameters = buildMarkdownTypeParmas(functionNode.value.attributes.typeParameters);
+
 	return [
 		{
-			attributes: functionNode.value.attributes,
-			docs: {}
+			name,
+			parameters,
+      typeParameters,
+			signature,
+			docs
 		},
 		"function"
 	];

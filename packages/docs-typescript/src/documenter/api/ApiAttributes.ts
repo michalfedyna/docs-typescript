@@ -1,3 +1,5 @@
+import { RootDocNode } from "../docs/RootDocNode";
+
 interface Name {
 	name: string;
 }
@@ -58,6 +60,7 @@ interface Parameter {
 	name: string;
 	type: string;
 	isOptional: boolean;
+	doc?: RootDocNode;
 }
 
 interface Parameters {
@@ -69,6 +72,7 @@ interface TypeParameter {
 	isOptional: boolean;
 	constraint: string;
 	default: string;
+	doc?: RootDocNode;
 }
 
 interface TypeParameters {

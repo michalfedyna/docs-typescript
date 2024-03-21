@@ -1,3 +1,4 @@
+import { traverseDocNodes } from "../Documenter";
 import {
 	Exported,
 	FileUrl,
@@ -32,14 +33,16 @@ function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes
 	const parameters = apiFunction.parameters.map((parameter) => ({
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
-		isOptional: parameter.isOptional
+		isOptional: parameter.isOptional,
+		doc: traverseDocNodes(parameter.tsdocParamBlock)
 	}));
 	const returnType = apiFunction.returnTypeExcerpt.text;
 	const typeParameters = apiFunction.typeParameters.map((typeParameter) => ({
 		name: typeParameter.name,
 		isOptional: typeParameter.isOptional,
 		constraint: typeParameter.constraintExcerpt.text,
-		default: typeParameter.defaultTypeExcerpt.text
+		default: typeParameter.defaultTypeExcerpt.text,
+    doc: traverseDocNodes(typeParameter.tsdocTypeParamBlock),
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiFunction.releaseTag);
 

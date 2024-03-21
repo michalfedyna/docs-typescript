@@ -1,7 +1,7 @@
 # basicFunction
 
-## Signature
-
 ```typescript
 function basicFunction(): string {}
 ```
+
+Some function that return `Hello World` `string`
