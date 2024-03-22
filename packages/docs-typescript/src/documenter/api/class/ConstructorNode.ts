@@ -15,8 +15,9 @@ function extractConstructorAttributes(apiConstructor: ApiConstructor): Construct
 		type: parameter.parameterTypeExcerpt.text,
 		isOptional: parameter.isOptional
 	}));
-	const signature = apiConstructor.excerpt.text;
 	const releaseTag = ApiReleaseTag.getTagName(apiConstructor.releaseTag);
+
+	const signature = `constructor(${parameters.map((parameter) => `${parameter.name}${parameter.isOptional ? "?" : ""}: ${parameter.type}`).join(", ")})`;
 
 	return {
 		fileUrlPath,

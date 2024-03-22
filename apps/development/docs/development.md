@@ -7,7 +7,11 @@ Test library for docs-typescript development
 ### [AnotherClass](./development/classes/AnotherClass.md)
 
 ```typescript
-class AnotherClass {}
+class AnotherClass {
+  constructor(hello: string);
+  hello: string;
+  world: string;
+}
 ```
 
 ### [BaseClass](./development/classes/BaseClass.md)
@@ -16,25 +20,37 @@ BaseClass exported from class.ts
 Should be used with care!
 
 ```typescript
-class BaseClass {}
+class BaseClass {
+  constructor(name: string);
+  name: string;
+}
 ```
 
 ### [ConstructorOverloadingClass](./development/classes/ConstructorOverloadingClass.md)
 
 ```typescript
-class ConstructorOverloadingClass {}
+class ConstructorOverloadingClass {
+  constructor();
+  constructor(name: string);
+}
 ```
 
 ### [DerivedClass](./development/classes/DerivedClass.md)
 
 ```typescript
-class DerivedClass extends BaseClass {}
+class DerivedClass extends BaseClass {
+  constructor(name: string, value: number);
+  value: number;
+}
 ```
 
 ### [ImplementingClass](./development/classes/ImplementingClass.md)
 
 ```typescript
-class ImplementingClass extends BaseClass implements SomeInterface {}
+class ImplementingClass extends BaseClass implements SomeInterface {
+  someProperty: string;
+  someMethod(): void;
+}
 ```
 
 ### [SomeAbstractClass](./development/classes/SomeAbstractClass.md)
@@ -43,7 +59,9 @@ Abstract class exported from class.ts
 Should be implemented!
 
 ```typescript
-abstract class SomeAbstractClass {}
+abstract class SomeAbstractClass {
+  abstract someMethod(): void;
+}
 ```
 
 ### [SomeClass](./development/classes/SomeClass.md)
@@ -51,20 +69,30 @@ abstract class SomeAbstractClass {}
 SomeClass exported from class.ts
 
 ```typescript
-class SomeClass extends SomeAbstractClass {}
+class SomeClass extends SomeAbstractClass {
+  someMethod(): void;
+}
 ```
 
 ### [TypeParameterClass](./development/classes/TypeParameterClass.md)
 
 ```typescript
 class TypeParameterClass<T extends unknown = unknown, K extends any = any>
-  implements SomeInterface {}
+  implements SomeInterface
+{
+  constructor(someArg: T, anotherArg: K);
+  someProperty: string;
+  someMethod(): void;
+}
 ```
 
 ### [YetAnotherClass](./development/classes/YetAnotherClass.md)
 
 ```typescript
-class YetAnotherClass {}
+class YetAnotherClass {
+  constructor(hello?: string);
+  hello: string;
+}
 ```
 
 ## Functions

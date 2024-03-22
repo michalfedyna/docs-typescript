@@ -13,7 +13,7 @@ function extractEnumAttributes(apiEnum: ApiEnum): EnumAttributes {
 	const { displayName, fileUrlPath, isExported } = apiEnum;
 	const members = apiEnum.members.map((member) => ({
 		name: member.name,
-		doc: traverseDocNodes(member.tsdocComment)
+		doc: traverseDocNodes(member.tsdocComment?.summarySection)
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiEnum.releaseTag);
 

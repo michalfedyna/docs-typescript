@@ -13,14 +13,15 @@ import { ClassNode } from "../../documenter/api/class/ClassNode";
 import { PackageNode } from "../../documenter/api/PackageNode";
 import { NamespaceNode } from "../../documenter/api/NamespaceNode";
 import { TypeAliasNode } from "../../documenter/api/TypeAliasNode";
+import { EnumNode } from "../../documenter/api/enum/EnumNode";
 
 import { buildMarkdownVariableContext } from "./MarkdownVariableContext";
 import { buildMarkdownFunctionContext } from "./MarkdownFunctionContext";
 import { buildMarkdownPackageContext } from "./MarkdownPackageContext";
 import { buildMarkdownNamespaceContext } from "./MarkdownNamespaceContext";
 import { buildMarkdownTypeAliasContext } from "./MarkdownTypeAliasContext";
-import { EnumNode } from "../../documenter/api/enum/EnumNode";
 import { buildMarkdownEnumContext } from "./MarkdownEnumContxt";
+import { buildMarkdownClassContext } from "./MarkdownClassContext";
 
 class MDEmitter extends Emitter {
 	public readonly format = "markdown";
@@ -53,7 +54,11 @@ class MDEmitter extends Emitter {
 				break;
 			}
 			case ApiNodeType.ClassNode: {
-				// TODO:
+				const classItem = item as ClassNode;
+				const [context, template] = buildMarkdownClassContext(classItem);
+
+				const content = new Template(this.format, template).render(context);
+				this._toFile(content, classItem.uri);
 				break;
 			}
 			case ApiNodeType.InterfaceNode: {
