@@ -12,13 +12,15 @@ import { FunctionNode } from "../../documenter/api/FunctionNode";
 import { ClassNode } from "../../documenter/api/class/ClassNode";
 import { PackageNode } from "../../documenter/api/PackageNode";
 import { NamespaceNode } from "../../documenter/api/NamespaceNode";
+import { TypeAliasNode } from "../../documenter/api/TypeAliasNode";
 
 import { buildMarkdownVariableContext } from "./MarkdownVariableContext";
 import { buildMarkdownFunctionContext } from "./MarkdownFunctionContext";
 import { buildMarkdownPackageContext } from "./MarkdownPackageContext";
 import { buildMarkdownNamespaceContext } from "./MarkdownNamespaceContext";
-import { TypeAliasNode } from "../../documenter/api/TypeAliasNode";
 import { buildMarkdownTypeAliasContext } from "./MarkdownTypeAliasContext";
+import { EnumNode } from "../../documenter/api/enum/EnumNode";
+import { buildMarkdownEnumContext } from "./MarkdownEnumContxt";
 
 class MDEmitter extends Emitter {
 	public readonly format = "markdown";
@@ -42,6 +44,7 @@ class MDEmitter extends Emitter {
 				break;
 			}
 			case ApiNodeType.NamespaceNode: {
+				// TODO:
 				const namespaceItem = item as NamespaceNode;
 				const [context, template] = buildMarkdownNamespaceContext(namespaceItem);
 
@@ -50,8 +53,11 @@ class MDEmitter extends Emitter {
 				break;
 			}
 			case ApiNodeType.ClassNode: {
-				const classItem = item as ClassNode;
-
+				// TODO:
+				break;
+			}
+			case ApiNodeType.InterfaceNode: {
+				// TODO:
 				break;
 			}
 			case ApiNodeType.VariableNode: {
@@ -60,7 +66,6 @@ class MDEmitter extends Emitter {
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, variableItem.uri);
-
 				break;
 			}
 			case ApiNodeType.FunctionNode: {
@@ -71,13 +76,22 @@ class MDEmitter extends Emitter {
 				this._toFile(content, functionItem.uri);
 				break;
 			}
-      case ApiNodeType.TypeAliasNode: {
-        const typeAliasItem = item as TypeAliasNode;
-        const [context, template] = buildMarkdownTypeAliasContext(typeAliasItem)
+			case ApiNodeType.TypeAliasNode: {
+				const typeAliasItem = item as TypeAliasNode;
+				const [context, template] = buildMarkdownTypeAliasContext(typeAliasItem);
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, typeAliasItem.uri);
-      }
+				break;
+			}
+			case ApiNodeType.EnumNode: {
+				const enumItem = item as EnumNode;
+				const [context, template] = buildMarkdownEnumContext(enumItem);
+
+				const content = new Template(this.format, template).render(context);
+				this._toFile(content, enumItem.uri);
+				break;
+			}
 		}
 	}
 

@@ -1,0 +1,11 @@
+{{#if this}}
+## Members
+
+{{#each this}}
+
+- ### `{{this.parent}}.{{this.name}}`
+
+{{#if this.doc}}  - {{> summary this.doc }}{{/if}}
+
+{{/each}}
+{{/if}}

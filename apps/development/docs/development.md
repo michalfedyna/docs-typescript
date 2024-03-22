@@ -226,6 +226,10 @@ var stringVariable: string;
 
 ### [SimpleEnum](./development/enums/SimpleEnum.md)
 
+Simple enum named `SimpleEnum`
+
 ```typescript
-enum SimpleEnum {}
+enum SimpleEnum {
+  Hello,
+}
 ```

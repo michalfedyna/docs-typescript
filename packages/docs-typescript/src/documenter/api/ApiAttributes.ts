@@ -97,6 +97,7 @@ interface Returns {
 
 interface Member {
 	name: string;
+	doc?: RootDocNode;
 }
 
 interface Members {

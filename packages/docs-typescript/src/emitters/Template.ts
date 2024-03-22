@@ -12,6 +12,8 @@ import { MarkdownParamsContext } from "./markdown/MarkdownParamsContext";
 import { MarkdownTypeParamsContext } from "./markdown/MarkdownTypeParamsContext";
 import { MarkdownReturnsContext } from "./markdown/MarkdownReturnsContext";
 import { MarkdownTypeAliasContext } from "./markdown/MarkdownTypeAliasContext";
+import { MarkdownEnumContext } from "./markdown/MarkdownEnumContxt";
+import { MarkdownEnumMembersContext } from "./markdown/MarkdownEnumMembersContext";
 
 type HandlebarsMarkdownTemplates =
 	| "signature"
@@ -21,13 +23,15 @@ type HandlebarsMarkdownTemplates =
 	| "returns"
 	| "params"
 	| "typeParams"
+	| "enumMembers"
 	| "examples"
 	| "members"
 	| "package"
 	| "namespace"
 	| "variable"
 	| "function"
-	| "typeAlias";
+	| "typeAlias"
+	| "enum";
 
 type HandlebarsMarkdownContext<T> = [T, HandlebarsMarkdownTemplates];
 
@@ -47,16 +51,17 @@ interface Contexts extends Templates {
 		members: MarkdownMembersContext;
 		// Api Helpers
 		signature: string;
-		// TODO: Change to parameters
 		params: MarkdownParamsContext;
 		typeParams: MarkdownTypeParamsContext;
 		returns: MarkdownReturnsContext;
+		enumMembers: MarkdownEnumMembersContext;
 		// API
 		package: MarkdownPackageContext;
 		namespace: MarkdownNamespaceContext;
 		variable: MarkdownVariableContext;
 		function: MarkdownFunctionContext;
 		typeAlias: MarkdownTypeAliasContext;
+		enum: MarkdownEnumContext;
 	};
 }
 
@@ -73,12 +78,14 @@ const TemplatesPath: Templates<string> = {
 		params: "markdown/params.hbs",
 		typeParams: "markdown/typeParams.hbs",
 		returns: "markdown/returns.hbs",
+		enumMembers: "markdown/enumMembers.hbs",
 		// API
 		package: "markdown/package.hbs",
 		namespace: "markdown/namespace.hbs",
 		variable: "markdown/variable.hbs",
 		function: "markdown/function.hbs",
-		typeAlias: "markdown/typeAlias.hbs"
+		typeAlias: "markdown/typeAlias.hbs",
+		enum: "markdown/enum.hbs"
 	}
 };
 
