@@ -14,4 +14,4 @@ function buildMDPropertyContext(propertyAttributes: PropertyAttributes): MDPrope
 	return { name, signature, docs };
 }
 
-export { MDPropertyContext , buildMDPropertyContext };
+export { MDPropertyContext, buildMDPropertyContext };

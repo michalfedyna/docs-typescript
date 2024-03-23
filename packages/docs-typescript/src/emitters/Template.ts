@@ -16,6 +16,8 @@ import { MDEnumContext } from "./md/MDEnumContext";
 import { MDEnumMembersContext } from "./md/MDEnumMembersContext";
 import { MDClassContext } from "./md/MDClassContext";
 import { MDConstructorContext } from "./md/MDConstructorContext";
+import { MDPropertyContext } from "./md/MDPropertyContext";
+import { MDMethodContext } from "./md/MDMethodContext";
 
 type HandlebarMDTemplates =
 	| "signature"
@@ -32,6 +34,8 @@ type HandlebarMDTemplates =
 	| "namespace"
 	| "class"
 	| "constructor"
+	| "property"
+	| "method"
 	| "variable"
 	| "function"
 	| "typeAlias"
@@ -64,6 +68,8 @@ interface Contexts extends Templates {
 		namespace: MDNamespaceContext;
 		class: MDClassContext;
 		constructor: MDConstructorContext;
+		property: MDPropertyContext;
+		method: MDMethodContext;
 		variable: MDVariableContext;
 		function: MDFunctionContext;
 		typeAlias: MDTypeAliasContext;
@@ -90,6 +96,8 @@ const TemplatesPath: Templates<string> = {
 		namespace: "md/namespace.hbs",
 		class: "md/class.hbs",
 		constructor: "md/constructor.hbs",
+		property: "md/property.hbs",
+		method: "md/method.hbs",
 		variable: "md/variable.hbs",
 		function: "md/function.hbs",
 		typeAlias: "md/typeAlias.hbs",
