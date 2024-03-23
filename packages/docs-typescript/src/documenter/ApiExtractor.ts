@@ -59,83 +59,119 @@ namespace ApiExtractor {
 			const packageNode = new PackageNode({ attributes, name: attributes.name });
 
 			return parent.addChild(packageNode);
-		} else if (isNamespace(apiItem)) {
+		}
+
+		if (isNamespace(apiItem)) {
 			const attributes = extractNamespaceAttributes(apiItem);
 			const namespaceNode = new NamespaceNode({ attributes, name: attributes.name });
 
 			return parent.addChild(namespaceNode);
-		} else if (isJSX(apiItem)) {
+		}
+
+		if (isJSX(apiItem)) {
 			// TODO: Implement
-		} else if (isReactHook(apiItem)) {
+		}
+
+		if (isReactHook(apiItem)) {
 			// TODO: Implement
-		} else if (isProps(apiItem)) {
+		}
+
+		if (isProps(apiItem)) {
 			// TODO: Implement
-		} else if (isClass(apiItem)) {
+		}
+
+		if (isClass(apiItem)) {
 			const attributes = extractClassAttributes(apiItem);
 			const classNode = new ClassNode({ attributes, name: attributes.name });
 
 			return parent.addChild(classNode);
-		} else if (isConstructor(apiItem)) {
+		}
+
+		if (isConstructor(apiItem)) {
 			const attributes = extractConstructorAttributes(apiItem);
 			const constructorNode = new ConstructorNode({ attributes, name: attributes.name });
 
 			return parent.addChild(constructorNode);
-		} else if (isProperty(apiItem)) {
+		}
+
+		if (isProperty(apiItem)) {
 			const attributes = extractPropertyAttributes(apiItem);
 			const propertyNode = new PropertyNode({ attributes, name: attributes.name });
 
 			return parent.addChild(propertyNode);
-		} else if (isMethod(apiItem)) {
+		}
+
+		if (isMethod(apiItem)) {
 			const attributes = extractMethodAttributes(apiItem);
 			const methodNode = new MethodNode({ attributes, name: attributes.name });
 
 			return parent.addChild(methodNode);
-		} else if (isFunction(apiItem)) {
+		}
+
+		if (isFunction(apiItem)) {
 			const attributes = extractFunctionAttributes(apiItem);
 			const functionNode = new FunctionNode({ attributes, name: attributes.name });
 
 			return parent.addChild(functionNode);
-		} else if (isVariable(apiItem)) {
+		}
+
+		if (isVariable(apiItem)) {
 			const attributes = extractVariableAttributes(apiItem);
 			const variableNode = new VariableNode({ attributes, name: attributes.name });
 
 			return parent.addChild(variableNode);
-		} else if (isInterface(apiItem)) {
+		}
+
+		if (isInterface(apiItem)) {
 			const attributes = extractInterfaceAttributes(apiItem);
 			const interfaceNode = new InterfaceNode({ attributes, name: attributes.name });
 
 			return parent.addChild(interfaceNode);
-		} else if (isConstructorSignature(apiItem)) {
+		}
+
+		if (isConstructorSignature(apiItem)) {
 			const attributes = extractConstructorSignatureAttributes(apiItem);
 			const constructorSignatureNode = new ConstructorSignatureNode({ attributes, name: attributes.name });
 
 			return parent.addChild(constructorSignatureNode);
-		} else if (isPropertySignature(apiItem)) {
+		}
+
+		if (isPropertySignature(apiItem)) {
 			const attributes = extractPropertySignatureAttributes(apiItem);
 			const propertySignatureNode = new PropertySignatureNode({ attributes, name: attributes.name });
 
 			return parent.addChild(propertySignatureNode);
-		} else if (isMethodSignature(apiItem)) {
+		}
+
+		if (isMethodSignature(apiItem)) {
 			const attributes = extractMethodSignatureAttributes(apiItem);
 			const methodSignatureNode = new MethodSignatureNode({ attributes, name: attributes.name });
 
 			return parent.addChild(methodSignatureNode);
-		} else if (isIndexSignature(apiItem)) {
+		}
+
+		if (isIndexSignature(apiItem)) {
 			const attributes = extractIndexSignatureAttributes(apiItem);
 			const indexSignatureNode = new IndexSignatureNode({ attributes, name: attributes.name });
 
 			return parent.addChild(indexSignatureNode);
-		} else if (isTypeAlias(apiItem)) {
+		}
+
+		if (isTypeAlias(apiItem)) {
 			const attributes = extractTypeAliasAttributes(apiItem);
 			const typeAliasNode = new TypeAliasNode({ attributes, name: attributes.name });
 
 			return parent.addChild(typeAliasNode);
-		} else if (isEnum(apiItem)) {
+		}
+
+		if (isEnum(apiItem)) {
 			const attributes = extractEnumAttributes(apiItem);
 			const enumNode = new EnumNode({ attributes, name: attributes.name });
 
 			return parent.addChild(enumNode);
-		} else if (isEnumMember(apiItem)) {
+		}
+
+		if (isEnumMember(apiItem)) {
 			const attributes = extractEnumMemberAttributes(apiItem);
 			const enumMemberNode = new EnumMemberNode({ attributes, name: attributes.name });
 
