@@ -1,3 +1,4 @@
+import { DocsExtractor } from "../../DocsExtractor";
 import {
 	Abstract,
 	FileUrl,
@@ -9,7 +10,8 @@ import {
 	ReleaseTag,
 	Returns,
 	Signature,
-	Static
+	Static,
+	TypeParameters
 } from "../ApiAttributes";
 import { ApiNode, ApiNodeType } from "../ApiNode";
 import { ApiMethod, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
@@ -25,22 +27,43 @@ interface MethodAttributes
 		Protected,
 		Overload,
 		Returns,
-		Parameters {}
+		Parameters,
+		TypeParameters {}
 
 class MethodNode extends ApiNode<MethodAttributes> {
 	public type: ApiNodeType = ApiNodeType.MethodNode;
 }
 
 function extractMethodAttributes(apiMethod: ApiMethod): MethodAttributes {
+	const { displayName, isStatic, isAbstract, isProtected, isOptional, overloadIndex, fileUrlPath } = apiMethod;
+	const returnType = apiMethod.returnTypeExcerpt.text;
+	const releaseTag = ApiReleaseTag.getTagName(apiMethod.releaseTag);
+
 	const parameters = apiMethod.parameters.map((parameter) => ({
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
-		isOptional: parameter.isOptional
+		isOptional: parameter.isOptional,
+		doc: DocsExtractor.traverse(parameter.tsdocParamBlock)
 	}));
-	const returnType = apiMethod.returnTypeExcerpt.text;
-	const { displayName, isStatic, isAbstract, isProtected, isOptional, overloadIndex, fileUrlPath } = apiMethod;
-	const releaseTag = ApiReleaseTag.getTagName(apiMethod.releaseTag);
-	const signature = apiMethod.excerpt.text;
+	const typeParameters = apiMethod.typeParameters.map((typeParameter) => ({
+		name: typeParameter.name,
+		isOptional: typeParameter.isOptional,
+		constraint: typeParameter.constraintExcerpt.text,
+		default: typeParameter.defaultTypeExcerpt.text,
+		doc: DocsExtractor.traverse(typeParameter.tsdocTypeParamBlock)
+	}));
+
+	const parametersSignature = parameters
+		.map((parameter) => `${parameter.name}${parameter.isOptional ? "?" : ""}: ${parameter.type}`)
+		.join(", ");
+	const typeParametersArray = typeParameters.map(
+		(typeParameter) =>
+			`${typeParameter.name}${typeParameter.constraint ? ` extends ${typeParameter.constraint}` : ""}${typeParameter.default ? ` = ${typeParameter.default}` : ""}`
+	);
+	const typeParametersSignature = typeParameters.length > 0 ? `<${typeParametersArray.join(", ")}>` : "";
+	const signaturePrefix = `${isStatic ? "static " : ""}${isAbstract ? "abstract " : ""}${isProtected ? "protected " : ""}`;
+
+	const signature = `${signaturePrefix}${displayName}${typeParametersSignature}(${parametersSignature}): ${returnType}`;
 
 	return {
 		name: displayName,
@@ -53,6 +76,7 @@ function extractMethodAttributes(apiMethod: ApiMethod): MethodAttributes {
 		isStatic,
 		overloadIndex,
 		parameters,
+		typeParameters,
 		returnType
 	};
 }

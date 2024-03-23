@@ -1,4 +1,4 @@
-import { traverseDocNodes } from "../../Documenter";
+import { DocsExtractor } from "../../DocsExtractor";
 import { Exported, FileUrl, Members, Name, ReleaseTag, Signature } from "../ApiAttributes";
 import { ApiNode, ApiNodeType } from "../ApiNode";
 import { ApiEnum, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
@@ -13,7 +13,7 @@ function extractEnumAttributes(apiEnum: ApiEnum): EnumAttributes {
 	const { displayName, fileUrlPath, isExported } = apiEnum;
 	const members = apiEnum.members.map((member) => ({
 		name: member.name,
-		doc: traverseDocNodes(member.tsdocComment?.summarySection)
+		doc: DocsExtractor.traverse(member.tsdocComment?.summarySection)
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiEnum.releaseTag);
 

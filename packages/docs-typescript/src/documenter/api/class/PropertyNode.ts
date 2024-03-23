@@ -39,7 +39,8 @@ function extractPropertyAttributes(apiProperty: ApiProperty): PropertyAttributes
 	const type = apiProperty.propertyTypeExcerpt.text;
 	const initializer = apiProperty.initializerExcerpt?.text;
 	const releaseTag = ApiReleaseTag.getTagName(apiProperty.releaseTag);
-	const signature = apiProperty.excerpt.text;
+
+	const signature = `${isProtected ? "protected " : ""}${isStatic ? "static " : ""}${isAbstract ? "abstract " : ""}${isReadonly ? "readonly " : ""}${displayName}${isOptional ? "?" : ""}: ${type}${initializer ? " = " + initializer : ""}`;
 
 	return {
 		name: displayName,

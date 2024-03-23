@@ -4,7 +4,7 @@
 function functionWithTypeParams<T extends string = string, K = string>(
   a: T,
   b: K,
-): (T | K)[] {}
+): (T | K)[];
 ```
 
 Function with type parameters to show how library handles typeParam TsDoc tag

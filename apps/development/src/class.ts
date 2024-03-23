@@ -25,6 +25,7 @@ class SomeClass extends SomeAbstractClass {
 class AnotherClass {
   public hello: string = "Hello";
   public world: string = "World";
+  protected static readonly test: string;
 
   constructor(hello: string) {
     this.hello = hello;

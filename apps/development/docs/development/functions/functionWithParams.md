@@ -1,7 +1,7 @@
 # functionWithParams
 
 ```typescript
-function functionWithParams(a: number, b: number, c: string | number): number {}
+function functionWithParams(a: number, b: number, c: string | number): number;
 ```
 
 ## Parameters

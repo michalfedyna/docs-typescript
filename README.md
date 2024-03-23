@@ -3,6 +3,12 @@
 Tool for documenting Typescript APIs using [API Extractor](https://api-extractor.com/pages/overview/intro/) with support for Markdown, MDX ([Docusaurus](https://docusaurus.io)) and HTML.
 Alternative to [api-documenter](https://api-extractor.com/pages/setup/generating_docs/) and [TypeDoc](https://typedoc.org) with better UX, much richer API presentation and support for single and multi page documentation.
 
+## Getting Started
+
+```bash
+npx docs-typescript init
+```
+
 ## Documentation
 
 For all the details see **[DocsTypescript.com](docstypescript.com)**, for API documentation see **[DocsTypescript.com/api](docstypescript.com/api)**

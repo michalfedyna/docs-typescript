@@ -1,7 +1,7 @@
 # functionWithOptionalParams
 
 ```typescript
-function functionWithOptionalParams(a: number, b?: number): number {}
+function functionWithOptionalParams(a: number, b?: number): number;
 ```
 
 This is function with optional params

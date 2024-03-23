@@ -1,7 +1,7 @@
 # overloadedFunction
 
 ```typescript
-function overloadedFunction(a: number): unknown {}
+function overloadedFunction(a: number): unknown;
 ```
 
 ## Parameters

@@ -63,6 +63,7 @@ type CallbackArray = {
 interface ApiNodeValue<T> {
 	name: string;
 	attributes: T;
+	// TODO: Put docs to attributes
 	docs: DocsAttributes;
 }
 

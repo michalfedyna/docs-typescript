@@ -10,6 +10,7 @@ Test library for docs-typescript development
 class AnotherClass {
   constructor(hello: string);
   hello: string;
+  protected static readonly test: string;
   world: string;
 }
 ```
@@ -102,7 +103,7 @@ class YetAnotherClass {
 Some function that return `Hello World` `string`
 
 ```typescript
-function basicFunction(): string {}
+function basicFunction(): string;
 ```
 
 ### [functionWithOptionalParams](./development/functions/functionWithOptionalParams.md)
@@ -110,13 +111,13 @@ function basicFunction(): string {}
 This is function with optional params
 
 ```typescript
-function functionWithOptionalParams(a: number, b?: number): number {}
+function functionWithOptionalParams(a: number, b?: number): number;
 ```
 
 ### [functionWithParams](./development/functions/functionWithParams.md)
 
 ```typescript
-function functionWithParams(a: number, b: number, c: string | number): number {}
+function functionWithParams(a: number, b: number, c: string | number): number;
 ```
 
 ### [functionWithTypeParams](./development/functions/functionWithTypeParams.md)
@@ -127,19 +128,19 @@ Function with type parameters to show how library handles typeParam TsDoc tag
 function functionWithTypeParams<T extends string = string, K = string>(
   a: T,
   b: K,
-): (T | K)[] {}
+): (T | K)[];
 ```
 
 ### [overloadedFunction](./development/functions/overloadedFunction.md)
 
 ```typescript
-function overloadedFunction(a: string): unknown {}
+function overloadedFunction(a: string): unknown;
 ```
 
 ### [overloadedFunction](./development/functions/overloadedFunction.md)
 
 ```typescript
-function overloadedFunction(a: number): unknown {}
+function overloadedFunction(a: number): unknown;
 ```
 
 ## Interfaces
@@ -261,3 +262,7 @@ enum SimpleEnum {
   Hello,
 }
 ```
+
+---
+
+> Generated using [DocsTypescript](https://docstypescript.com)

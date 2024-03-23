@@ -1,4 +1,4 @@
-import { traverseDocNodes } from "../Documenter";
+import { DocsExtractor } from "../DocsExtractor";
 import {
 	Exported,
 	FileUrl,
@@ -34,7 +34,7 @@ function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
 		isOptional: parameter.isOptional,
-		doc: traverseDocNodes(parameter.tsdocParamBlock)
+		doc: DocsExtractor.traverse(parameter.tsdocParamBlock)
 	}));
 	const returnType = apiFunction.returnTypeExcerpt.text;
 	const typeParameters = apiFunction.typeParameters.map((typeParameter) => ({
@@ -42,7 +42,7 @@ function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes
 		isOptional: typeParameter.isOptional,
 		constraint: typeParameter.constraintExcerpt.text,
 		default: typeParameter.defaultTypeExcerpt.text,
-    doc: traverseDocNodes(typeParameter.tsdocTypeParamBlock),
+		doc: DocsExtractor.traverse(typeParameter.tsdocTypeParamBlock)
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiFunction.releaseTag);
 
@@ -58,7 +58,7 @@ function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes
 	);
 	const typeParametersSignature = typeParameters.length > 0 ? `<${typeParametersArray.join(", ")}>` : "";
 
-	const signature = `function ${displayName}${typeParametersSignature}(${parametersSignature}): ${returnType} {}`;
+	const signature = `function ${displayName}${typeParametersSignature}(${parametersSignature}): ${returnType};`;
 
 	return {
 		fileUrlPath,
