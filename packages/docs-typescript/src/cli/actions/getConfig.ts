@@ -1,8 +1,8 @@
 import path from "path";
 import * as fs from "fs";
 
-import { Config, DocsConfig } from "../config/DocsConfig";
-import { Debug } from "../utils/Debug";
+import { Config, DocsConfig } from "../../config/DocsConfig";
+import { Debug } from "../../utils/Debug";
 
 function getConfig(): DocsConfig {
 	const configPath = path.resolve(process.cwd(), "docs.config.json");

@@ -1,6 +1,6 @@
 import { Command } from "commander";
-import { extractApiModel } from "../../actions/extractApiModel";
-import { generateDeclarations } from "../../actions/generateDeclarations";
+import { extractApiModel } from "../actions/extractApiModel";
+import { generateDeclarations } from "../actions/generateDeclarations";
 import { Debug } from "../../utils/Debug";
 
 function extract(cli: Command) {

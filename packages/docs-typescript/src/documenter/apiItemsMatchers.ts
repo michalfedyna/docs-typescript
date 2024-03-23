@@ -19,7 +19,6 @@ import {
 	ApiTypeAlias,
 	ApiVariable
 } from "@microsoft/api-extractor-model";
-import { DocBlockTag, DocNode, DocNodeKind } from "@microsoft/tsdoc";
 
 function isJSX(apiItem: ApiItem): boolean {
 	if (!(apiItem instanceof ApiDocumentedItem) || !apiItem.tsdocComment) return false;

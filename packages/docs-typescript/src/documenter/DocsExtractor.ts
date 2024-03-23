@@ -12,7 +12,7 @@ import { CodeSpanDocNode } from "./docs/CodeSpanDocNode";
 import { FancedCodeDocNode } from "./docs/FancedCodeDocNode";
 import { LinkTagDocNode } from "./docs/LinkTagNode";
 
-import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "../utils/docsNodesMatchers";
+import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "./docsNodesMatchers";
 
 namespace DocsExtractor {
 	export function traverse(apiDocNode?: ApiDocNode, parent?: DocNode): RootDocNode | undefined {

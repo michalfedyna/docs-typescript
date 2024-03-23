@@ -1,7 +1,7 @@
 import { Command } from "commander";
 
-import { getConfig } from "../../actions/getConfig";
-import { buildDocs } from "../../actions/buildDocs";
+import { getConfig } from "../actions/getConfig";
+import { buildDocs } from "../actions/buildDocs";
 
 import { Debug } from "../../utils/Debug";
 

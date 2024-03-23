@@ -43,7 +43,7 @@ import {
 	isReactHook,
 	isTypeAlias,
 	isVariable
-} from "../utils/apiItemsMatchers";
+} from "./apiItemsMatchers";
 import { DocsExtractor } from "./DocsExtractor";
 
 namespace ApiExtractor {

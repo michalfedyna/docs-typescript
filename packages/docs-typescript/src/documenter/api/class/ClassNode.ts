@@ -14,7 +14,7 @@ import { ApiClass, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-
 import { ConstructorAttributes, extractConstructorAttributes } from "./ConstructorNode";
 import { PropertyAttributes, extractPropertyAttributes } from "./PropertyNode";
 import { MethodAttributes, extractMethodAttributes } from "./MethodNode";
-import { isConstructor, isMethod, isProperty } from "../../../utils/apiItemsMatchers";
+import { isConstructor, isMethod, isProperty } from "../../apiItemsMatchers";
 
 interface ClassAttributes
 	extends Name,
