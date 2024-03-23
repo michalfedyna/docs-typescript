@@ -4,7 +4,7 @@ class RootNode extends ApiNode<{}> {
 	public type: ApiNodeType = ApiNodeType.RootNode;
 
 	constructor() {
-		super({ name: "", docs: {}, attributes: {} });
+		super({ name: "", attributes: {} });
 		this.uri = this._createURI(this);
 	}
 }

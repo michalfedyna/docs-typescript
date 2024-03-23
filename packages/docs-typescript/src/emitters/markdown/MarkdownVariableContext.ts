@@ -10,7 +10,7 @@ interface MarkdownVariableContext {
 
 function buildMarkdownVariableContext(variableNode: VariableNode): HandlebarsMarkdownContext<MarkdownVariableContext> {
 	const { name, signature } = variableNode.value.attributes;
-	const docs = buildMarkdownDocsContext(variableNode.value.docs);
+	const docs = buildMarkdownDocsContext(variableNode.value.attributes.docs);
 
 	return [
 		{

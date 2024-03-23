@@ -1,4 +1,12 @@
+import { DocsAttributes } from "../docs/DocsAttributes";
 import { RootDocNode } from "../docs/RootDocNode";
+import { ConstructorAttributes } from "./class/ConstructorNode";
+import { MethodAttributes } from "./class/MethodNode";
+import { PropertyAttributes } from "./class/PropertyNode";
+
+interface Docs {
+	docs: DocsAttributes;
+}
 
 interface Name {
 	name: string;
@@ -104,7 +112,20 @@ interface Members {
 	members: Member[];
 }
 
+interface Constructors {
+	constructors: ConstructorAttributes[];
+}
+
+interface Properties {
+	properties: PropertyAttributes[];
+}
+
+interface Methods {
+	methods: MethodAttributes[];
+}
+
 export {
+	Docs,
 	Abstract,
 	Exported,
 	Extends,
@@ -125,5 +146,8 @@ export {
 	Signature,
 	Static,
 	Type,
-	TypeParameters
+	TypeParameters,
+	Constructors,
+	Properties,
+	Methods
 };

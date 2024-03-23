@@ -1,10 +1,14 @@
 import {
 	Abstract,
+	Constructors,
+	Docs,
 	Exported,
 	Extends,
 	FileUrl,
 	Implements,
+	Methods,
 	Name,
+	Properties,
 	ReleaseTag,
 	Signature,
 	TypeParameters
@@ -15,6 +19,7 @@ import { ConstructorAttributes, extractConstructorAttributes } from "./Construct
 import { PropertyAttributes, extractPropertyAttributes } from "./PropertyNode";
 import { MethodAttributes, extractMethodAttributes } from "./MethodNode";
 import { isConstructor, isMethod, isProperty } from "../../apiItemsMatchers";
+import { DocsExtractor } from "../../DocsExtractor";
 
 interface ClassAttributes
 	extends Name,
@@ -25,11 +30,11 @@ interface ClassAttributes
 		Extends,
 		TypeParameters,
 		Exported,
-		FileUrl {
-	constructors: ConstructorAttributes[];
-	properties: PropertyAttributes[];
-	methods: MethodAttributes[];
-}
+		FileUrl,
+		Docs,
+		Constructors,
+		Properties,
+		Methods {}
 
 class ClassNode extends ApiNode<ClassAttributes> {
 	public type: ApiNodeType = ApiNodeType.ClassNode;
@@ -37,6 +42,7 @@ class ClassNode extends ApiNode<ClassAttributes> {
 
 function extractClassAttributes(apiClass: ApiClass): ClassAttributes {
 	const { displayName, isAbstract, fileUrlPath, isExported } = apiClass;
+	const docs = DocsExtractor.extract(apiClass);
 	const extendsType = apiClass.extendsType?.excerpt.text;
 	const implementedTypes = apiClass.implementsTypes.map((type) => type.excerpt.text);
 	const typeParameters = apiClass.typeParameters.map((typeParameter) => ({
@@ -79,6 +85,7 @@ function extractClassAttributes(apiClass: ApiClass): ClassAttributes {
 		constructors,
 		properties,
 		methods,
+		docs,
 		extendsType,
 		fileUrlPath,
 		implementedTypes,

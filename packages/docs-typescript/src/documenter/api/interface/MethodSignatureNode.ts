@@ -1,4 +1,6 @@
+import { DocsExtractor } from "../../DocsExtractor";
 import {
+	Docs,
 	FileUrl,
 	Name,
 	Optional,
@@ -21,7 +23,8 @@ interface MethodSignatureAttributes
 		Returns,
 		Overload,
 		Parameters,
-		TypeParameters {}
+		TypeParameters,
+		Docs {}
 
 class MethodSignatureNode extends ApiNode<MethodSignatureAttributes> {
 	public type: ApiNodeType = ApiNodeType.MethodSignatureNode;
@@ -29,6 +32,7 @@ class MethodSignatureNode extends ApiNode<MethodSignatureAttributes> {
 
 function extractMethodSignatureAttributes(apiMethodSignature: ApiMethodSignature): MethodSignatureAttributes {
 	const { displayName, fileUrlPath, overloadIndex, isOptional } = apiMethodSignature;
+	const docs = DocsExtractor.extract(apiMethodSignature);
 	const returnType = apiMethodSignature.returnTypeExcerpt.text;
 	const parameters = apiMethodSignature.parameters.map((parameter) => ({
 		name: parameter.name,
@@ -46,6 +50,7 @@ function extractMethodSignatureAttributes(apiMethodSignature: ApiMethodSignature
 
 	return {
 		name: displayName,
+		docs,
 		fileUrlPath,
 		returnType,
 		releaseTag,

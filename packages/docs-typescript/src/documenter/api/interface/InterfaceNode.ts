@@ -1,8 +1,17 @@
-import { Exported, ExtendsArray, FileUrl, Name, ReleaseTag, Signature, TypeParameters } from "../ApiAttributes";
+import { DocsExtractor } from "../../DocsExtractor";
+import { Docs, Exported, ExtendsArray, FileUrl, Name, ReleaseTag, Signature, TypeParameters } from "../ApiAttributes";
 import { ApiNode, ApiNodeType } from "../ApiNode";
 import { ApiInterface, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
 
-interface InterfaceAttributes extends Name, ReleaseTag, Signature, FileUrl, ExtendsArray, TypeParameters, Exported {}
+interface InterfaceAttributes
+	extends Name,
+		Docs,
+		ReleaseTag,
+		Signature,
+		FileUrl,
+		ExtendsArray,
+		TypeParameters,
+		Exported {}
 
 class InterfaceNode extends ApiNode<InterfaceAttributes> {
 	public type: ApiNodeType = ApiNodeType.InterfaceNode;
@@ -10,6 +19,7 @@ class InterfaceNode extends ApiNode<InterfaceAttributes> {
 
 function extractInterfaceAttributes(apiInterface: ApiInterface): InterfaceAttributes {
 	const { displayName, fileUrlPath, isExported } = apiInterface;
+	const docs = DocsExtractor.extract(apiInterface);
 	const typeParameters = apiInterface.typeParameters.map((typeParameter) => ({
 		name: typeParameter.name,
 		isOptional: typeParameter.isOptional,
@@ -30,7 +40,7 @@ function extractInterfaceAttributes(apiInterface: ApiInterface): InterfaceAttrib
 
 	const signature = `interface ${displayName}${typeParametersSignature}${extendsTypesSignature} {}`;
 
-	return { name: displayName, fileUrlPath, extendsTypes, isExported, signature, releaseTag, typeParameters };
+	return { name: displayName, docs, fileUrlPath, extendsTypes, isExported, signature, releaseTag, typeParameters };
 }
 
 export { InterfaceNode, InterfaceAttributes, extractInterfaceAttributes };

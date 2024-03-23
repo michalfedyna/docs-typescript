@@ -10,9 +10,9 @@ interface MarkdownClassContext {
 
 function buildMarkdownClassContext(classNode: ClassNode): HandlebarsMarkdownContext<MarkdownClassContext> {
 	const { name, signature } = classNode.value.attributes;
-  const docs = buildMarkdownDocsContext(classNode.value.docs);
+  const docs = buildMarkdownDocsContext(classNode.value.attributes.docs);
+  
 
-  // TODO: get class members
 
 	return [{ name, signature, docs }, "class"];
 }

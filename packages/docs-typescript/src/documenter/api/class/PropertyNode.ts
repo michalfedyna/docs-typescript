@@ -1,5 +1,7 @@
+import { DocsExtractor } from "../../DocsExtractor";
 import {
 	Abstract,
+	Docs,
 	EventProperty,
 	FileUrl,
 	Initializer,
@@ -27,7 +29,8 @@ interface PropertyAttributes
 		Readonly,
 		Static,
 		Type,
-		Initializer {}
+		Initializer,
+		Docs {}
 
 class PropertyNode extends ApiNode<PropertyAttributes> {
 	public type: ApiNodeType = ApiNodeType.PropertyNode;
@@ -39,6 +42,7 @@ function extractPropertyAttributes(apiProperty: ApiProperty): PropertyAttributes
 	const type = apiProperty.propertyTypeExcerpt.text;
 	const initializer = apiProperty.initializerExcerpt?.text;
 	const releaseTag = ApiReleaseTag.getTagName(apiProperty.releaseTag);
+	const docs = DocsExtractor.extract(apiProperty);
 
 	const signature = `${isProtected ? "protected " : ""}${isStatic ? "static " : ""}${isAbstract ? "abstract " : ""}${isReadonly ? "readonly " : ""}${displayName}${isOptional ? "?" : ""}: ${type}${initializer ? " = " + initializer : ""}`;
 
@@ -54,7 +58,8 @@ function extractPropertyAttributes(apiProperty: ApiProperty): PropertyAttributes
 		isProtected,
 		isReadonly,
 		isStatic,
-		type
+		type,
+		docs
 	};
 }
 

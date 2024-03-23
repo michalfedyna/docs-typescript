@@ -1,4 +1,5 @@
-import { FileUrl, Name, Overload, Parameters, Readonly, ReleaseTag, Returns, Signature } from "../ApiAttributes";
+import { DocsExtractor } from "../../DocsExtractor";
+import { Docs, FileUrl, Name, Overload, Parameters, Readonly, ReleaseTag, Returns, Signature } from "../ApiAttributes";
 import { ApiNode, ApiNodeType } from "../ApiNode";
 import { ApiIndexSignature, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
 
@@ -10,7 +11,8 @@ interface IndexSignatureAttributes
 		Overload,
 		Returns,
 		FileUrl,
-		Readonly {}
+		Readonly,
+		Docs {}
 
 class IndexSignatureNode extends ApiNode<IndexSignatureAttributes> {
 	public type: ApiNodeType = ApiNodeType.IndexSignatureNode;
@@ -18,6 +20,7 @@ class IndexSignatureNode extends ApiNode<IndexSignatureAttributes> {
 
 function extractIndexSignatureAttributes(apiIndexSignature: ApiIndexSignature): IndexSignatureAttributes {
 	const { displayName, fileUrlPath, overloadIndex, isReadonly } = apiIndexSignature;
+	const docs = DocsExtractor.extract(apiIndexSignature);
 	const parameters = apiIndexSignature.parameters.map((parameter) => ({
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
@@ -27,7 +30,17 @@ function extractIndexSignatureAttributes(apiIndexSignature: ApiIndexSignature): 
 	const releaseTag = ApiReleaseTag.getTagName(apiIndexSignature.releaseTag);
 	const signature = apiIndexSignature.excerpt.text;
 
-	return { name: displayName, fileUrlPath, parameters, returnType, overloadIndex, isReadonly, signature, releaseTag };
+	return {
+		name: displayName,
+		docs,
+		fileUrlPath,
+		parameters,
+		returnType,
+		overloadIndex,
+		isReadonly,
+		signature,
+		releaseTag
+	};
 }
 
 export { IndexSignatureNode, IndexSignatureAttributes, extractIndexSignatureAttributes };

@@ -14,7 +14,7 @@ function buildMarkdownEnumContext(enumNode: EnumNode): HandlebarsMarkdownContext
 	const { name, signature } = enumNode.value.attributes;
 
 	const members = buildMarkdownEnumMembersContext(enumNode.value.attributes.members, name);
-	const docs = buildMarkdownDocsContext(enumNode.value.docs);
+	const docs = buildMarkdownDocsContext(enumNode.value.attributes.docs);
 
 	return [{ name, signature, members, docs }, "enum"];
 }

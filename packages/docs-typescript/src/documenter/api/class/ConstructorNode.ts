@@ -1,8 +1,9 @@
-import { FileUrl, Name, Overload, Parameters, Protected, ReleaseTag, Signature } from "../ApiAttributes";
+import { DocsExtractor } from "../../DocsExtractor";
+import { Docs, FileUrl, Name, Overload, Parameters, Protected, ReleaseTag, Signature } from "../ApiAttributes";
 import { ApiNode, ApiNodeType } from "../ApiNode";
 import { ApiConstructor, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
 
-interface ConstructorAttributes extends Name, ReleaseTag, Signature, FileUrl, Overload, Protected, Parameters {}
+interface ConstructorAttributes extends Name, Docs, ReleaseTag, Signature, FileUrl, Overload, Protected, Parameters {}
 
 class ConstructorNode extends ApiNode<ConstructorAttributes> {
 	public type: ApiNodeType = ApiNodeType.ConstructorNode;
@@ -10,6 +11,7 @@ class ConstructorNode extends ApiNode<ConstructorAttributes> {
 
 function extractConstructorAttributes(apiConstructor: ApiConstructor): ConstructorAttributes {
 	const { displayName, overloadIndex, isProtected, fileUrlPath } = apiConstructor;
+	const docs = DocsExtractor.extract(apiConstructor);
 	const parameters = apiConstructor.parameters.map((parameter) => ({
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
@@ -20,6 +22,7 @@ function extractConstructorAttributes(apiConstructor: ApiConstructor): Construct
 	const signature = `constructor(${parameters.map((parameter) => `${parameter.name}${parameter.isOptional ? "?" : ""}: ${parameter.type}`).join(", ")})`;
 
 	return {
+    docs,
 		fileUrlPath,
 		isProtected,
 		name: displayName,

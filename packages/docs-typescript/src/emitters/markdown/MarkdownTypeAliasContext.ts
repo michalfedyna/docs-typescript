@@ -15,7 +15,7 @@ function buildMarkdownTypeAliasContext(
 ): HandlebarsMarkdownContext<MarkdownTypeAliasContext> {
 	const { name, signature } = typeAliasNode.value.attributes;
 
-	const docs = buildMarkdownDocsContext(typeAliasNode.value.docs);
+	const docs = buildMarkdownDocsContext(typeAliasNode.value.attributes.docs);
 	const typeParameters = buildMarkdownTypeParmas(typeAliasNode.value.attributes.typeParameters);
 
 	return [{ name, signature, typeParameters, docs }, "typeAlias"];

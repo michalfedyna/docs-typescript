@@ -1,4 +1,15 @@
-import { FileUrl, Name, Overload, Parameters, ReleaseTag, Returns, Signature, TypeParameters } from "../ApiAttributes";
+import { DocsExtractor } from "../../DocsExtractor";
+import {
+	Docs,
+	FileUrl,
+	Name,
+	Overload,
+	Parameters,
+	ReleaseTag,
+	Returns,
+	Signature,
+	TypeParameters
+} from "../ApiAttributes";
 import { ApiNode, ApiNodeType } from "../ApiNode";
 import { ApiConstructSignature, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
 
@@ -10,7 +21,8 @@ interface ConstructorSignatureAttributes
 		FileUrl,
 		Parameters,
 		TypeParameters,
-		Returns {}
+		Returns,
+		Docs {}
 
 class ConstructorSignatureNode extends ApiNode<ConstructorSignatureAttributes> {
 	public type: ApiNodeType = ApiNodeType.ConstructorSignatureNode;
@@ -20,6 +32,7 @@ function extractConstructorSignatureAttributes(
 	apiConstructSignature: ApiConstructSignature
 ): ConstructorSignatureAttributes {
 	const { displayName, fileUrlPath, overloadIndex } = apiConstructSignature;
+	const docs = DocsExtractor.extract(apiConstructSignature);
 	const signature = apiConstructSignature.excerpt.text;
 	const returnType = apiConstructSignature.returnTypeExcerpt.text;
 	const parameters = apiConstructSignature.parameters.map((parameter) => ({
@@ -37,6 +50,7 @@ function extractConstructorSignatureAttributes(
 
 	return {
 		name: displayName,
+		docs,
 		releaseTag,
 		signature,
 		fileUrlPath,

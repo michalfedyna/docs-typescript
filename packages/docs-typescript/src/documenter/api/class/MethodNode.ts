@@ -1,6 +1,7 @@
 import { DocsExtractor } from "../../DocsExtractor";
 import {
 	Abstract,
+	Docs,
 	FileUrl,
 	Name,
 	Optional,
@@ -28,7 +29,8 @@ interface MethodAttributes
 		Overload,
 		Returns,
 		Parameters,
-		TypeParameters {}
+		TypeParameters,
+		Docs {}
 
 class MethodNode extends ApiNode<MethodAttributes> {
 	public type: ApiNodeType = ApiNodeType.MethodNode;
@@ -38,6 +40,7 @@ function extractMethodAttributes(apiMethod: ApiMethod): MethodAttributes {
 	const { displayName, isStatic, isAbstract, isProtected, isOptional, overloadIndex, fileUrlPath } = apiMethod;
 	const returnType = apiMethod.returnTypeExcerpt.text;
 	const releaseTag = ApiReleaseTag.getTagName(apiMethod.releaseTag);
+	const docs = DocsExtractor.extract(apiMethod);
 
 	const parameters = apiMethod.parameters.map((parameter) => ({
 		name: parameter.name,
@@ -77,7 +80,8 @@ function extractMethodAttributes(apiMethod: ApiMethod): MethodAttributes {
 		overloadIndex,
 		parameters,
 		typeParameters,
-		returnType
+		returnType,
+		docs
 	};
 }
 

@@ -1,5 +1,6 @@
 import { DocsExtractor } from "../DocsExtractor";
 import {
+	Docs,
 	Exported,
 	FileUrl,
 	Name,
@@ -22,7 +23,8 @@ interface FunctionAttributes
 		Returns,
 		TypeParameters,
 		ReleaseTag,
-		FileUrl {}
+		FileUrl,
+		Docs {}
 
 class FunctionNode extends ApiNode<FunctionAttributes> {
 	public type: ApiNodeType = ApiNodeType.FunctionNode;
@@ -30,6 +32,7 @@ class FunctionNode extends ApiNode<FunctionAttributes> {
 
 function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes {
 	const { displayName, fileUrlPath, overloadIndex, isExported } = apiFunction;
+	const docs = DocsExtractor.extract(apiFunction);
 	const parameters = apiFunction.parameters.map((parameter) => ({
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
@@ -69,7 +72,8 @@ function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes
 		releaseTag,
 		returnType,
 		signature,
-		typeParameters
+		typeParameters,
+		docs
 	};
 }
 
