@@ -1,18 +1,18 @@
 import { CallbackArray, DocNodeType } from "../../documenter/docs/DocNode";
 import { DocsAttributes } from "../../documenter/docs/DocsAttributes";
 
-interface MarkdownDocsContext {
+interface MDDocsContext {
 	summary?: string[];
 	remarks?: string[];
 	examples?: string[];
 	returns?: string[];
 }
 
-function buildMarkdownDocsContext(docs: DocsAttributes): MarkdownDocsContext {
-	let summary: MarkdownDocsContext["summary"];
-	let remarks: MarkdownDocsContext["remarks"];
-	let examples: MarkdownDocsContext["examples"];
-	let returns: MarkdownDocsContext["returns"];
+function buildMDDocsContext(docs: DocsAttributes): MDDocsContext {
+	let summary: MDDocsContext["summary"];
+	let remarks: MDDocsContext["remarks"];
+	let examples: MDDocsContext["examples"];
+	let returns: MDDocsContext["returns"];
 
 	if (docs.summary) {
 		summary = [];
@@ -59,4 +59,4 @@ function buildDoc(array: string[]): CallbackArray {
 	};
 }
 
-export { MarkdownDocsContext, buildMarkdownDocsContext, buildDoc };
+export { MDDocsContext, buildMDDocsContext, buildDoc };

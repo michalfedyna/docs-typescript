@@ -1,14 +1,14 @@
 import { Parameters } from "../../documenter/api/ApiAttributes";
-import { buildDoc } from "./MarkdownDocsContext";
+import { buildDoc } from "./MDDocsContext";
 
-type MarkdownParamsContext = {
+type MDParamsContext = {
 	name: string;
 	type: string;
 	isOptional: boolean;
 	doc?: string[];
 }[];
 
-function buildMarkdownParamsContext(params: Parameters["parameters"]): MarkdownParamsContext {
+function buildMDParamsContext(params: Parameters["parameters"]): MDParamsContext {
 	return params.map((param) => {
 		const { name, type, isOptional } = param;
 		let doc: string[] | undefined;
@@ -26,4 +26,4 @@ function buildMarkdownParamsContext(params: Parameters["parameters"]): MarkdownP
 	});
 }
 
-export { MarkdownParamsContext, buildMarkdownParamsContext };
+export { MDParamsContext, buildMDParamsContext };

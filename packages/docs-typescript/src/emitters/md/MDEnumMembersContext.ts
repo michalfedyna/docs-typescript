@@ -1,13 +1,13 @@
 import { Members } from "../../documenter/api/ApiAttributes";
-import { buildDoc } from "./MarkdownDocsContext";
+import { buildDoc } from "./MDDocsContext";
 
-type MarkdownEnumMembersContext = {
+type MDEnumMembersContext = {
 	parent: string;
 	name: string;
 	doc?: string[];
 }[];
 
-function buildMarkdownEnumMembersContext(enumMembers: Members["members"], parent: string): MarkdownEnumMembersContext {
+function buildMDEnumMembersContext(enumMembers: Members["members"], parent: string): MDEnumMembersContext {
 	return enumMembers.map((member) => {
 		const { name } = member;
 		let doc: string[] | undefined;
@@ -21,4 +21,4 @@ function buildMarkdownEnumMembersContext(enumMembers: Members["members"], parent
 	});
 }
 
-export { MarkdownEnumMembersContext, buildMarkdownEnumMembersContext };
+export { MDEnumMembersContext, buildMDEnumMembersContext };

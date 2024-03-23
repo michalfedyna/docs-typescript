@@ -1,7 +1,7 @@
 import { TypeParameters } from "../../documenter/api/ApiAttributes";
-import { buildDoc } from "./MarkdownDocsContext";
+import { buildDoc } from "./MDDocsContext";
 
-type MarkdownTypeParamsContext = {
+type MDTypeParamsContext = {
 	name: string;
 	isOptional: boolean;
 	constraint: string;
@@ -9,7 +9,7 @@ type MarkdownTypeParamsContext = {
 	doc?: string[];
 }[];
 
-function buildMarkdownTypeParmas(typeParams: TypeParameters["typeParameters"]): MarkdownTypeParamsContext {
+function buildMDTypeParams(typeParams: TypeParameters["typeParameters"]): MDTypeParamsContext {
 	return typeParams.map((typeParam) => {
 		const { name, isOptional, constraint } = typeParam;
 		let doc: string[] | undefined;
@@ -28,4 +28,4 @@ function buildMarkdownTypeParmas(typeParams: TypeParameters["typeParameters"]): 
 	});
 }
 
-export { MarkdownTypeParamsContext, buildMarkdownTypeParmas };
+export { MDTypeParamsContext, buildMDTypeParams };

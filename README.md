@@ -15,9 +15,9 @@ For all the details see **[DocsTypescript.com](docstypescript.com)**, for API do
 
 ## Examples
 
-- [**Markdown on Github | Multi Page** _(press to see)_]()
-- [**Markdown on Github | Single Page** _(press to see)_]()
-- [**Markdown with Docusaurus** _(press to see)_]()
+- [**Markdown on Github | Multi Page**]()
+- [**Markdown on Github | Single Page**]()
+- [**Markdown with Docusaurus**]()
 
 ## Supported [TSDoc](https://tsdoc.org) tags
 

@@ -5,8 +5,8 @@ interface Member {
 	summary?: string[];
 }
 
-interface MarkdownMembersContext {
+interface MDMembersContext {
 	[key: string]: { name: string; members: Member[] };
 }
 
-export { MarkdownMembersContext, Member };
+export { MDMembersContext, Member };

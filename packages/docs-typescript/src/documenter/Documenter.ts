@@ -2,7 +2,7 @@ import { ApiModel } from "@microsoft/api-extractor-model";
 import { DocsConfig } from "../config/DocsConfig";
 
 import { Emitter } from "../emitters/Emitter";
-import { MDEmitter } from "../emitters/markdown/MDEmitter";
+import { MDEmitter } from "../emitters/md/MDEmitter";
 
 import { RootNode } from "./api/RootNode";
 import { ApiExtractor } from "./ApiExtractor";

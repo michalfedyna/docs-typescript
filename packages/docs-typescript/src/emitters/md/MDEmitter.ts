@@ -15,13 +15,13 @@ import { NamespaceNode } from "../../documenter/api/NamespaceNode";
 import { TypeAliasNode } from "../../documenter/api/TypeAliasNode";
 import { EnumNode } from "../../documenter/api/enum/EnumNode";
 
-import { buildMarkdownVariableContext } from "./MarkdownVariableContext";
-import { buildMarkdownFunctionContext } from "./MarkdownFunctionContext";
-import { buildMarkdownPackageContext } from "./MarkdownPackageContext";
-import { buildMarkdownNamespaceContext } from "./MarkdownNamespaceContext";
-import { buildMarkdownTypeAliasContext } from "./MarkdownTypeAliasContext";
-import { buildMarkdownEnumContext } from "./MarkdownEnumContxt";
-import { buildMarkdownClassContext } from "./MarkdownClassContext";
+import { buildMDVariableContext } from "./MDVariableContext";
+import { buildMDFunctionContext } from "./MDFunctionContext";
+import { buildMDPackageContext } from "./MDPackageContext";
+import { buildMDNamespaceContext } from "./MDNamespaceContext";
+import { buildMDTypeAliasContext } from "./MDTypeAliasContext";
+import { buildMDEnumContext } from "./MDEnumContext";
+import { buildMDClassContext } from "./MDClassContext";
 
 class MDEmitter extends Emitter {
 	public readonly format = "markdown";
@@ -38,7 +38,7 @@ class MDEmitter extends Emitter {
 		switch (item.type) {
 			case ApiNodeType.PackageNode: {
 				const packageItem = item as PackageNode;
-				const [context, template] = buildMarkdownPackageContext(packageItem);
+				const [context, template] = buildMDPackageContext(packageItem);
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, packageItem.uri);
@@ -47,7 +47,7 @@ class MDEmitter extends Emitter {
 			case ApiNodeType.NamespaceNode: {
 				// TODO:
 				const namespaceItem = item as NamespaceNode;
-				const [context, template] = buildMarkdownNamespaceContext(namespaceItem);
+				const [context, template] = buildMDNamespaceContext(namespaceItem);
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, namespaceItem.uri);
@@ -55,7 +55,7 @@ class MDEmitter extends Emitter {
 			}
 			case ApiNodeType.ClassNode: {
 				const classItem = item as ClassNode;
-				const [context, template] = buildMarkdownClassContext(classItem);
+				const [context, template] = buildMDClassContext(classItem);
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, classItem.uri);
@@ -67,7 +67,7 @@ class MDEmitter extends Emitter {
 			}
 			case ApiNodeType.VariableNode: {
 				const variableItem = item as VariableNode;
-				const [context, template] = buildMarkdownVariableContext(variableItem);
+				const [context, template] = buildMDVariableContext(variableItem);
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, variableItem.uri);
@@ -75,7 +75,7 @@ class MDEmitter extends Emitter {
 			}
 			case ApiNodeType.FunctionNode: {
 				const functionItem = item as FunctionNode;
-				const [context, template] = buildMarkdownFunctionContext(functionItem);
+				const [context, template] = buildMDFunctionContext(functionItem);
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, functionItem.uri);
@@ -83,7 +83,7 @@ class MDEmitter extends Emitter {
 			}
 			case ApiNodeType.TypeAliasNode: {
 				const typeAliasItem = item as TypeAliasNode;
-				const [context, template] = buildMarkdownTypeAliasContext(typeAliasItem);
+				const [context, template] = buildMDTypeAliasContext(typeAliasItem);
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, typeAliasItem.uri);
@@ -91,7 +91,7 @@ class MDEmitter extends Emitter {
 			}
 			case ApiNodeType.EnumNode: {
 				const enumItem = item as EnumNode;
-				const [context, template] = buildMarkdownEnumContext(enumItem);
+				const [context, template] = buildMDEnumContext(enumItem);
 
 				const content = new Template(this.format, template).render(context);
 				this._toFile(content, enumItem.uri);

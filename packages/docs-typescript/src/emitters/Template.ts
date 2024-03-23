@@ -2,21 +2,22 @@ import * as fs from "fs";
 import path from "path";
 
 import Handlebars, { TemplateDelegate } from "handlebars";
-import { MarkdownVariableContext } from "./markdown/MarkdownVariableContext";
-import { MarkdownFunctionContext } from "./markdown/MarkdownFunctionContext";
-import { MarkdownPackageContext } from "./markdown/MarkdownPackageContext";
-import { MarkdownMembersContext } from "./markdown/MarkdownMembersContext";
-import { MarkdownNamespaceContext } from "./markdown/MarkdownNamespaceContext";
-import { MarkdownDocsContext } from "./markdown/MarkdownDocsContext";
-import { MarkdownParamsContext } from "./markdown/MarkdownParamsContext";
-import { MarkdownTypeParamsContext } from "./markdown/MarkdownTypeParamsContext";
-import { MarkdownReturnsContext } from "./markdown/MarkdownReturnsContext";
-import { MarkdownTypeAliasContext } from "./markdown/MarkdownTypeAliasContext";
-import { MarkdownEnumContext } from "./markdown/MarkdownEnumContxt";
-import { MarkdownEnumMembersContext } from "./markdown/MarkdownEnumMembersContext";
-import { MarkdownClassContext } from "./markdown/MarkdownClassContext";
+import { MDVariableContext } from "./md/MDVariableContext";
+import { MDFunctionContext } from "./md/MDFunctionContext";
+import { MDPackageContext } from "./md/MDPackageContext";
+import { MDMembersContext } from "./md/MDMembersContext";
+import { MDNamespaceContext } from "./md/MDNamespaceContext";
+import { MDDocsContext } from "./md/MDDocsContext";
+import { MDParamsContext } from "./md/MDParamsContext";
+import { MDTypeParamsContext } from "./md/MDTypeParamsContext";
+import { MDReturnsContext } from "./md/MDReturnsContext";
+import { MDTypeAliasContext } from "./md/MDTypeAliasContext";
+import { MDEnumContext } from "./md/MDEnumContext";
+import { MDEnumMembersContext } from "./md/MDEnumMembersContext";
+import { MDClassContext } from "./md/MDClassContext";
+import { MDConstructorContext } from "./md/MDConstructorContext";
 
-type HandlebarsMarkdownTemplates =
+type HandlebarMDTemplates =
 	| "signature"
 	| "docs"
 	| "summary"
@@ -30,66 +31,69 @@ type HandlebarsMarkdownTemplates =
 	| "package"
 	| "namespace"
 	| "class"
+	| "constructor"
 	| "variable"
 	| "function"
 	| "typeAlias"
 	| "enum";
 
-type HandlebarsMarkdownContext<T> = [T, HandlebarsMarkdownTemplates];
+type HandlebarsMDContext<T> = [T, HandlebarMDTemplates];
 
 type Templates<T = unknown> = {
 	markdown: {
-		[K in HandlebarsMarkdownTemplates]: T;
+		[K in HandlebarMDTemplates]: T;
 	};
 };
 
 interface Contexts extends Templates {
 	markdown: {
 		// Docs Helpers
-		docs: MarkdownDocsContext;
-		summary: MarkdownDocsContext["summary"];
-		remarks: MarkdownDocsContext["remarks"];
-		examples: MarkdownDocsContext["examples"];
-		members: MarkdownMembersContext;
+		docs: MDDocsContext;
+		summary: MDDocsContext["summary"];
+		remarks: MDDocsContext["remarks"];
+		examples: MDDocsContext["examples"];
+		members: MDMembersContext;
 		// Api Helpers
 		signature: string;
-		params: MarkdownParamsContext;
-		typeParams: MarkdownTypeParamsContext;
-		returns: MarkdownReturnsContext;
-		enumMembers: MarkdownEnumMembersContext;
+		params: MDParamsContext;
+		typeParams: MDTypeParamsContext;
+		returns: MDReturnsContext;
+		enumMembers: MDEnumMembersContext;
 		// API
-		package: MarkdownPackageContext;
-		namespace: MarkdownNamespaceContext;
-		class: MarkdownClassContext;
-		variable: MarkdownVariableContext;
-		function: MarkdownFunctionContext;
-		typeAlias: MarkdownTypeAliasContext;
-		enum: MarkdownEnumContext;
+		package: MDPackageContext;
+		namespace: MDNamespaceContext;
+		class: MDClassContext;
+		constructor: MDConstructorContext;
+		variable: MDVariableContext;
+		function: MDFunctionContext;
+		typeAlias: MDTypeAliasContext;
+		enum: MDEnumContext;
 	};
 }
 
 const TemplatesPath: Templates<string> = {
 	markdown: {
 		// Docs Helpers
-		signature: "markdown/signature.hbs",
-		docs: "markdown/docs.hbs",
-		summary: "markdown/summary.hbs",
-		remarks: "markdown/remarks.hbs",
-		examples: "markdown/examples.hbs",
-		members: "markdown/members.hbs",
+		signature: "md/signature.hbs",
+		docs: "md/docs.hbs",
+		summary: "md/summary.hbs",
+		remarks: "md/remarks.hbs",
+		examples: "md/examples.hbs",
+		members: "md/members.hbs",
 		// Api Helpers
-		params: "markdown/params.hbs",
-		typeParams: "markdown/typeParams.hbs",
-		returns: "markdown/returns.hbs",
-		enumMembers: "markdown/enumMembers.hbs",
+		params: "md/params.hbs",
+		typeParams: "md/typeParams.hbs",
+		returns: "md/returns.hbs",
+		enumMembers: "md/enumMembers.hbs",
 		// API
-		package: "markdown/package.hbs",
-		namespace: "markdown/namespace.hbs",
-    class: "markdown/class.hbs",
-		variable: "markdown/variable.hbs",
-		function: "markdown/function.hbs",
-		typeAlias: "markdown/typeAlias.hbs",
-		enum: "markdown/enum.hbs"
+		package: "md/package.hbs",
+		namespace: "md/namespace.hbs",
+		class: "md/class.hbs",
+		constructor: "md/constructor.hbs",
+		variable: "md/variable.hbs",
+		function: "md/function.hbs",
+		typeAlias: "md/typeAlias.hbs",
+		enum: "md/enum.hbs"
 	}
 };
 
@@ -136,4 +140,4 @@ class Template<
 	}
 }
 
-export { Template, HandlebarsMarkdownContext };
+export { Template, HandlebarsMDContext };

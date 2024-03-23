@@ -7,7 +7,7 @@
 		"docs-typescript": "./lib/bin.js"
 	},
 	"scripts": {
-		"copy-templates": "cp -r ./src/templates/markdown ./lib/templates",
+		"copy-templates": "cp -r src/templates/md ./lib/templates",
 		"build": "rm -rf ./lib ./types && tsc -b && npm run copy-templates",
 		"clean": "rm -rf ./lib ./types node_modules",
 		"lint": "tsc --noEmit",
