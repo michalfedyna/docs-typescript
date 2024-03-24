@@ -3,6 +3,7 @@ import { HandlebarsMDContext } from "../Template";
 import { MDConstructorSignatureContext, buildMDConstructorSignatureContext } from "./MDConstructorSignatureContext";
 import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
 import { MDIndexSignatureContext, buildMDIndexSignatureContext } from "./MDIndexSignatureContext";
+import { MDMethodSignatureContext, buildMDMethodSignatureContext } from "./MDMethodSignatureContext";
 import { MDPropertySignatureContext, buildMDPropertySignatureContext } from "./MDPropertySignatureContext";
 import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext";
 
@@ -14,7 +15,7 @@ interface MDInterfaceContext {
 	indexSignatures: MDIndexSignatureContext[];
 	constructorSignatures: MDConstructorSignatureContext[];
 	propertySignatures: MDPropertySignatureContext[];
-	methodSignatures: [];
+	methodSignatures: MDMethodSignatureContext[];
 	docs: MDDocsContext;
 }
 
@@ -36,8 +37,22 @@ function buildMDInterfaceContext(interfaceNode: InterfaceNode): HandlebarsMDCont
 		buildMDPropertySignatureContext(property)
 	);
 
+	const methodSignatures = interfaceNode.value.attributes.methodSignatures.map((method) =>
+		buildMDMethodSignatureContext(method)
+	);
+
 	return [
-		{ name, signature, docs, extendsTypes, indexSignatures, constructorSignatures, propertySignatures, typeParams },
+		{
+			name,
+			signature,
+			docs,
+			extendsTypes,
+			indexSignatures,
+			constructorSignatures,
+			propertySignatures,
+			methodSignatures,
+			typeParams
+		},
 		"interface"
 	];
 }

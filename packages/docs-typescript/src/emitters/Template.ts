@@ -21,6 +21,8 @@ import { MDMethodContext } from "./md/MDMethodContext";
 import { MDInterfaceContext } from "./md/MDInterfaceContext";
 import { MDIndexSignatureContext } from "./md/MDIndexSignatureContext";
 import { MDConstructorSignatureContext } from "./md/MDConstructorSignatureContext";
+import { MDPropertySignatureContext } from "./md/MDPropertySignatureContext";
+import { MDMethodSignatureContext } from "./md/MDMethodSignatureContext";
 
 type HandlebarMDTemplates =
 	| "signature"
@@ -85,6 +87,8 @@ interface Contexts extends Templates {
 		interface: MDInterfaceContext;
 		indexSignature: MDIndexSignatureContext;
 		constructorSignature: MDConstructorSignatureContext;
+		propertySignature: MDPropertySignatureContext;
+		methodSignature: MDMethodSignatureContext;
 	};
 }
 

@@ -14,7 +14,35 @@
 ### Extends
 
 {{#each extendsTypes}}
-- #### `{{extendsType}}`
+- #### `{{this}}`
 {{/each}}
 {{/if}}
 
+{{#if indexSignatures}}
+### Index Signatures
+{{#each indexSignatures}}
+{{> indexSignature this}}
+{{/each}}
+{{/if}}
+
+
+{{#if constructorSignatures}}
+### Constructor Signatures
+{{#each constructorSignatures}}
+{{> constructorSignature this}}
+{{/each}}
+{{/if}}
+
+{{#if propertySignatures}}
+### Property Signatures
+{{#each propertySignatures}}
+{{> propertySignature this}}
+{{/each}}
+{{/if}}
+
+{{#if methodSignatures}}
+### Method Signatures
+{{#each methodSignatures}}
+{{> methodSignature this}}
+{{/each}}
+{{/if}}
