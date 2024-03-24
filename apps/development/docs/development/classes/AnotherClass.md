@@ -21,7 +21,7 @@ Constructs a new instance of the `AnotherClass` class
 
 ### Parameters
 
-- #### _hello_ : `string`
+- #### **hello** : `string`
 
 # Properties
 

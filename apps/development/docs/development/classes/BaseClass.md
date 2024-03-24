@@ -26,7 +26,7 @@ Constructs a new instance of the `BaseClass` class
 
 ### Parameters
 
-- #### _name_ : `string`
+- #### **name** : `string`
 
 # Properties
 

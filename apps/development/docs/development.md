@@ -148,7 +148,9 @@ function overloadedFunction(a: number): unknown;
 ## [BasicInterface](./development/interfaces/BasicInterface.md)
 
 ```typescript
-interface BasicInterface {}
+interface BasicInterface {
+  string: string;
+}
 ```
 
 ## [ConstrainedInterface](./development/interfaces/ConstrainedInterface.md)
@@ -156,25 +158,50 @@ interface BasicInterface {}
 ```typescript
 interface ConstrainedInterface<T extends string = string>
   extends SimpleInterface,
-    BasicInterface {}
+    BasicInterface {
+  world: T;
+}
+```
+
+## [ConstructorInterface](./development/interfaces/ConstructorInterface.md)
+
+```typescript
+interface ConstructorInterface {
+  new (value: string): Object;
+}
 ```
 
 ## [ExtendingInterdace](./development/interfaces/ExtendingInterdace.md)
 
 ```typescript
-interface ExtendingInterdace extends SimpleInterface {}
+interface ExtendingInterdace extends SimpleInterface {
+  world: string;
+}
+```
+
+## [IndexInterface](./development/interfaces/IndexInterface.md)
+
+```typescript
+interface IndexInterface {
+  [key: string]: string;
+}
 ```
 
 ## [SimpleInterface](./development/interfaces/SimpleInterface.md)
 
 ```typescript
-interface SimpleInterface {}
+interface SimpleInterface {
+  hello: string;
+}
 ```
 
 ## [SomeInterface](./development/interfaces/SomeInterface.md)
 
 ```typescript
-interface SomeInterface {}
+interface SomeInterface {
+  someProperty: string;
+  someMethod(): void;
+}
 ```
 
 # Types
@@ -265,4 +292,4 @@ enum SimpleEnum {
 
 ---
 
-> Generated using [DocsTypescript](https://docstypescript.com)
+> Generated using [DocsTypescript](https://github.com/michalfedyna/docs-typescript)

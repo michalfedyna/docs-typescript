@@ -8,11 +8,11 @@ This is function with optional params
 
 ### Parameters
 
-- #### _a_ : `number`
+- #### **a** : `number`
 
   - Param `a` takes number
 
-- #### _b_ : `number` | _optional_
+- #### **b** : `number` | _optional_
 
   - Param `b` takes number and is optional
 

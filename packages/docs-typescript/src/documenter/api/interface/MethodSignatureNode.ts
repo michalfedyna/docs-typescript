@@ -37,13 +37,15 @@ function extractMethodSignatureAttributes(apiMethodSignature: ApiMethodSignature
 	const parameters = apiMethodSignature.parameters.map((parameter) => ({
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
-		isOptional: parameter.isOptional
+		isOptional: parameter.isOptional,
+		doc: DocsExtractor.traverse(parameter.tsdocParamBlock)
 	}));
 	const typeParameters = apiMethodSignature.typeParameters.map((typeParameter) => ({
 		name: typeParameter.name,
 		isOptional: typeParameter.isOptional,
 		constraint: typeParameter.constraintExcerpt.text,
-		default: typeParameter.defaultTypeExcerpt.text
+		default: typeParameter.defaultTypeExcerpt.text,
+		doc: DocsExtractor.traverse(typeParameter.tsdocTypeParamBlock)
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiMethodSignature.releaseTag);
 	const signature = apiMethodSignature.excerpt.text;

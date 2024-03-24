@@ -21,4 +21,4 @@ const a: TypeParamsAlias | undefined;
 
 ### Type Parameters
 
-- #### _T_ extends `string` = `string` | _optional_
+- #### **T** extends `string` = `string` | _optional_

@@ -44,6 +44,8 @@ class InterfaceNode extends ApiNode<InterfaceAttributes> {
 	public type: ApiNodeType = ApiNodeType.InterfaceNode;
 }
 
+// TODO:
+
 function extractInterfaceAttributes(apiInterface: ApiInterface): InterfaceAttributes {
 	const { displayName, fileUrlPath, isExported } = apiInterface;
 	const docs = DocsExtractor.extract(apiInterface);
@@ -93,7 +95,12 @@ function extractInterfaceAttributes(apiInterface: ApiInterface): InterfaceAttrib
 
 	const typeParametersSignature = typeParametersArray.length > 0 ? `<${typeParametersArray.join(", ")}>` : "";
 
-	const signature = `interface ${displayName}${typeParametersSignature}${extendsTypesSignature} {}`;
+	const indexSignature = indexSignatures.map((index) => index.signature).join("\n");
+	const constructorSignature = constructorSignatures.map((constructor) => constructor.signature).join("\n");
+	const propertySignature = propertySignatures.map((property) => property.signature).join("\n");
+	const methodSignature = methodSignatures.map((method) => method.signature).join("\n");
+
+	const signature = `interface ${displayName}${typeParametersSignature}${extendsTypesSignature} {${indexSignature}${constructorSignature}${propertySignature}${methodSignature}}`;
 
 	return {
 		name: displayName,

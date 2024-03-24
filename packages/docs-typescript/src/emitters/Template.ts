@@ -18,6 +18,7 @@ import { MDClassContext } from "./md/MDClassContext";
 import { MDConstructorContext } from "./md/MDConstructorContext";
 import { MDPropertyContext } from "./md/MDPropertyContext";
 import { MDMethodContext } from "./md/MDMethodContext";
+import { MDInterfaceContext } from "./md/MDInterfaceContext";
 
 type HandlebarMDTemplates =
 	| "signature"
@@ -39,7 +40,12 @@ type HandlebarMDTemplates =
 	| "variable"
 	| "function"
 	| "typeAlias"
-	| "enum";
+	| "enum"
+	| "interface"
+	| "indexSignature"
+	| "constructorSignature"
+	| "propertySignature"
+	| "methodSignature";
 
 type HandlebarsMDContext<T> = [T, HandlebarMDTemplates];
 
@@ -74,6 +80,7 @@ interface Contexts extends Templates {
 		function: MDFunctionContext;
 		typeAlias: MDTypeAliasContext;
 		enum: MDEnumContext;
+		interface: MDInterfaceContext;
 	};
 }
 
@@ -101,7 +108,12 @@ const TemplatesPath: Templates<string> = {
 		variable: "md/variable.hbs",
 		function: "md/function.hbs",
 		typeAlias: "md/typeAlias.hbs",
-		enum: "md/enum.hbs"
+		enum: "md/enum.hbs",
+		interface: "md/interface.hbs",
+		indexSignature: "md/indexSignature.hbs",
+		constructorSignature: "md/constructorSignature.hbs",
+		propertySignature: "md/propertySignature.hbs",
+		methodSignature: "md/methodSignature.hbs"
 	}
 };
 

@@ -6,11 +6,11 @@ function functionWithParams(a: number, b: number, c: string | number): number;
 
 ### Parameters
 
-- #### _a_ : `number`
+- #### **a** : `number`
 
-- #### _b_ : `number`
+- #### **b** : `number`
 
-- #### _c_ : `string | number`
+- #### **c** : `string | number`
 
 ### Returns
 

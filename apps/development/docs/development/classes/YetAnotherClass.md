@@ -19,7 +19,7 @@ Constructs a new instance of the `YetAnotherClass` class
 
 ### Parameters
 
-- #### _hello_ : `string` | _optional_
+- #### **hello** : `string` | _optional_
 
 # Properties
 

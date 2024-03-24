@@ -11,19 +11,19 @@ Function with type parameters to show how library handles typeParam TsDoc tag
 
 ### Type Parameters
 
-- #### _T_ extends `string` = `string` | _optional_
+- #### **T** extends `string` = `string` | _optional_
 
   - Type param `T` extends string and is default to string
 
-- #### _K_ = `string` | _optional_
+- #### **K** = `string` | _optional_
 
   - Type param `T`is default to string
 
 ### Parameters
 
-- #### _a_ : `T`
+- #### **a** : `T`
 
-- #### _b_ : `K`
+- #### **b** : `K`
 
 ### Returns
 

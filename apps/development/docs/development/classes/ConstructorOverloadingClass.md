@@ -27,4 +27,4 @@ Constructs a new instance of the `ConstructorOverloadingClass` class
 
 ### Parameters
 
-- #### _name_ : `string`
+- #### **name** : `string`

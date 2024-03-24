@@ -16,9 +16,19 @@ interface ConstrainedInterface<T extends string = string>
   world: T;
 }
 
+interface ConstructorInterface {
+  new (value: string): Object;
+}
+
+interface IndexInterface {
+  [key: string]: string;
+}
+
 export {
   SimpleInterface,
   ExtendingInterdace,
   BasicInterface,
   ConstrainedInterface,
+  ConstructorInterface,
+  IndexInterface,
 };

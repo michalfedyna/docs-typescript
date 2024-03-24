@@ -23,9 +23,9 @@ Constructs a new instance of the `DerivedClass` class
 
 ### Parameters
 
-- #### _name_ : `string`
+- #### **name** : `string`
 
-- #### _value_ : `number`
+- #### **value** : `number`
 
 # Properties
 

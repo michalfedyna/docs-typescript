@@ -26,9 +26,9 @@ Constructs a new instance of the `TypeParameterClass` class
 
 ### Parameters
 
-- #### _someArg_ : `T`
+- #### **someArg** : `T`
 
-- #### _anotherArg_ : `K`
+- #### **anotherArg** : `K`
 
 # Properties
 

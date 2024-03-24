@@ -6,7 +6,7 @@ function overloadedFunction(a: number): unknown;
 
 ### Parameters
 
-- #### _a_ : `number`
+- #### **a** : `number`
 
 ### Returns
 

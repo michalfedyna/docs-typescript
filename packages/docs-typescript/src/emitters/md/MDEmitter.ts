@@ -22,6 +22,8 @@ import { buildMDNamespaceContext } from "./MDNamespaceContext";
 import { buildMDTypeAliasContext } from "./MDTypeAliasContext";
 import { buildMDEnumContext } from "./MDEnumContext";
 import { buildMDClassContext } from "./MDClassContext";
+import { InterfaceNode } from "../../documenter/api/interface/InterfaceNode";
+import { buildMDInterfaceContext } from "./MDInterfaceContext";
 
 class MDEmitter extends Emitter {
 	public readonly format = "markdown";
@@ -62,7 +64,11 @@ class MDEmitter extends Emitter {
 				break;
 			}
 			case ApiNodeType.InterfaceNode: {
-				// TODO:
+				const interfaceItem = item as InterfaceNode;
+				const [context, template] = buildMDInterfaceContext(interfaceItem);
+
+				const content = new Template(this.format, template).render(context);
+				this._toFile(content, interfaceItem.uri);
 				break;
 			}
 			case ApiNodeType.VariableNode: {
