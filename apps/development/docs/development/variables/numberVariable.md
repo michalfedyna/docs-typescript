@@ -1,5 +1,5 @@
 # numberVariable
 
 ```typescript
-var numberVariable: number;
+let numberVariable: number;
 ```

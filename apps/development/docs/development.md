@@ -218,37 +218,37 @@ This is boolean varaible
 And this will be example how to use that variable
 
 ```typescript
-var booleanVariable: boolean;
+let booleanVariable: boolean;
 ```
 
 ## [constVariable](./development/variables/constVariable.md)
 
 ```typescript
-var constVariable = "const variable";
+const constVariable = "const variable";
 ```
 
 ## [constVariableObject](./development/variables/constVariableObject.md)
 
 ```typescript
-var constVariableObject: {};
+let constVariableObject: {};
 ```
 
 ## [letVariable](./development/variables/letVariable.md)
 
 ```typescript
-var letVariable: string;
+let letVariable: string;
 ```
 
 ## [numberVariable](./development/variables/numberVariable.md)
 
 ```typescript
-var numberVariable: number;
+let numberVariable: number;
 ```
 
 ## [stringVariable](./development/variables/stringVariable.md)
 
 ```typescript
-var stringVariable: string;
+let stringVariable: string;
 ```
 
 # Enums

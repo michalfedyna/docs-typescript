@@ -3,6 +3,10 @@ import { RootDocNode } from "../docs/RootDocNode";
 import { ConstructorAttributes } from "./class/ConstructorNode";
 import { MethodAttributes } from "./class/MethodNode";
 import { PropertyAttributes } from "./class/PropertyNode";
+import { ConstructorSignatureAttributes } from "./interface/ConstructorSignatureNode";
+import { IndexSignatureAttributes } from "./interface/IndexSignatureNode";
+import { MethodSignatureAttributes } from "./interface/MethodSignatureNode";
+import { PropertySignatureAttributes } from "./interface/PropertySignatureNode";
 
 interface Docs {
 	docs: DocsAttributes;
@@ -124,6 +128,22 @@ interface Methods {
 	methods: MethodAttributes[];
 }
 
+interface IndexSignatures {
+	indexSignatures: IndexSignatureAttributes[];
+}
+
+interface ConstructorSignatures {
+	constructorSignatures: ConstructorSignatureAttributes[];
+}
+
+interface PropertySignatures {
+	propertySignatures: PropertySignatureAttributes[];
+}
+
+interface MethodSignatures {
+	methodSignatures: MethodSignatureAttributes[];
+}
+
 export {
 	Docs,
 	Abstract,
@@ -149,5 +169,9 @@ export {
 	TypeParameters,
 	Constructors,
 	Properties,
-	Methods
+	Methods,
+	IndexSignatures,
+	ConstructorSignatures,
+	PropertySignatures,
+	MethodSignatures
 };

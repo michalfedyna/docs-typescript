@@ -49,7 +49,8 @@ function extractClassAttributes(apiClass: ApiClass): ClassAttributes {
 		name: typeParameter.name,
 		isOptional: typeParameter.isOptional,
 		constraint: typeParameter.constraintExcerpt.text,
-		default: typeParameter.defaultTypeExcerpt.text
+		default: typeParameter.defaultTypeExcerpt.text,
+		doc: DocsExtractor.traverse(typeParameter.tsdocTypeParamBlock)
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiClass.releaseTag);
 
@@ -60,10 +61,17 @@ function extractClassAttributes(apiClass: ApiClass): ClassAttributes {
 	for (const member of apiClass.members) {
 		if (isConstructor(member)) {
 			constructors.push(extractConstructorAttributes(member));
-		} else if (isProperty(member)) {
+			continue;
+		}
+
+		if (isProperty(member)) {
 			properties.push(extractPropertyAttributes(member));
-		} else if (isMethod(member)) {
+			continue;
+		}
+
+		if (isMethod(member)) {
 			methods.push(extractMethodAttributes(member));
+			continue;
 		}
 	}
 

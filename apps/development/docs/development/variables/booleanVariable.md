@@ -1,7 +1,7 @@
 # booleanVariable
 
 ```typescript
-var booleanVariable: boolean;
+let booleanVariable: boolean;
 ```
 
 This is boolean varaible

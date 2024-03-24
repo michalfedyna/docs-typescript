@@ -39,7 +39,7 @@ function createSignature(apiVariable: ApiVariable): string {
 			? ` = ${apiVariable.initializerExcerpt.text}`
 			: "";
 
-	return `var ${nameSignature}${typeSignature}${initializerSignature}`;
+	return `${apiVariable.initializerExcerpt ? "const" : "let"} ${nameSignature}${typeSignature}${initializerSignature}`;
 }
 
 export { VariableNode, VariableAttributes, extractVariableAttributes };

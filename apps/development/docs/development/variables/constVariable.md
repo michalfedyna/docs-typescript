@@ -1,5 +1,5 @@
 # constVariable
 
 ```typescript
-var constVariable = "const variable";
+const constVariable = "const variable";
 ```

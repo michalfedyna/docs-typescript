@@ -1,5 +1,5 @@
 # letVariable
 
 ```typescript
-var letVariable: string;
+let letVariable: string;
 ```

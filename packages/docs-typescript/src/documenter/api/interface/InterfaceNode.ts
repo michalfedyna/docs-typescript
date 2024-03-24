@@ -1,7 +1,30 @@
 import { DocsExtractor } from "../../DocsExtractor";
-import { Docs, Exported, ExtendsArray, FileUrl, Name, ReleaseTag, Signature, TypeParameters } from "../ApiAttributes";
+import {
+	ConstructorSignatures,
+	Docs,
+	Exported,
+	ExtendsArray,
+	FileUrl,
+	IndexSignatures,
+	MethodSignatures,
+	Name,
+	PropertySignatures,
+	ReleaseTag,
+	Signature,
+	TypeParameters
+} from "../ApiAttributes";
 import { ApiNode, ApiNodeType } from "../ApiNode";
 import { ApiInterface, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
+import { IndexSignatureAttributes, extractIndexSignatureAttributes } from "./IndexSignatureNode";
+import { ConstructorSignatureAttributes, extractConstructorSignatureAttributes } from "./ConstructorSignatureNode";
+import { PropertySignatureAttributes, extractPropertySignatureAttributes } from "./PropertySignatureNode";
+import { MethodSignatureAttributes, extractMethodSignatureAttributes } from "./MethodSignatureNode";
+import {
+	isConstructorSignature,
+	isIndexSignature,
+	isMethodSignature,
+	isPropertySignature
+} from "../../apiItemsMatchers";
 
 interface InterfaceAttributes
 	extends Name,
@@ -11,7 +34,11 @@ interface InterfaceAttributes
 		FileUrl,
 		ExtendsArray,
 		TypeParameters,
-		Exported {}
+		Exported,
+		IndexSignatures,
+		ConstructorSignatures,
+		PropertySignatures,
+		MethodSignatures {}
 
 class InterfaceNode extends ApiNode<InterfaceAttributes> {
 	public type: ApiNodeType = ApiNodeType.InterfaceNode;
@@ -24,10 +51,38 @@ function extractInterfaceAttributes(apiInterface: ApiInterface): InterfaceAttrib
 		name: typeParameter.name,
 		isOptional: typeParameter.isOptional,
 		constraint: typeParameter.constraintExcerpt.text,
-		default: typeParameter.defaultTypeExcerpt.text
+		default: typeParameter.defaultTypeExcerpt.text,
+		doc: DocsExtractor.traverse(typeParameter.tsdocTypeParamBlock)
 	}));
 	const extendsTypes = apiInterface.extendsTypes.map((extendsType) => extendsType.excerpt.text);
 	const releaseTag = ApiReleaseTag.getTagName(apiInterface.releaseTag);
+
+	const indexSignatures: IndexSignatureAttributes[] = [];
+	const constructorSignatures: ConstructorSignatureAttributes[] = [];
+	const propertySignatures: PropertySignatureAttributes[] = [];
+	const methodSignatures: MethodSignatureAttributes[] = [];
+
+	for (const member of apiInterface.members) {
+		if (isIndexSignature(member)) {
+			indexSignatures.push(extractIndexSignatureAttributes(member));
+			continue;
+		}
+
+		if (isConstructorSignature(member)) {
+			constructorSignatures.push(extractConstructorSignatureAttributes(member));
+			continue;
+		}
+
+		if (isPropertySignature(member)) {
+			propertySignatures.push(extractPropertySignatureAttributes(member));
+			continue;
+		}
+
+		if (isMethodSignature(member)) {
+			methodSignatures.push(extractMethodSignatureAttributes(member));
+			continue;
+		}
+	}
 
 	const extendsTypesSignature = extendsTypes.length > 0 ? ` extends ${extendsTypes.join(", ")}` : "";
 
@@ -40,7 +95,20 @@ function extractInterfaceAttributes(apiInterface: ApiInterface): InterfaceAttrib
 
 	const signature = `interface ${displayName}${typeParametersSignature}${extendsTypesSignature} {}`;
 
-	return { name: displayName, docs, fileUrlPath, extendsTypes, isExported, signature, releaseTag, typeParameters };
+	return {
+		name: displayName,
+		indexSignatures,
+		constructorSignatures,
+		propertySignatures,
+		methodSignatures,
+		fileUrlPath,
+		extendsTypes,
+		isExported,
+		signature,
+		releaseTag,
+		typeParameters,
+		docs
+	};
 }
 
 export { InterfaceNode, InterfaceAttributes, extractInterfaceAttributes };

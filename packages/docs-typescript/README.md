@@ -7,3 +7,5 @@
 - [ ] Fix overloading
 - [ ] On link to library in footer on each page
 - [ ] Config property to rearange docs
+- [ ] `@category` tag to sort in package
+

@@ -2,7 +2,7 @@
 ### Type Parameters
 {{#each this}}
 
-- #### *{{this.name}}* {{#if this.constraint}}extends `{{this.constraint}}`{{/if}} {{#if this.default}}= `{{this.default}}` {{/if}} {{#if this.isOptional}}| *optional*{{/if}}
+- #### **{{this.name}}** {{#if this.constraint}}extends `{{this.constraint}}`{{/if}} {{#if this.default}}= `{{this.default}}` {{/if}} {{#if this.isOptional}}| *optional*{{/if}}
 
 {{#if this.doc}}  - {{> summary this.doc }}{{/if}}
 

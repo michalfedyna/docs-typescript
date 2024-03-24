@@ -1,5 +1,5 @@
 # constVariableObject
 
 ```typescript
-var constVariableObject: {};
+let constVariableObject: {};
 ```
