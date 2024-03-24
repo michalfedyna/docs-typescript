@@ -10,7 +10,7 @@ interface ExtendingInterdace extends SimpleInterface {
 
 - #### `SimpleInterface`
 
-### Property Signatures
+# Property Signatures
 
 ## world
 

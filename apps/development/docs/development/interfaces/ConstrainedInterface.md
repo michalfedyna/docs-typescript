@@ -13,7 +13,7 @@ interface ConstrainedInterface<T extends string = string>
 - #### `SimpleInterface`
 - #### `BasicInterface`
 
-### Property Signatures
+# Property Signatures
 
 ## world
 

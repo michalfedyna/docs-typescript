@@ -6,7 +6,7 @@ interface IndexInterface {
 }
 ```
 
-### Index Signatures
+# Index Signatures
 
 ## (indexer)
 

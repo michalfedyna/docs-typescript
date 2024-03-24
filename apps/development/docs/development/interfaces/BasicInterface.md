@@ -6,7 +6,7 @@ interface BasicInterface {
 }
 ```
 
-### Property Signatures
+# Property Signatures
 
 ## string
 

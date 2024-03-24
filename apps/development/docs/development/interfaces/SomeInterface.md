@@ -7,7 +7,7 @@ interface SomeInterface {
 }
 ```
 
-### Property Signatures
+# Property Signatures
 
 ## someProperty
 
@@ -15,7 +15,7 @@ interface SomeInterface {
 someProperty: string;
 ```
 
-### Method Signatures
+# Method Signatures
 
 ## someMethod
 
