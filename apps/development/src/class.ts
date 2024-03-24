@@ -84,7 +84,7 @@ class TypeParameterClass<T extends unknown = unknown, K extends any = any>
 {
   someProperty: string;
 
-  constructor(someArg: T, anotherArg: K) {
+  protected constructor(someArg: T, anotherArg: K) {
     this.someProperty = "TypeParameterClass.someProperty";
   }
 

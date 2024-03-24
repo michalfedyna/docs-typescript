@@ -9,16 +9,16 @@ type TypeParamsAlias<T extends string = string> = {
 
 TypeAlias with typeParams
 
-## Remarks
+### Remarks
 
 This is just example
 
-## Examples
+### Examples
 
 ```typescript
 const a: TypeParamsAlias | undefined;
 ```
 
-## Type Parameters
+### Type Parameters
 
-- ### _T_ extends `string` = `string` | _optional_
+- #### _T_ extends `string` = `string` | _optional_

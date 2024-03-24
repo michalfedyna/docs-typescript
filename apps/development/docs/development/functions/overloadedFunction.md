@@ -4,10 +4,10 @@
 function overloadedFunction(a: number): unknown;
 ```
 
-## Parameters
+### Parameters
 
-- ### _a_ : `number`
+- #### _a_ : `number`
 
-## Returns
+### Returns
 
-- ### `unknown`
+- #### `unknown`

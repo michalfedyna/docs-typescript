@@ -66,7 +66,7 @@ function extractMethodAttributes(apiMethod: ApiMethod): MethodAttributes {
 	const typeParametersSignature = typeParameters.length > 0 ? `<${typeParametersArray.join(", ")}>` : "";
 	const signaturePrefix = `${isStatic ? "static " : ""}${isAbstract ? "abstract " : ""}${isProtected ? "protected " : ""}`;
 
-	const signature = `${signaturePrefix}${displayName}${typeParametersSignature}(${parametersSignature}): ${returnType}`;
+	const signature = `${signaturePrefix}${displayName}${typeParametersSignature}(${parametersSignature}): ${returnType};`;
 
 	return {
 		name: displayName,

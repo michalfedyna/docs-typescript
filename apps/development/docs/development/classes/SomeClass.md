@@ -7,3 +7,19 @@ class SomeClass extends SomeAbstractClass {
 ```
 
 SomeClass exported from class.ts
+
+### Extends
+
+- #### `SomeAbstractClass`
+
+# Methods
+
+## someMethod
+
+```typescript
+someMethod(): void;
+```
+
+### Returns
+
+- #### `void`

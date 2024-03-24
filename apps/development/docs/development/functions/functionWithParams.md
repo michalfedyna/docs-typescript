@@ -4,14 +4,14 @@
 function functionWithParams(a: number, b: number, c: string | number): number;
 ```
 
-## Parameters
+### Parameters
 
-- ### _a_ : `number`
+- #### _a_ : `number`
 
-- ### _b_ : `number`
+- #### _b_ : `number`
 
-- ### _c_ : `string | number`
+- #### _c_ : `string | number`
 
-## Returns
+### Returns
 
-- ### `number`
+- #### `number`

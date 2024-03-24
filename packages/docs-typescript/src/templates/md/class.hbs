@@ -7,3 +7,40 @@
 {{> remarks docs.remarks}}
 
 {{> examples docs.examples}}
+
+{{> typeParams typeParameters}}
+
+{{#if extendsType}}
+### Extends
+
+- #### `{{extendsType}}`
+{{/if}}
+
+{{#if implementedTypes}}
+### Implements
+
+{{#each implementedTypes}}
+- #### `{{this}}`
+{{/each}}
+{{/if}}
+
+{{#if constructors}}
+# Constructors
+{{#each constructors}}
+{{> constructor this}}
+{{/each}}
+{{/if}}
+
+{{#if properties}}
+# Properties
+{{#each properties}}
+{{> property this}}
+{{/each}}
+{{/if}}
+
+{{#if methods}}
+# Methods
+{{#each methods}}
+{{> method this}}
+{{/each}}
+{{/if}}

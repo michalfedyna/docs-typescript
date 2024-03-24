@@ -75,9 +75,9 @@ function extractClassAttributes(apiClass: ApiClass): ClassAttributes {
 			`${typeParameter.name}${typeParameter.constraint ? ` extends ${typeParameter.constraint}` : ""}${typeParameter.default ? ` = ${typeParameter.default}` : ""}`
 	);
 	const typeParametersSignature = typeParametersArray.length > 0 ? `<${typeParametersArray.join(", ")}>` : "";
-	const constructorSignature = constructors.map((constructor) => constructor.signature + ";").join("\n");
-	const propertySignature = properties.map((property) => property.signature + ";").join("\n");
-	const methodSignature = methods.map((method) => method.signature + ";").join("\n");
+	const constructorSignature = constructors.map((constructor) => constructor.signature).join("\n");
+	const propertySignature = properties.map((property) => property.signature).join("\n");
+	const methodSignature = methods.map((method) => method.signature).join("\n");
 
 	const signature = `${abstractSignature}class ${displayName}${typeParametersSignature}${extendsTypeSignature}${implementsTypesSignature} {${constructorSignature}${propertySignature}${methodSignature}}`;
 

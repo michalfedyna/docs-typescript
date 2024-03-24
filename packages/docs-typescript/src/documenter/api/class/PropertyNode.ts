@@ -44,7 +44,7 @@ function extractPropertyAttributes(apiProperty: ApiProperty): PropertyAttributes
 	const releaseTag = ApiReleaseTag.getTagName(apiProperty.releaseTag);
 	const docs = DocsExtractor.extract(apiProperty);
 
-	const signature = `${isProtected ? "protected " : ""}${isStatic ? "static " : ""}${isAbstract ? "abstract " : ""}${isReadonly ? "readonly " : ""}${displayName}${isOptional ? "?" : ""}: ${type}${initializer ? " = " + initializer : ""}`;
+	const signature = `${isProtected ? "protected " : ""}${isStatic ? "static " : ""}${isAbstract ? "abstract " : ""}${isReadonly ? "readonly " : ""}${displayName}${isOptional ? "?" : ""}: ${type}${initializer ? " = " + initializer : ""};`;
 
 	return {
 		name: displayName,

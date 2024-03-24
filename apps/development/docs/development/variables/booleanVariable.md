@@ -7,11 +7,11 @@ var booleanVariable: boolean;
 This is boolean varaible
 And this will be example how to use that variable
 
-## Remarks
+### Remarks
 
 Ramarks of booleanVariable variable
 
-## Examples
+### Examples
 
 This example shows how to use `booleanVariable`
 

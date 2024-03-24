@@ -1,8 +1,8 @@
 {{#if this}}
-## Parameters
+### Parameters
 {{#each this}}
 
-- ### *{{this.name}}* : `{{this.type}}` {{#if this.isOptional}}| *optional*{{/if}}
+- #### *{{this.name}}* : `{{this.type}}` {{#if this.isOptional}}| *optional*{{/if}}
 
 {{#if this.doc}}  - {{> summary this.doc }}{{/if}}
 

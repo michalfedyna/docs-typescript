@@ -8,19 +8,19 @@ enum SimpleEnum {
 
 Simple enum named `SimpleEnum`
 
-## Remarks
+### Remarks
 
 Just an example of `Enum` docs generation
 
-## Examples
+### Examples
 
 ```typescript
 if (a === SimpleEnum.Hello) {
 }
 ```
 
-## Members
+### Members
 
-- ### `SimpleEnum.Hello`
+- #### `SimpleEnum.Hello`
 
   - Summary comment to Hello member

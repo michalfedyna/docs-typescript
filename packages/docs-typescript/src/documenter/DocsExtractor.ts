@@ -20,43 +20,55 @@ namespace DocsExtractor {
 
 		if (!parent) parent = new RootDocNode();
 
-		let child: DocNode | undefined;
-
-		if (isPlainText(apiDocNode)) {
-			const attributes = { text: apiDocNode.text };
-			const plainTextNode = new PlainTextDocNode(attributes);
-
-			parent.addChild(plainTextNode);
-		} else if (isParagraph(apiDocNode)) {
-			const paragraphNode = new ParagraphDocNode({});
-
-			child = parent.addChild(paragraphNode);
-		} else if (isSoftBreak(apiDocNode)) {
-			const softBreakNode = new SoftBreakDocNode({});
-
-			parent.addChild(softBreakNode);
-		} else if (isLinkTag(apiDocNode)) {
-			const attributes = {};
-			const linkTagNode = new LinkTagDocNode(attributes);
-
-			parent.addChild(linkTagNode);
-		} else if (isCodeSpan(apiDocNode)) {
-			const attributes = { code: apiDocNode.code };
-			const codeSpanDocNode = new CodeSpanDocNode(attributes);
-
-			parent.addChild(codeSpanDocNode);
-		} else if (isFencedCode(apiDocNode)) {
-			const attributes = { code: apiDocNode.code, language: apiDocNode.language };
-			const fancedCodeDocNode = new FancedCodeDocNode(attributes);
-
-			parent.addChild(fancedCodeDocNode);
-		}
+		let child: DocNode | undefined = extractNode(apiDocNode, parent);
 
 		for (const member of apiDocNode.getChildNodes()) {
 			DocsExtractor.traverse(member, child || parent);
 		}
 
 		return child || parent;
+	}
+
+	function extractNode(apiDocNode: ApiDocNode, parent: DocNode): DocNode | undefined {
+		if (isPlainText(apiDocNode)) {
+			const attributes = { text: apiDocNode.text };
+			const plainTextNode = new PlainTextDocNode(attributes);
+
+			parent.addChild(plainTextNode);
+		}
+
+		if (isParagraph(apiDocNode)) {
+			const paragraphNode = new ParagraphDocNode({});
+
+			return parent.addChild(paragraphNode);
+		}
+
+		if (isSoftBreak(apiDocNode)) {
+			const softBreakNode = new SoftBreakDocNode({});
+
+			parent.addChild(softBreakNode);
+		}
+
+		if (isLinkTag(apiDocNode)) {
+			const attributes = {};
+			const linkTagNode = new LinkTagDocNode(attributes);
+
+			parent.addChild(linkTagNode);
+		}
+
+		if (isCodeSpan(apiDocNode)) {
+			const attributes = { code: apiDocNode.code };
+			const codeSpanDocNode = new CodeSpanDocNode(attributes);
+
+			parent.addChild(codeSpanDocNode);
+		}
+
+		if (isFencedCode(apiDocNode)) {
+			const attributes = { code: apiDocNode.code, language: apiDocNode.language };
+			const fancedCodeDocNode = new FancedCodeDocNode(attributes);
+
+			parent.addChild(fancedCodeDocNode);
+		}
 	}
 
 	export function extract(apiItem: ApiItem): DocsAttributes {

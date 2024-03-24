@@ -1,18 +1,18 @@
 import { HandlebarsMDContext } from "../Template";
 import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
-import { MDMembersContext, Member } from "./MDMembersContext";
+import { MDPackageMembersContext, PackageMember } from "./MDPackageMembersContext";
 import { PackageNode } from "../../documenter/api/PackageNode";
 import { ApiNodeType } from "../../documenter/api/ApiNode";
 
 interface MDPackageContext {
 	name: string;
-	members: MDMembersContext;
+	members: MDPackageMembersContext;
 	docs: MDDocsContext;
 }
 
 function buildMDPackageContext(packageNode: PackageNode): HandlebarsMDContext<MDPackageContext> {
 	const { name } = packageNode.value.attributes;
-	const members: MDMembersContext = {};
+	const members: MDPackageMembersContext = {};
 	const docs = buildMDDocsContext(packageNode.value.attributes.docs);
 
 	packageNode.forEach({
@@ -21,7 +21,7 @@ function buildMDPackageContext(packageNode: PackageNode): HandlebarsMDContext<MD
 				members.functions = { members: [], name: "Functions" };
 			}
 
-			const attributes: Member = {
+			const attributes: PackageMember = {
 				name: functionNode.value.name,
 				url: functionNode.uri || "",
 				signature: functionNode.value.attributes.signature,
@@ -35,7 +35,7 @@ function buildMDPackageContext(packageNode: PackageNode): HandlebarsMDContext<MD
 				members.variables = { members: [], name: "Variables" };
 			}
 
-			const attributes: Member = {
+			const attributes: PackageMember = {
 				name: variableNode.value.name,
 				url: variableNode.uri || "",
 				signature: variableNode.value.attributes.signature,
@@ -49,7 +49,7 @@ function buildMDPackageContext(packageNode: PackageNode): HandlebarsMDContext<MD
 				members.classes = { members: [], name: "Classes" };
 			}
 
-			const attributes: Member = {
+			const attributes: PackageMember = {
 				name: classNode.value.name,
 				url: classNode.uri || "",
 				signature: classNode.value.attributes.signature,
@@ -63,7 +63,7 @@ function buildMDPackageContext(packageNode: PackageNode): HandlebarsMDContext<MD
 				members.interfaces = { members: [], name: "Interfaces" };
 			}
 
-			const attributes: Member = {
+			const attributes: PackageMember = {
 				name: interfaceNode.value.name,
 				url: interfaceNode.uri || "",
 				signature: interfaceNode.value.attributes.signature,
@@ -77,7 +77,7 @@ function buildMDPackageContext(packageNode: PackageNode): HandlebarsMDContext<MD
 				members.typeAliases = { members: [], name: "Types" };
 			}
 
-			const attributes: Member = {
+			const attributes: PackageMember = {
 				name: typeAliasNode.value.name,
 				url: typeAliasNode.uri || "",
 				signature: typeAliasNode.value.attributes.signature,
@@ -91,7 +91,7 @@ function buildMDPackageContext(packageNode: PackageNode): HandlebarsMDContext<MD
 				members.enums = { members: [], name: "Enums" };
 			}
 
-			const attributes: Member = {
+			const attributes: PackageMember = {
 				name: enumNode.value.name,
 				url: enumNode.uri || "",
 				signature: enumNode.value.attributes.signature,

@@ -5,7 +5,7 @@ import Handlebars, { TemplateDelegate } from "handlebars";
 import { MDVariableContext } from "./md/MDVariableContext";
 import { MDFunctionContext } from "./md/MDFunctionContext";
 import { MDPackageContext } from "./md/MDPackageContext";
-import { MDMembersContext } from "./md/MDMembersContext";
+import { MDPackageMembersContext } from "./md/MDPackageMembersContext";
 import { MDNamespaceContext } from "./md/MDNamespaceContext";
 import { MDDocsContext } from "./md/MDDocsContext";
 import { MDParamsContext } from "./md/MDParamsContext";
@@ -29,7 +29,7 @@ type HandlebarMDTemplates =
 	| "typeParams"
 	| "enumMembers"
 	| "examples"
-	| "members"
+	| "packageMembers"
 	| "package"
 	| "namespace"
 	| "class"
@@ -56,7 +56,7 @@ interface Contexts extends Templates {
 		summary: MDDocsContext["summary"];
 		remarks: MDDocsContext["remarks"];
 		examples: MDDocsContext["examples"];
-		members: MDMembersContext;
+		packageMembers: MDPackageMembersContext;
 		// Api Helpers
 		signature: string;
 		params: MDParamsContext;
@@ -85,7 +85,7 @@ const TemplatesPath: Templates<string> = {
 		summary: "md/summary.hbs",
 		remarks: "md/remarks.hbs",
 		examples: "md/examples.hbs",
-		members: "md/members.hbs",
+		packageMembers: "md/packageMembers.hbs",
 		// Api Helpers
 		params: "md/params.hbs",
 		typeParams: "md/typeParams.hbs",

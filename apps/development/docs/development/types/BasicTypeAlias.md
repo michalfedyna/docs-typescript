@@ -10,6 +10,6 @@ type BasicTypeAlias = {
 
 BasicTypeAlias example with few properties
 
-## Remarks
+### Remarks
 
 This is just example

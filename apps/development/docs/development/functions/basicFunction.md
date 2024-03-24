@@ -6,6 +6,6 @@ function basicFunction(): string;
 
 Some function that return `Hello World` `string`
 
-## Returns
+### Returns
 
-- ### `string`
+- #### `string`

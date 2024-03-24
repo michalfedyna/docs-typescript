@@ -8,3 +8,15 @@ abstract class SomeAbstractClass {
 
 Abstract class exported from class.ts
 Should be implemented!
+
+# Methods
+
+## someMethod
+
+```typescript
+abstract someMethod(): void;
+```
+
+### Returns
+
+- #### `void`

@@ -19,10 +19,10 @@ function extractConstructorAttributes(apiConstructor: ApiConstructor): Construct
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiConstructor.releaseTag);
 
-	const signature = `constructor(${parameters.map((parameter) => `${parameter.name}${parameter.isOptional ? "?" : ""}: ${parameter.type}`).join(", ")})`;
+	const signature = `${isProtected ? "protected " : ""}constructor(${parameters.map((parameter) => `${parameter.name}${parameter.isOptional ? "?" : ""}: ${parameter.type}`).join(", ")});`;
 
 	return {
-    docs,
+		docs,
 		fileUrlPath,
 		isProtected,
 		name: displayName,

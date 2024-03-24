@@ -8,3 +8,37 @@ class AnotherClass {
   world: string;
 }
 ```
+
+# Constructors
+
+## (constructor)
+
+```typescript
+constructor(hello: string);
+```
+
+Constructs a new instance of the `AnotherClass` class
+
+### Parameters
+
+- #### _hello_ : `string`
+
+# Properties
+
+## hello
+
+```typescript
+hello: string;
+```
+
+## test
+
+```typescript
+protected static readonly test: string;
+```
+
+## world
+
+```typescript
+world: string;
+```
