@@ -6,6 +6,11 @@ interface MDDocsContext {
 	remarks?: string[];
 	examples?: string[];
 	returns?: string[];
+	since?: string[];
+	infos?: string[];
+	alerts?: string[];
+	errors?: string[];
+	authors?: string[];
 }
 
 function buildMDDocsContext(docs: DocsAttributes): MDDocsContext {
@@ -13,6 +18,11 @@ function buildMDDocsContext(docs: DocsAttributes): MDDocsContext {
 	let remarks: MDDocsContext["remarks"];
 	let examples: MDDocsContext["examples"];
 	let returns: MDDocsContext["returns"];
+	let since: MDDocsContext["since"];
+	let infos: MDDocsContext["infos"];
+	let alerts: MDDocsContext["alerts"];
+	let errors: MDDocsContext["errors"];
+	let authors: MDDocsContext["authors"];
 
 	if (docs.summary) {
 		summary = [];
@@ -33,6 +43,8 @@ function buildMDDocsContext(docs: DocsAttributes): MDDocsContext {
 		returns = [];
 		docs.returns.forEach(buildDoc(returns));
 	}
+
+	// TODO:
 
 	return {
 		summary,
