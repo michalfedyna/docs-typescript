@@ -11,6 +11,12 @@ Alternative to [api-documenter](https://api-extractor.com/pages/setup/generating
 npx docs-typescript init
 ```
 
+### Extract API Model
+
+```bash
+npx docs-typescript extract
+```
+
 ### Build documentation
 
 ```bash

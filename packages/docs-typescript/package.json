@@ -3,8 +3,8 @@
 	"version": "0.1.6",
 	"description": "Tool for documenting Typescript based projects",
 	"main": "lib/index.js",
-  "types": "types/index.d.ts",
-  "type": "module",
+	"types": "types/index.d.ts",
+	"type": "module",
 	"bin": {
 		"docs-typescript": "./lib/bin.js"
 	},
@@ -21,8 +21,8 @@
 	},
 	"keywords": [
 		"documentation",
-    "documentation-generator",
-    "typescript"
+		"documentation-generator",
+		"typescript"
 	],
 	"author": "Michał Fedyna <michal@fedyna.pl>",
 	"license": "MIT",
@@ -38,6 +38,7 @@
 		"@microsoft/tsdoc": "0.14.2",
 		"@microsoft/tsdoc-config": "^0.16.2",
 		"@prettier/sync": "^0.5.1",
+		"chalk": "^5.3.0",
 		"commander": "12.0.0",
 		"handlebars": "^4.7.8",
 		"prettier": "^3.2.5",
