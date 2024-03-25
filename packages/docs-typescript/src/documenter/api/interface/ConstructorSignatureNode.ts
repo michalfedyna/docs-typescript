@@ -38,14 +38,14 @@ function extractConstructorSignatureAttributes(
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
 		isOptional: parameter.isOptional,
-		doc: DocsExtractor.traverse(parameter.tsdocParamBlock)
+		doc: DocsExtractor.traverse(apiConstructSignature, parameter.tsdocParamBlock)
 	}));
 	const typeParameters = apiConstructSignature.typeParameters.map((typeParameter) => ({
 		name: typeParameter.name,
 		isOptional: typeParameter.isOptional,
 		constraint: typeParameter.constraintExcerpt.text,
 		default: typeParameter.defaultTypeExcerpt.text,
-		doc: DocsExtractor.traverse(typeParameter.tsdocTypeParamBlock)
+		doc: DocsExtractor.traverse(apiConstructSignature, typeParameter.tsdocTypeParamBlock)
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiConstructSignature.releaseTag);
 

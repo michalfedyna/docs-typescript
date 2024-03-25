@@ -35,7 +35,7 @@ function extractIndexSignatureAttributes(apiIndexSignature: ApiIndexSignature): 
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
 		isOptional: parameter.isOptional,
-		doc: DocsExtractor.traverse(parameter.tsdocParamBlock)
+		doc: DocsExtractor.traverse(apiIndexSignature, parameter.tsdocParamBlock)
 	}));
 	const returnType = apiIndexSignature.returnTypeExcerpt.text;
 	const releaseTag = ApiReleaseTag.getTagName(apiIndexSignature.releaseTag);

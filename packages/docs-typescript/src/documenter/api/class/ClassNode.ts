@@ -50,7 +50,7 @@ function extractClassAttributes(apiClass: ApiClass): ClassAttributes {
 		isOptional: typeParameter.isOptional,
 		constraint: typeParameter.constraintExcerpt.text,
 		default: typeParameter.defaultTypeExcerpt.text,
-		doc: DocsExtractor.traverse(typeParameter.tsdocTypeParamBlock)
+		doc: DocsExtractor.traverse(apiClass, typeParameter.tsdocTypeParamBlock)
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiClass.releaseTag);
 

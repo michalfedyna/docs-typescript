@@ -10,26 +10,28 @@ import { ParagraphDocNode } from "./docs/ParagraphDocNode.js";
 import { SoftBreakDocNode } from "./docs/SoftBreakDocNode.js";
 import { CodeSpanDocNode } from "./docs/CodeSpanDocNode.js";
 import { FencedCodeDocNode } from "./docs/FencedCodeDocNode.js";
-import { LinkTagDocNode } from "./docs/LinkTagNode.js";
+import { LinkTagDocNode, LinkTagDocNodeAttributes } from "./docs/LinkTagNode.js";
 
 import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "./docsNodesMatchers.js";
+import { ApiModelProvider } from "./ApiModelProvider.js";
+import { Debug } from "../utils/Debug.js";
 
 namespace DocsExtractor {
-	export function traverse(apiDocNode?: ApiDocNode, parent?: DocNode): RootDocNode | undefined {
+	export function traverse(context: ApiItem, apiDocNode?: ApiDocNode, parent?: DocNode): RootDocNode | undefined {
 		if (!apiDocNode) return;
 
 		if (!parent) parent = new RootDocNode();
 
-		let child: DocNode | undefined = extractNode(apiDocNode, parent);
+		let child: DocNode | undefined = extractNode(context, apiDocNode, parent);
 
 		for (const member of apiDocNode.getChildNodes()) {
-			DocsExtractor.traverse(member, child || parent);
+			DocsExtractor.traverse(context, member, child || parent);
 		}
 
 		return child || parent;
 	}
 
-	function extractNode(apiDocNode: ApiDocNode, parent: DocNode): DocNode | undefined {
+	function extractNode(context: ApiItem, apiDocNode: ApiDocNode, parent: DocNode): DocNode | undefined {
 		if (isPlainText(apiDocNode)) {
 			const attributes = { text: apiDocNode.text };
 			const plainTextNode = new PlainTextDocNode(attributes);
@@ -50,7 +52,14 @@ namespace DocsExtractor {
 		}
 
 		if (isLinkTag(apiDocNode)) {
-			const attributes = {};
+			const attributes: LinkTagDocNodeAttributes = { url: apiDocNode.urlDestination };
+
+			const reference = ApiModelProvider.getInstance().resolveDeclarationReference(apiDocNode.codeDestination, context);
+
+			if (reference?.resolvedApiItem) {
+				attributes.code = reference.resolvedApiItem.displayName;
+			}
+
 			const linkTagNode = new LinkTagDocNode(attributes);
 
 			parent.addChild(linkTagNode);
@@ -87,68 +96,68 @@ namespace DocsExtractor {
 		const errorBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@error");
 		const authorBlocks = customBlocks.filter((block) => block.blockTag.tagName === "@author");
 
-		docs.summary = DocsExtractor.traverse(summarySection);
-		docs.remarks = DocsExtractor.traverse(remarksBlock);
-		docs.returns = DocsExtractor.traverse(returnsBlock);
-		docs.deprecated = DocsExtractor.traverse(deprecatedBlock);
+		docs.summary = DocsExtractor.traverse(apiItem, summarySection);
+		docs.remarks = DocsExtractor.traverse(apiItem, remarksBlock);
+		docs.returns = DocsExtractor.traverse(apiItem, returnsBlock);
+		docs.deprecated = DocsExtractor.traverse(apiItem, deprecatedBlock);
 
 		if (typeParams.blocks.length > 0) {
 			docs.typeParams = typeParams.blocks
-				.map((block) => DocsExtractor.traverse(block))
+				.map((block) => DocsExtractor.traverse(apiItem, block))
 				.filter((node): node is RootDocNode => node !== undefined);
 		}
 
 		if (params.blocks.length > 0) {
 			docs.params = params.blocks
-				.map((block) => DocsExtractor.traverse(block))
+				.map((block) => DocsExtractor.traverse(apiItem, block))
 				.filter((node): node is RootDocNode => node !== undefined);
 		}
 
 		if (seeBlocks.length > 0) {
 			docs.see = seeBlocks
-				.map((block) => DocsExtractor.traverse(block))
+				.map((block) => DocsExtractor.traverse(apiItem, block))
 				.filter((node): node is RootDocNode => node !== undefined);
 		}
 
 		if (examplesBlocks.length > 0) {
 			docs.examples = examplesBlocks
-				.map((block) => DocsExtractor.traverse(block))
+				.map((block) => DocsExtractor.traverse(apiItem, block))
 				.filter((node): node is RootDocNode => node !== undefined);
 		}
 
 		if (defaultValueBlocks.length > 0) {
 			docs.defaultValue = defaultValueBlocks
-				.map((block) => DocsExtractor.traverse(block))
+				.map((block) => DocsExtractor.traverse(apiItem, block))
 				.filter((node): node is RootDocNode => node !== undefined);
 		}
 
 		if (sinceBlocks.length > 0) {
 			docs.since = sinceBlocks
-				.map((block) => DocsExtractor.traverse(block))
+				.map((block) => DocsExtractor.traverse(apiItem, block))
 				.filter((node): node is RootDocNode => node !== undefined);
 		}
 
 		if (infoBlocks.length > 0) {
 			docs.infos = infoBlocks
-				.map((block) => DocsExtractor.traverse(block))
+				.map((block) => DocsExtractor.traverse(apiItem, block))
 				.filter((node): node is RootDocNode => node !== undefined);
 		}
 
 		if (warningBlocks.length > 0) {
 			docs.warnings = warningBlocks
-				.map((block) => DocsExtractor.traverse(block))
+				.map((block) => DocsExtractor.traverse(apiItem, block))
 				.filter((node): node is RootDocNode => node !== undefined);
 		}
 
 		if (errorBlocks.length > 0) {
 			docs.errors = errorBlocks
-				.map((block) => DocsExtractor.traverse(block))
+				.map((block) => DocsExtractor.traverse(apiItem, block))
 				.filter((node): node is RootDocNode => node !== undefined);
 		}
 
 		if (authorBlocks.length > 0) {
 			docs.authors = authorBlocks
-				.map((block) => DocsExtractor.traverse(block))
+				.map((block) => DocsExtractor.traverse(apiItem, block))
 				.filter((node): node is RootDocNode => node !== undefined);
 		}
 

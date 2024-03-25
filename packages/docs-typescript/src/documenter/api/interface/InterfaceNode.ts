@@ -54,7 +54,7 @@ function extractInterfaceAttributes(apiInterface: ApiInterface): InterfaceAttrib
 		isOptional: typeParameter.isOptional,
 		constraint: typeParameter.constraintExcerpt.text,
 		default: typeParameter.defaultTypeExcerpt.text,
-		doc: DocsExtractor.traverse(typeParameter.tsdocTypeParamBlock)
+		doc: DocsExtractor.traverse(apiInterface, typeParameter.tsdocTypeParamBlock)
 	}));
 	const extendsTypes = apiInterface.extendsTypes.map((extendsType) => extendsType.excerpt.text);
 	const releaseTag = ApiReleaseTag.getTagName(apiInterface.releaseTag);

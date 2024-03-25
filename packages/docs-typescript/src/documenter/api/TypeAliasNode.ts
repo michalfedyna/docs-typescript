@@ -17,7 +17,8 @@ function extractTypeAliasAttributes(apiTypeAlias: ApiTypeAlias): TypeAliasAttrib
 		name: typeParameter.name,
 		isOptional: typeParameter.isOptional,
 		constraint: typeParameter.constraintExcerpt.text,
-		default: typeParameter.defaultTypeExcerpt.text
+		default: typeParameter.defaultTypeExcerpt.text,
+		doc: DocsExtractor.traverse(apiTypeAlias, typeParameter.tsdocTypeParamBlock)
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiTypeAlias.releaseTag);
 	const signature = apiTypeAlias.excerpt.text;

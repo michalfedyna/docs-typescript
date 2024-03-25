@@ -37,7 +37,7 @@ function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
 		isOptional: parameter.isOptional,
-		doc: DocsExtractor.traverse(parameter.tsdocParamBlock)
+		doc: DocsExtractor.traverse(apiFunction, parameter.tsdocParamBlock)
 	}));
 	const returnType = apiFunction.returnTypeExcerpt.text;
 	const typeParameters = apiFunction.typeParameters.map((typeParameter) => ({
@@ -45,7 +45,7 @@ function extractFunctionAttributes(apiFunction: ApiFunction): FunctionAttributes
 		isOptional: typeParameter.isOptional,
 		constraint: typeParameter.constraintExcerpt.text,
 		default: typeParameter.defaultTypeExcerpt.text,
-		doc: DocsExtractor.traverse(typeParameter.tsdocTypeParamBlock)
+		doc: DocsExtractor.traverse(apiFunction, typeParameter.tsdocTypeParamBlock)
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiFunction.releaseTag);
 

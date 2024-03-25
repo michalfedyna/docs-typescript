@@ -14,7 +14,7 @@ function extractEnumAttributes(apiEnum: ApiEnum): EnumAttributes {
 	const docs = DocsExtractor.extract(apiEnum);
 	const members = apiEnum.members.map((member) => ({
 		name: member.name,
-		doc: DocsExtractor.traverse(member.tsdocComment?.summarySection)
+		doc: DocsExtractor.traverse(apiEnum, member.tsdocComment?.summarySection)
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiEnum.releaseTag);
 

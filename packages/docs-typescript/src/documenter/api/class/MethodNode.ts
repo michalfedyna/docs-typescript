@@ -46,14 +46,14 @@ function extractMethodAttributes(apiMethod: ApiMethod): MethodAttributes {
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
 		isOptional: parameter.isOptional,
-		doc: DocsExtractor.traverse(parameter.tsdocParamBlock)
+		doc: DocsExtractor.traverse(apiMethod,parameter.tsdocParamBlock)
 	}));
 	const typeParameters = apiMethod.typeParameters.map((typeParameter) => ({
 		name: typeParameter.name,
 		isOptional: typeParameter.isOptional,
 		constraint: typeParameter.constraintExcerpt.text,
 		default: typeParameter.defaultTypeExcerpt.text,
-		doc: DocsExtractor.traverse(typeParameter.tsdocTypeParamBlock)
+		doc: DocsExtractor.traverse(apiMethod,typeParameter.tsdocTypeParamBlock)
 	}));
 
 	const parametersSignature = parameters

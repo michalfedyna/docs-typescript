@@ -13,6 +13,10 @@ class Debug {
 		if (Debug.enabled) console.error(chalk.red(...messages));
 	}
 
+	static success(...messages: any[]) {
+		if (Debug.enabled) console.log(chalk.green(...messages));
+	}
+
 	static divider() {
 		if (Debug.enabled) console.log("----------");
 	}

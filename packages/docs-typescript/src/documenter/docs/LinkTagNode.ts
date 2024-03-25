@@ -2,7 +2,7 @@ import { DocNode, DocNodeType } from "./DocNode.js";
 
 interface LinkTagDocNodeAttributes {
 	url?: string;
-	text?: string;
+	code?: string;
 }
 
 class LinkTagDocNode extends DocNode<LinkTagDocNodeAttributes> {

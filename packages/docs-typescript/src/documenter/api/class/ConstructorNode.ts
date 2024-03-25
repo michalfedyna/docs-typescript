@@ -15,7 +15,8 @@ function extractConstructorAttributes(apiConstructor: ApiConstructor): Construct
 	const parameters = apiConstructor.parameters.map((parameter) => ({
 		name: parameter.name,
 		type: parameter.parameterTypeExcerpt.text,
-		isOptional: parameter.isOptional
+		isOptional: parameter.isOptional,
+		doc: DocsExtractor.traverse(apiConstructor, parameter.tsdocParamBlock)
 	}));
 	const releaseTag = ApiReleaseTag.getTagName(apiConstructor.releaseTag);
 

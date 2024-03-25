@@ -67,7 +67,7 @@ abstract class SomeAbstractClass {
 
 ## [SomeClass](./development/classes/SomeClass.md)
 
-SomeClass exported from class.ts
+SomeClass exported from class.ts, extends `SomeAbstractClass`
 
 ```typescript
 class SomeClass extends SomeAbstractClass {

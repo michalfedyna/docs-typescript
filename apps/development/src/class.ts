@@ -8,7 +8,7 @@ abstract class SomeAbstractClass {
 }
 
 /**
- * SomeClass exported from class.ts
+ * SomeClass exported from class.ts, extends {@link SomeAbstractClass}
  *
  * @info
  * This is a class that extends `SomeAbstractClass` and implements `SomeInterface`.

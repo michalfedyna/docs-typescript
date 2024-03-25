@@ -62,6 +62,19 @@ function buildDoc(array: string[]): CallbackArray {
 		[DocNodeType.PlainTextDocNode]: (node) => {
 			array[array.length - 1] += node.value.text;
 		},
+		[DocNodeType.LinkTagDocNode]: (node) => {
+			let value = "";
+
+			if (node.value.code) {
+				value = "`" + node.value.code + "`";
+			}
+
+			if (node.value.url) {
+				value = node.value.url;
+			}
+
+			array[array.length - 1] += value;
+		},
 		[DocNodeType.CodeSpanDocNode]: (node) => {
 			array[array.length - 1] += "`" + node.value.code + "`";
 		},

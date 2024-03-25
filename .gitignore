@@ -5,8 +5,9 @@ packages/docs-typescript/lib
 packages/docs-typescript/types
 coverage
 declarations
-apps/development/tsconfig.docs.json
 apps/development/tsdoc.json
 apps/development/docs.config.json
 apps/development/api-extractor.json
 apps/development/api.json
+apps/development/lib
+apps/development/types

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "init": "docs-typescript init --verbose",
     "docs": "docs-typescript build --verbose",
     "extract": "docs-typescript extract --verbose",

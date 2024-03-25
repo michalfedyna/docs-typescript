@@ -6,7 +6,7 @@ class SomeClass extends SomeAbstractClass {
 }
 ```
 
-SomeClass exported from class.ts
+SomeClass exported from class.ts, extends `SomeAbstractClass`
 
 ### Extends
 
