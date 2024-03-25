@@ -6,7 +6,7 @@ import shell from "shelljs";
 import { Debug } from "../../utils/Debug.js";
 
 function init(cli: Command) {
-	cli.command("init").description("Generates documentation for entire project").action(action(cli));
+	cli.command("init").description("Initialize default configuration").action(action(cli));
 }
 
 function action(cli: Command) {
@@ -26,6 +26,7 @@ function action(cli: Command) {
 		Debug.log("Copying template files to docs folder");
 		Debug.log("Template folder", templateFolder);
 		Debug.log("Output folder", outputFolder);
+		Debug.divider();
 
 		const apiExtractorFilePath: string = path.resolve(templateFolder, "api-extractor.json");
 		const tsDocFilePath: string = path.resolve(templateFolder, "tsdoc.json");
@@ -35,6 +36,7 @@ function action(cli: Command) {
 		Debug.log("api-extractor.json", apiExtractorFilePath);
 		Debug.log("tsdoc.json", tsDocFilePath);
 		Debug.log("docs.config.json", docsConfigFilePath);
+		Debug.divider();
 
 		shell.cp(apiExtractorFilePath, `${outputFolder}/api-extractor.json`);
 		shell.cp(tsDocFilePath, `${outputFolder}/tsdoc.json`);

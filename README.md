@@ -67,7 +67,7 @@ For more informations visit [Doc comment syntax](https://api-extractor.com/pages
 - [ ] Markdown support
 - [ ] Single page / Multi page
 - [ ] Project website
-- [ ] Suport for `@link` tag
+- [ ] Support for `@link` tag
 - [ ] React support (categories for components/hooks/providers)
 - [ ] [Mermaid support](https://mermaid.js.org) to present inheritance and dependencies
 - [ ] Create and use api-extractor alternative in form of [extractor-typescript](https://github.com/michalfedyna/extractor-typescript)

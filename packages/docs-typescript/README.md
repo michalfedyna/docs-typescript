@@ -1,11 +1,75 @@
-## TODO
+# Docs Typescript - Documenting Typescript made easy
 
-- [ ] When setting `framework` in config, it should automatically recognize custom definitions for example `@jsx`, `@props`, `@hook`
-- [ ] Add helpers functions for enumerating items tree
-- [ ] Refactor hierarchy (docs) 
-- [ ] Run prettier on emitted files
-- [ ] Fix overloading
-- [ ] On link to library in footer on each page
-- [ ] Config property to rearange docs
-- [ ] `@category` tag to sort in package
+Tool for documenting Typescript APIs using [API Extractor](https://api-extractor.com/pages/overview/intro/) Model with support for Markdown, [Docusaurus](https://docusaurus.io) (WIP) and HTML (WIP).
+Alternative to [api-documenter](https://api-extractor.com/pages/setup/generating_docs/) and [TypeDoc](https://typedoc.org) with better UX, much richer API presentation and support for single and multi page documentation.
 
+## Getting Started
+
+### Create configuration
+
+- Creates `docs.config.json`, `api-extractor.json` and `tsdoc.json` files with [default values](https://github.com/michalfedyna/docs-typescript/tree/main/packages/docs-typescript/src/templates/config)
+
+```bash
+npx docs-typescript init
+```
+
+### Extract API Model from declaration files
+
+- Defaults to `types/index.d.ts` file
+
+```bash
+npx docs-typescript extract
+```
+
+### Build documentation form API Model
+
+- Defaults to `api.json` file, creates `docs` folder with documentation
+
+```bash
+npx docs-typescript build
+```
+
+## Documentation
+
+For all the details see **[DocsTypescript.com](docstypescript.com)**, for API documentation see **[DocsTypescript.com/api](docstypescript.com/api)** (Work in Progress)
+
+- [api-extractor](https://api-extractor.com)
+- [tsdoc](https://tsdoc.org)
+
+## Examples
+
+- [**Markdown on Github | Multi Page**]()
+- [**Markdown on Github | Single Page**]()
+- [**Markdown with Docusaurus**]()
+
+## Supported [TSDoc](https://tsdoc.org) tags
+
+- `@remarks`
+- `@example`
+- `@type`
+- `@typeParam`
+- `@returns`
+- `@info`
+- `@alert`
+- `@error`
+- `@author`
+- `@since`
+- `@public`
+- `@beta`
+- `@alpha`
+- `@internal`
+- `@deprecated`
+
+For more informations visit [Doc comment syntax](https://api-extractor.com/pages/tsdoc/doc_comment_syntax/)
+
+## Roadmap
+
+- [ ] Markdown support
+- [ ] Single page / Multi page
+- [ ] Project website
+- [ ] Support for `@link` tag
+- [ ] React support (categories for components/hooks/providers)
+- [ ] [Mermaid support](https://mermaid.js.org) to present inheritance and dependencies
+- [ ] Create and use api-extractor alternative in form of [extractor-typescript](https://github.com/michalfedyna/extractor-typescript)
+- [ ] Docusaurus (MDX) output support
+- [ ] HTML output support
