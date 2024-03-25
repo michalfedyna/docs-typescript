@@ -1,6 +1,6 @@
 {
 	"name": "docs-typescript",
-	"version": "0.1.0",
+	"version": "0.1.4",
 	"description": "Tool for documenting Typescript based projects",
 	"main": "lib/index.js",
   "types": "types/index.d.ts",
@@ -20,7 +20,9 @@
 		"url": "git+https://github.com/michalfedyna/docs-typescript.git"
 	},
 	"keywords": [
-		"react"
+		"documentation",
+    "documentation-generator",
+    "typescript"
 	],
 	"author": "Michał Fedyna <michal@fedyna.pl>",
 	"license": "MIT",

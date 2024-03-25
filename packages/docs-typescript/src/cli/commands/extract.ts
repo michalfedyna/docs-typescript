@@ -1,6 +1,5 @@
 import { Command } from "commander";
 import { extractApiModel } from "../actions/extractApiModel.js";
-import { generateDeclarations } from "../actions/generateDeclarations.js";
 import { Debug } from "../../utils/Debug.js";
 
 function extract(cli: Command) {
@@ -15,7 +14,6 @@ function action(cli: Command) {
 			Debug.enable();
 		}
 
-		generateDeclarations();
 		extractApiModel();
 	};
 }
