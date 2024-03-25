@@ -1,4 +1,4 @@
-# Docs Typescript - Documenting TypeScript made easy
+# Docs TypeScript - Documenting TypeScript made easy
 
 [![npm version](https://badge.fury.io/js/docs-typescript.svg)](https://badge.fury.io/js/docs-typescript)
 
@@ -33,7 +33,7 @@ npx docs-typescript build
 
 ## Documentation
 
-For all the details see **[DocsTypescript.com](docstypescript.com)**, for API documentation see **[DocsTypescript.com/api](docstypescript.com/api)** (Work in Progress)
+For all the details see **[DocsTypeScript.com](docstypescript.com)**, for API documentation see **[DocsTypeScript.com/api](docstypescript.com/api)** (Work in Progress)
 
 - [api-extractor](https://api-extractor.com)
 - [tsdoc](https://tsdoc.org)
@@ -46,6 +46,7 @@ For all the details see **[DocsTypescript.com](docstypescript.com)**, for API do
 
 ## Supported [TSDoc](https://tsdoc.org) tags
 
+- `@link`
 - `@remarks`
 - `@example`
 - `@type`

@@ -1,4 +1,4 @@
-import * as fs from "fs";
+import fs from "fs";
 import path from "path";
 import prettier from "@prettier/sync";
 
@@ -14,6 +14,7 @@ import { PackageNode } from "../../documenter/api/PackageNode.js";
 import { NamespaceNode } from "../../documenter/api/NamespaceNode.js";
 import { TypeAliasNode } from "../../documenter/api/TypeAliasNode.js";
 import { EnumNode } from "../../documenter/api/enum/EnumNode.js";
+import { InterfaceNode } from "../../documenter/api/interface/InterfaceNode.js";
 
 import { buildMDVariableContext } from "./MDVariableContext.js";
 import { buildMDFunctionContext } from "./MDFunctionContext.js";
@@ -22,29 +23,36 @@ import { buildMDNamespaceContext } from "./MDNamespaceContext.js";
 import { buildMDTypeAliasContext } from "./MDTypeAliasContext.js";
 import { buildMDEnumContext } from "./MDEnumContext.js";
 import { buildMDClassContext } from "./MDClassContext.js";
-import { InterfaceNode } from "../../documenter/api/interface/InterfaceNode.js";
 import { buildMDInterfaceContext } from "./MDInterfaceContext.js";
+
+type FilesArray = { path: string; content: string }[];
 
 class MDEmitter extends Emitter {
 	public readonly format = "markdown";
 
-	emit(item: RootNode): void {
-		this._emitPage(item);
+	emit(item: RootNode) {
+		const files: FilesArray = [];
+
+		item.forEach((node) => {
+			const file = this._emitPage(node);
+			if (file) files.push(file);
+		});
+
+		for (const file of files) {
+			this._toFile(file.content, file.path);
+		}
 	}
 
-	protected _emitPage(item: ApiNode) {
-		for (const child of item.children) {
-			this._emitPage(child);
-		}
-
+	protected _emitPage(item: ApiNode): { path: string; content: string } | void {
 		switch (item.type) {
 			case ApiNodeType.PackageNode: {
 				const packageItem = item as PackageNode;
 				const [context, template] = buildMDPackageContext(packageItem);
 
 				const content = new Template(this.format, template).render(context);
-				this._toFile(content, packageItem.uri);
-				break;
+				const path = packageItem.uri as string;
+
+				return { content, path };
 			}
 			case ApiNodeType.NamespaceNode: {
 				// TODO:
@@ -52,65 +60,69 @@ class MDEmitter extends Emitter {
 				const [context, template] = buildMDNamespaceContext(namespaceItem);
 
 				const content = new Template(this.format, template).render(context);
-				this._toFile(content, namespaceItem.uri);
-				break;
+				const path = namespaceItem.uri as string;
+
+				return { content, path };
 			}
 			case ApiNodeType.ClassNode: {
 				const classItem = item as ClassNode;
 				const [context, template] = buildMDClassContext(classItem);
 
 				const content = new Template(this.format, template).render(context);
-				this._toFile(content, classItem.uri);
-				break;
+				const path = classItem.uri as string;
+
+				return { content, path };
 			}
 			case ApiNodeType.InterfaceNode: {
 				const interfaceItem = item as InterfaceNode;
 				const [context, template] = buildMDInterfaceContext(interfaceItem);
 
 				const content = new Template(this.format, template).render(context);
-				this._toFile(content, interfaceItem.uri);
-				break;
+				const path = interfaceItem.uri as string;
+
+				return { content, path };
 			}
 			case ApiNodeType.VariableNode: {
 				const variableItem = item as VariableNode;
 				const [context, template] = buildMDVariableContext(variableItem);
 
 				const content = new Template(this.format, template).render(context);
-				this._toFile(content, variableItem.uri);
-				break;
+				const path = variableItem.uri as string;
+
+				return { content, path };
 			}
 			case ApiNodeType.FunctionNode: {
 				const functionItem = item as FunctionNode;
 				const [context, template] = buildMDFunctionContext(functionItem);
 
 				const content = new Template(this.format, template).render(context);
-				this._toFile(content, functionItem.uri);
-				break;
+				const path = functionItem.uri as string;
+
+				return { content, path };
 			}
 			case ApiNodeType.TypeAliasNode: {
 				const typeAliasItem = item as TypeAliasNode;
 				const [context, template] = buildMDTypeAliasContext(typeAliasItem);
 
 				const content = new Template(this.format, template).render(context);
-				this._toFile(content, typeAliasItem.uri);
-				break;
+				const path = typeAliasItem.uri as string;
+
+				return { content, path };
 			}
 			case ApiNodeType.EnumNode: {
 				const enumItem = item as EnumNode;
 				const [context, template] = buildMDEnumContext(enumItem);
 
 				const content = new Template(this.format, template).render(context);
-				this._toFile(content, enumItem.uri);
-				break;
+				const path = enumItem.uri as string;
+
+				return { content, path };
 			}
 		}
 	}
 
-	protected _toFile(content: string, url?: string): void {
-		if (!url) throw new Error("URL is required to write to file");
-
+	protected _toFile(content: string, url: string): void {
 		const filePath = path.resolve(process.cwd(), this.config.rootPath + this.config.outputPath + url + ".md");
-		console.log("Path", filePath);
 
 		if (!fs.existsSync(path.dirname(filePath))) fs.mkdirSync(path.dirname(filePath), { recursive: true });
 
