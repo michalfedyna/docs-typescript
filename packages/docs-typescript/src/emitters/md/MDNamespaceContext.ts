@@ -1,5 +1,5 @@
-import { HandlebarsMDContext } from "../Template";
-import { NamespaceNode } from "../../documenter/api/NamespaceNode";
+import { HandlebarsMDContext } from "../Template.js";
+import { NamespaceNode } from "../../documenter/api/NamespaceNode.js";
 
 interface MDNamespaceContext {}
 

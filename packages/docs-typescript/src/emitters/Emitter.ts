@@ -1,6 +1,6 @@
-import { DocsConfig } from "../config/DocsConfig";
-import { RootNode } from "../documenter/api/RootNode";
-import { ApiNode } from "../documenter/api/ApiNode";
+import { DocsConfig } from "../config/DocsConfig.js";
+import { RootNode } from "../documenter/api/RootNode.js";
+import { ApiNode } from "../documenter/api/ApiNode.js";
 
 abstract class Emitter {
 	constructor(public readonly config: DocsConfig) {}

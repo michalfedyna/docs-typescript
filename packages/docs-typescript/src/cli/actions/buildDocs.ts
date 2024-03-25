@@ -1,8 +1,8 @@
-import { DocsConfig } from "../../config/DocsConfig";
+import { DocsConfig } from "../../config/DocsConfig.js";
 import path from "path";
 import { ApiModel } from "@microsoft/api-extractor-model";
-import { Documenter } from "../../documenter/Documenter";
-import { Debug } from "../../utils/Debug";
+import { Documenter } from "../../documenter/Documenter.js";
+import { Debug } from "../../utils/Debug.js";
 
 function buildDocs(config: DocsConfig) {
 	const cwd = process.cwd();

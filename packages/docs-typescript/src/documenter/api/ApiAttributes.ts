@@ -1,12 +1,12 @@
-import { DocsAttributes } from "../docs/DocsAttributes";
-import { RootDocNode } from "../docs/RootDocNode";
-import { ConstructorAttributes } from "./class/ConstructorNode";
-import { MethodAttributes } from "./class/MethodNode";
-import { PropertyAttributes } from "./class/PropertyNode";
-import { ConstructorSignatureAttributes } from "./interface/ConstructorSignatureNode";
-import { IndexSignatureAttributes } from "./interface/IndexSignatureNode";
-import { MethodSignatureAttributes } from "./interface/MethodSignatureNode";
-import { PropertySignatureAttributes } from "./interface/PropertySignatureNode";
+import { DocsAttributes } from "../docs/DocsAttributes.js";
+import { RootDocNode } from "../docs/RootDocNode.js";
+import { ConstructorAttributes } from "./class/ConstructorNode.js";
+import { MethodAttributes } from "./class/MethodNode.js";
+import { PropertyAttributes } from "./class/PropertyNode.js";
+import { ConstructorSignatureAttributes } from "./interface/ConstructorSignatureNode.js";
+import { IndexSignatureAttributes } from "./interface/IndexSignatureNode.js";
+import { MethodSignatureAttributes } from "./interface/MethodSignatureNode.js";
+import { PropertySignatureAttributes } from "./interface/PropertySignatureNode.js";
 
 interface Docs {
 	docs: DocsAttributes;

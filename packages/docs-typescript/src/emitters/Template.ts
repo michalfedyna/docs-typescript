@@ -1,28 +1,30 @@
 import * as fs from "fs";
-import path from "path";
+import * as path from "path";
+import { fileURLToPath } from "url";
 
-import Handlebars, { TemplateDelegate } from "handlebars";
-import { MDVariableContext } from "./md/MDVariableContext";
-import { MDFunctionContext } from "./md/MDFunctionContext";
-import { MDPackageContext } from "./md/MDPackageContext";
-import { MDPackageMembersContext } from "./md/MDPackageMembersContext";
-import { MDNamespaceContext } from "./md/MDNamespaceContext";
-import { MDDocsContext } from "./md/MDDocsContext";
-import { MDParamsContext } from "./md/MDParamsContext";
-import { MDTypeParamsContext } from "./md/MDTypeParamsContext";
-import { MDReturnsContext } from "./md/MDReturnsContext";
-import { MDTypeAliasContext } from "./md/MDTypeAliasContext";
-import { MDEnumContext } from "./md/MDEnumContext";
-import { MDEnumMembersContext } from "./md/MDEnumMembersContext";
-import { MDClassContext } from "./md/MDClassContext";
-import { MDConstructorContext } from "./md/MDConstructorContext";
-import { MDPropertyContext } from "./md/MDPropertyContext";
-import { MDMethodContext } from "./md/MDMethodContext";
-import { MDInterfaceContext } from "./md/MDInterfaceContext";
-import { MDIndexSignatureContext } from "./md/MDIndexSignatureContext";
-import { MDConstructorSignatureContext } from "./md/MDConstructorSignatureContext";
-import { MDPropertySignatureContext } from "./md/MDPropertySignatureContext";
-import { MDMethodSignatureContext } from "./md/MDMethodSignatureContext";
+import Handlebars from "handlebars";
+
+import { MDVariableContext } from "./md/MDVariableContext.js";
+import { MDFunctionContext } from "./md/MDFunctionContext.js";
+import { MDPackageContext } from "./md/MDPackageContext.js";
+import { MDPackageMembersContext } from "./md/MDPackageMembersContext.js";
+import { MDNamespaceContext } from "./md/MDNamespaceContext.js";
+import { MDDocsContext } from "./md/MDDocsContext.js";
+import { MDParamsContext } from "./md/MDParamsContext.js";
+import { MDTypeParamsContext } from "./md/MDTypeParamsContext.js";
+import { MDReturnsContext } from "./md/MDReturnsContext.js";
+import { MDTypeAliasContext } from "./md/MDTypeAliasContext.js";
+import { MDEnumContext } from "./md/MDEnumContext.js";
+import { MDEnumMembersContext } from "./md/MDEnumMembersContext.js";
+import { MDClassContext } from "./md/MDClassContext.js";
+import { MDConstructorContext } from "./md/MDConstructorContext.js";
+import { MDPropertyContext } from "./md/MDPropertyContext.js";
+import { MDMethodContext } from "./md/MDMethodContext.js";
+import { MDInterfaceContext } from "./md/MDInterfaceContext.js";
+import { MDIndexSignatureContext } from "./md/MDIndexSignatureContext.js";
+import { MDConstructorSignatureContext } from "./md/MDConstructorSignatureContext.js";
+import { MDPropertySignatureContext } from "./md/MDPropertySignatureContext.js";
+import { MDMethodSignatureContext } from "./md/MDMethodSignatureContext.js";
 
 type HandlebarMDTemplates =
 	| "signature"
@@ -156,7 +158,10 @@ class Template<
 		return template(context);
 	}
 
-	protected _loadTemplate(templatePath: T): TemplateDelegate<K> {
+	protected _loadTemplate(templatePath: T): Handlebars.TemplateDelegate<K> {
+		const __filename = fileURLToPath(import.meta.url);
+
+		const __dirname = path.dirname(__filename);
 		const filePath = path.resolve(__dirname, "../" + "templates/" + templatePath);
 
 		if (!fs.existsSync(filePath)) {

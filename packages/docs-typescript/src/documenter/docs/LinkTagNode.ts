@@ -1,12 +1,12 @@
-import { DocNode, DocNodeType } from "./DocNode";
+import { DocNode, DocNodeType } from "./DocNode.js";
 
-interface LinkTagDocNodeAttrubutes {
-  url?: string,
-  text?: string,
+interface LinkTagDocNodeAttributes {
+	url?: string;
+	text?: string;
 }
 
-class LinkTagDocNode extends DocNode<LinkTagDocNodeAttrubutes> {
+class LinkTagDocNode extends DocNode<LinkTagDocNodeAttributes> {
 	public type: DocNodeType = DocNodeType.LinkTagDocNode;
 }
 
-export { LinkTagDocNode, LinkTagDocNodeAttrubutes };
+export { LinkTagDocNode, LinkTagDocNodeAttributes };

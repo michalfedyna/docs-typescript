@@ -1,6 +1,6 @@
-import { DocsExtractor } from "../DocsExtractor";
-import { Docs, Exported, FileUrl, Name, ReleaseTag, Signature, Type, TypeParameters } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "./ApiNode";
+import { DocsExtractor } from "../DocsExtractor.js";
+import { Docs, Exported, FileUrl, Name, ReleaseTag, Signature, Type, TypeParameters } from "./ApiAttributes.js";
+import { ApiNode, ApiNodeType } from "./ApiNode.js";
 import { ApiTypeAlias, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
 
 interface TypeAliasAttributes extends Name, Docs, Signature, ReleaseTag, Type, TypeParameters, FileUrl, Exported {}

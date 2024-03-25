@@ -1,4 +1,4 @@
-import { DocsExtractor } from "../../DocsExtractor";
+import { DocsExtractor } from "../../DocsExtractor.js";
 import {
 	ConstructorSignatures,
 	Docs,
@@ -12,19 +12,19 @@ import {
 	ReleaseTag,
 	Signature,
 	TypeParameters
-} from "../ApiAttributes";
-import { ApiNode, ApiNodeType } from "../ApiNode";
+} from "../ApiAttributes.js";
+import { ApiNode, ApiNodeType } from "../ApiNode.js";
 import { ApiInterface, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
-import { IndexSignatureAttributes, extractIndexSignatureAttributes } from "./IndexSignatureNode";
-import { ConstructorSignatureAttributes, extractConstructorSignatureAttributes } from "./ConstructorSignatureNode";
-import { PropertySignatureAttributes, extractPropertySignatureAttributes } from "./PropertySignatureNode";
-import { MethodSignatureAttributes, extractMethodSignatureAttributes } from "./MethodSignatureNode";
+import { IndexSignatureAttributes, extractIndexSignatureAttributes } from "./IndexSignatureNode.js";
+import { ConstructorSignatureAttributes, extractConstructorSignatureAttributes } from "./ConstructorSignatureNode.js";
+import { PropertySignatureAttributes, extractPropertySignatureAttributes } from "./PropertySignatureNode.js";
+import { MethodSignatureAttributes, extractMethodSignatureAttributes } from "./MethodSignatureNode.js";
 import {
 	isConstructorSignature,
 	isIndexSignature,
 	isMethodSignature,
 	isPropertySignature
-} from "../../apiItemsMatchers";
+} from "../../apiItemsMatchers.js";
 
 interface InterfaceAttributes
 	extends Name,

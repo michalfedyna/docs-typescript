@@ -4,6 +4,7 @@
 	"description": "Tool for documenting Typescript based projects",
 	"main": "lib/index.js",
   "types": "types/index.d.ts",
+  "type": "module",
 	"bin": {
 		"docs-typescript": "./lib/bin.js"
 	},

@@ -1,11 +1,11 @@
-import { InterfaceNode } from "../../documenter/api/interface/InterfaceNode";
-import { HandlebarsMDContext } from "../Template";
-import { MDConstructorSignatureContext, buildMDConstructorSignatureContext } from "./MDConstructorSignatureContext";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
-import { MDIndexSignatureContext, buildMDIndexSignatureContext } from "./MDIndexSignatureContext";
-import { MDMethodSignatureContext, buildMDMethodSignatureContext } from "./MDMethodSignatureContext";
-import { MDPropertySignatureContext, buildMDPropertySignatureContext } from "./MDPropertySignatureContext";
-import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext";
+import { InterfaceNode } from "../../documenter/api/interface/InterfaceNode.js";
+import { HandlebarsMDContext } from "../Template.js";
+import { MDConstructorSignatureContext, buildMDConstructorSignatureContext } from "./MDConstructorSignatureContext.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
+import { MDIndexSignatureContext, buildMDIndexSignatureContext } from "./MDIndexSignatureContext.js";
+import { MDMethodSignatureContext, buildMDMethodSignatureContext } from "./MDMethodSignatureContext.js";
+import { MDPropertySignatureContext, buildMDPropertySignatureContext } from "./MDPropertySignatureContext.js";
+import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext.js";
 
 interface MDInterfaceContext {
 	name: string;

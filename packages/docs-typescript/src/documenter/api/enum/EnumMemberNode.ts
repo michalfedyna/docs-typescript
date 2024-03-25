@@ -1,6 +1,6 @@
-import { DocsExtractor } from "../../DocsExtractor";
-import { Docs, FileUrl, Name, ReleaseTag, Signature } from "../ApiAttributes";
-import { ApiNode, ApiNodeType } from "../ApiNode";
+import { DocsExtractor } from "../../DocsExtractor.js";
+import { Docs, FileUrl, Name, ReleaseTag, Signature } from "../ApiAttributes.js";
+import { ApiNode, ApiNodeType } from "../ApiNode.js";
 import { ApiEnumMember, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
 
 interface EnumMemberAttributes extends Name, Docs, FileUrl, Signature, ReleaseTag {}

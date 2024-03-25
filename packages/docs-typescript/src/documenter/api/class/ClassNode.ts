@@ -12,14 +12,14 @@ import {
 	ReleaseTag,
 	Signature,
 	TypeParameters
-} from "../ApiAttributes";
-import { ApiNode, ApiNodeType } from "../ApiNode";
+} from "../ApiAttributes.js";
+import { ApiNode, ApiNodeType } from "../ApiNode.js";
 import { ApiClass, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
-import { ConstructorAttributes, extractConstructorAttributes } from "./ConstructorNode";
-import { PropertyAttributes, extractPropertyAttributes } from "./PropertyNode";
-import { MethodAttributes, extractMethodAttributes } from "./MethodNode";
-import { isConstructor, isMethod, isProperty } from "../../apiItemsMatchers";
-import { DocsExtractor } from "../../DocsExtractor";
+import { ConstructorAttributes, extractConstructorAttributes } from "./ConstructorNode.js";
+import { PropertyAttributes, extractPropertyAttributes } from "./PropertyNode.js";
+import { MethodAttributes, extractMethodAttributes } from "./MethodNode.js";
+import { isConstructor, isMethod, isProperty } from "../../apiItemsMatchers.js";
+import { DocsExtractor } from "../../DocsExtractor.js";
 
 interface ClassAttributes
 	extends Name,

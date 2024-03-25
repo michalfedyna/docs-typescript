@@ -1,4 +1,4 @@
-import { Returns } from "../../documenter/api/ApiAttributes";
+import { Returns } from "../../documenter/api/ApiAttributes.js";
 
 interface MDReturnsContext {
 	returnType: string;

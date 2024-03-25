@@ -1,6 +1,6 @@
-import { ConstructorAttributes } from "../../documenter/api/class/ConstructorNode";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
-import { MDParamsContext, buildMDParamsContext } from "./MDParamsContext";
+import { ConstructorAttributes } from "../../documenter/api/class/ConstructorNode.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
+import { MDParamsContext, buildMDParamsContext } from "./MDParamsContext.js";
 
 interface MDConstructorContext {
 	name: string;

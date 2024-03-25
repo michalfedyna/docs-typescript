@@ -1,4 +1,4 @@
-import { ApiNode, ApiNodeType } from "./ApiNode";
+import { ApiNode, ApiNodeType } from "./ApiNode.js";
 
 class RootNode extends ApiNode<{}> {
 	public type: ApiNodeType = ApiNodeType.RootNode;

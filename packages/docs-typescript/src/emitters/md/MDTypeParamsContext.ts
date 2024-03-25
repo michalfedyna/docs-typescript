@@ -1,5 +1,5 @@
-import { TypeParameters } from "../../documenter/api/ApiAttributes";
-import { buildDoc } from "./MDDocsContext";
+import { TypeParameters } from "../../documenter/api/ApiAttributes.js";
+import { buildDoc } from "./MDDocsContext.js";
 
 type MDTypeParamsContext = {
 	name: string;

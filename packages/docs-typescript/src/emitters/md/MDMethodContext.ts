@@ -1,9 +1,9 @@
-import { MethodAttributes } from "../../documenter/api/class/MethodNode";
+import { MethodAttributes } from "../../documenter/api/class/MethodNode.js";
 
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
-import { MDParamsContext, buildMDParamsContext } from "./MDParamsContext";
-import { MDReturnsContext, buildMDReturnContext } from "./MDReturnsContext";
-import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
+import { MDParamsContext, buildMDParamsContext } from "./MDParamsContext.js";
+import { MDReturnsContext, buildMDReturnContext } from "./MDReturnsContext.js";
+import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext.js";
 
 interface MDMethodContext {
 	name: string;

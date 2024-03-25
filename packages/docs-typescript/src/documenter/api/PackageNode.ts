@@ -1,8 +1,8 @@
 import { ApiPackage } from "@microsoft/api-extractor-model";
 
-import { ApiNode, ApiNodeType } from "./ApiNode";
-import { Docs, Name } from "./ApiAttributes";
-import { DocsExtractor } from "../DocsExtractor";
+import { ApiNode, ApiNodeType } from "./ApiNode.js";
+import { Docs, Name } from "./ApiAttributes.js";
+import { DocsExtractor } from "../DocsExtractor.js";
 
 interface PackageAttributes extends Docs, Name {}
 

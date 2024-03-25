@@ -1,8 +1,8 @@
 import { ApiNamespace, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
 
-import { DocsExtractor } from "../DocsExtractor";
-import { Docs, Exported, FileUrl, Name, ReleaseTag, Signature } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "./ApiNode";
+import { DocsExtractor } from "../DocsExtractor.js";
+import { Docs, Exported, FileUrl, Name, ReleaseTag, Signature } from "./ApiAttributes.js";
+import { ApiNode, ApiNodeType } from "./ApiNode.js";
 
 interface NamespaceAttributes extends Name, Docs, Signature, Exported, ReleaseTag, FileUrl {}
 
@@ -22,9 +22,8 @@ function extractNamespaceAttributes(apiNamespace: ApiNamespace): NamespaceAttrib
 		signature,
 		isExported,
 		fileUrlPath,
-    docs,
+		docs
 	};
-
 }
 
 export { NamespaceNode, NamespaceAttributes, extractNamespaceAttributes };

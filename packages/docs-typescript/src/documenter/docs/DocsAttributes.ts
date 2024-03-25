@@ -1,4 +1,4 @@
-import { RootDocNode } from "./RootDocNode";
+import { RootDocNode } from "./RootDocNode.js";
 
 interface DocsAttributes {
 	summary?: RootDocNode;

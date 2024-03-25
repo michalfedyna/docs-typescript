@@ -1,7 +1,7 @@
 import { Command } from "commander";
-import { extractApiModel } from "../actions/extractApiModel";
-import { generateDeclarations } from "../actions/generateDeclarations";
-import { Debug } from "../../utils/Debug";
+import { extractApiModel } from "../actions/extractApiModel.js";
+import { generateDeclarations } from "../actions/generateDeclarations.js";
+import { Debug } from "../../utils/Debug.js";
 
 function extract(cli: Command) {
 	cli.command("extract").description("extract d.ts declarations and api model").action(action(cli));

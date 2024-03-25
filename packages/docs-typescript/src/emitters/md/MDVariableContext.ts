@@ -1,6 +1,6 @@
-import { VariableNode } from "../../documenter/api/VariableNode";
-import { HandlebarsMDContext } from "../Template";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
+import { VariableNode } from "../../documenter/api/VariableNode.js";
+import { HandlebarsMDContext } from "../Template.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
 
 interface MDVariableContext {
 	name: string;

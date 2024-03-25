@@ -1,23 +1,20 @@
-import { DocsAttributes } from "../docs/DocsAttributes";
-import { DocNode } from "../docs/DocNode";
-
-import { RootNode } from "./RootNode";
-import { PackageNode } from "./PackageNode";
-import { NamespaceNode } from "./NamespaceNode";
-import { ClassNode } from "./class/ClassNode";
-import { ConstructorNode } from "./class/ConstructorNode";
-import { PropertyNode } from "./class/PropertyNode";
-import { MethodNode } from "./class/MethodNode";
-import { FunctionNode } from "./FunctionNode";
-import { VariableNode } from "./VariableNode";
-import { InterfaceNode } from "./interface/InterfaceNode";
-import { ConstructorSignatureNode } from "./interface/ConstructorSignatureNode";
-import { PropertySignatureNode } from "./interface/PropertySignatureNode";
-import { MethodSignatureNode } from "./interface/MethodSignatureNode";
-import { IndexSignatureNode } from "./interface/IndexSignatureNode";
-import { TypeAliasNode } from "./TypeAliasNode";
-import { EnumNode } from "./enum/EnumNode";
-import { EnumMemberNode } from "./enum/EnumMemberNode";
+import { RootNode } from "./RootNode.js";
+import { PackageNode } from "./PackageNode.js";
+import { NamespaceNode } from "./NamespaceNode.js";
+import { ClassNode } from "./class/ClassNode.js";
+import { ConstructorNode } from "./class/ConstructorNode.js";
+import { PropertyNode } from "./class/PropertyNode.js";
+import { MethodNode } from "./class/MethodNode.js";
+import { FunctionNode } from "./FunctionNode.js";
+import { VariableNode } from "./VariableNode.js";
+import { InterfaceNode } from "./interface/InterfaceNode.js";
+import { ConstructorSignatureNode } from "./interface/ConstructorSignatureNode.js";
+import { PropertySignatureNode } from "./interface/PropertySignatureNode.js";
+import { MethodSignatureNode } from "./interface/MethodSignatureNode.js";
+import { IndexSignatureNode } from "./interface/IndexSignatureNode.js";
+import { TypeAliasNode } from "./TypeAliasNode.js";
+import { EnumNode } from "./enum/EnumNode.js";
+import { EnumMemberNode } from "./enum/EnumMemberNode.js";
 
 enum ApiNodeType {
 	ApiNode = "ApiNode",

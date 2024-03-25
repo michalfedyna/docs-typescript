@@ -1,7 +1,7 @@
-import { EnumNode } from "../../documenter/api/enum/EnumNode";
-import { HandlebarsMDContext } from "../Template";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
-import { MDEnumMembersContext, buildMDEnumMembersContext } from "./MDEnumMembersContext";
+import { EnumNode } from "../../documenter/api/enum/EnumNode.js";
+import { HandlebarsMDContext } from "../Template.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
+import { MDEnumMembersContext, buildMDEnumMembersContext } from "./MDEnumMembersContext.js";
 
 interface MDEnumContext {
 	name: string;

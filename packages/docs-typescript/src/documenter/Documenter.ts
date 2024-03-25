@@ -1,13 +1,13 @@
 import { ApiModel } from "@microsoft/api-extractor-model";
-import { DocsConfig } from "../config/DocsConfig";
+import { DocsConfig } from "../config/DocsConfig.js";
 
-import { Emitter } from "../emitters/Emitter";
-import { MDEmitter } from "../emitters/md/MDEmitter";
+import { Emitter } from "../emitters/Emitter.js";
+import { MDEmitter } from "../emitters/md/MDEmitter.js";
 
-import { RootNode } from "./api/RootNode";
-import { ApiExtractor } from "./ApiExtractor";
+import { RootNode } from "./api/RootNode.js";
+import { ApiExtractor } from "./ApiExtractor.js";
 
-import { Debug } from "../utils/Debug";
+import { Debug } from "../utils/Debug.js";
 
 class Documenter {
 	public readonly apiModel: ApiModel;

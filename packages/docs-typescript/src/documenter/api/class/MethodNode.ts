@@ -1,4 +1,4 @@
-import { DocsExtractor } from "../../DocsExtractor";
+import { DocsExtractor } from "../../DocsExtractor.js";
 import {
 	Abstract,
 	Docs,
@@ -13,8 +13,8 @@ import {
 	Signature,
 	Static,
 	TypeParameters
-} from "../ApiAttributes";
-import { ApiNode, ApiNodeType } from "../ApiNode";
+} from "../ApiAttributes.js";
+import { ApiNode, ApiNodeType } from "../ApiNode.js";
 import { ApiMethod, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
 
 interface MethodAttributes

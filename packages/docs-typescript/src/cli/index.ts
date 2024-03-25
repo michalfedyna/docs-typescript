@@ -1,8 +1,8 @@
 import { Command } from "commander";
 
-import init from "./commands/init";
-import build from "./commands/build";
-import extract from "./commands/extract";
+import init from "./commands/init.js";
+import build from "./commands/build.js";
+import extract from "./commands/extract.js";
 
 const cli = new Command();
 

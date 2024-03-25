@@ -1,4 +1,4 @@
-import { DocNode, DocNodeType } from "./DocNode";
+import { DocNode, DocNodeType } from "./DocNode.js";
 
 interface CodeSpanDocNodeAttributes {
 	code: string;

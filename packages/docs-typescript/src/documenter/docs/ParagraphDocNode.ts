@@ -1,4 +1,4 @@
-import { DocNodeType, DocNode } from "./DocNode";
+import { DocNodeType, DocNode } from "./DocNode.js";
 
 interface ParagraphDocNodeAttributes {}
 

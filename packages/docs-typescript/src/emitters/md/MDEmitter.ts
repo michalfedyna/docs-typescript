@@ -2,28 +2,28 @@ import * as fs from "fs";
 import path from "path";
 import prettier from "@prettier/sync";
 
-import { Emitter } from "../Emitter";
-import { Template } from "../Template";
-import { RootNode } from "../../documenter/api/RootNode";
-import { ApiNode, ApiNodeType } from "../../documenter/api/ApiNode";
+import { Emitter } from "../Emitter.js";
+import { Template } from "../Template.js";
+import { RootNode } from "../../documenter/api/RootNode.js";
+import { ApiNode, ApiNodeType } from "../../documenter/api/ApiNode.js";
 
-import { VariableNode } from "../../documenter/api/VariableNode";
-import { FunctionNode } from "../../documenter/api/FunctionNode";
-import { ClassNode } from "../../documenter/api/class/ClassNode";
-import { PackageNode } from "../../documenter/api/PackageNode";
-import { NamespaceNode } from "../../documenter/api/NamespaceNode";
-import { TypeAliasNode } from "../../documenter/api/TypeAliasNode";
-import { EnumNode } from "../../documenter/api/enum/EnumNode";
+import { VariableNode } from "../../documenter/api/VariableNode.js";
+import { FunctionNode } from "../../documenter/api/FunctionNode.js";
+import { ClassNode } from "../../documenter/api/class/ClassNode.js";
+import { PackageNode } from "../../documenter/api/PackageNode.js";
+import { NamespaceNode } from "../../documenter/api/NamespaceNode.js";
+import { TypeAliasNode } from "../../documenter/api/TypeAliasNode.js";
+import { EnumNode } from "../../documenter/api/enum/EnumNode.js";
 
-import { buildMDVariableContext } from "./MDVariableContext";
-import { buildMDFunctionContext } from "./MDFunctionContext";
-import { buildMDPackageContext } from "./MDPackageContext";
-import { buildMDNamespaceContext } from "./MDNamespaceContext";
-import { buildMDTypeAliasContext } from "./MDTypeAliasContext";
-import { buildMDEnumContext } from "./MDEnumContext";
-import { buildMDClassContext } from "./MDClassContext";
-import { InterfaceNode } from "../../documenter/api/interface/InterfaceNode";
-import { buildMDInterfaceContext } from "./MDInterfaceContext";
+import { buildMDVariableContext } from "./MDVariableContext.js";
+import { buildMDFunctionContext } from "./MDFunctionContext.js";
+import { buildMDPackageContext } from "./MDPackageContext.js";
+import { buildMDNamespaceContext } from "./MDNamespaceContext.js";
+import { buildMDTypeAliasContext } from "./MDTypeAliasContext.js";
+import { buildMDEnumContext } from "./MDEnumContext.js";
+import { buildMDClassContext } from "./MDClassContext.js";
+import { InterfaceNode } from "../../documenter/api/interface/InterfaceNode.js";
+import { buildMDInterfaceContext } from "./MDInterfaceContext.js";
 
 class MDEmitter extends Emitter {
 	public readonly format = "markdown";

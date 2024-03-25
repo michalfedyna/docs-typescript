@@ -1,26 +1,26 @@
 import { ApiItem } from "@microsoft/api-extractor-model";
 
-import { ApiNode } from "./api/ApiNode";
+import { ApiNode } from "./api/ApiNode.js";
 
-import { extractPackageAttributes, PackageNode } from "./api/PackageNode";
-import { extractNamespaceAttributes, NamespaceNode } from "./api/NamespaceNode";
-import { ClassNode, extractClassAttributes } from "./api/class/ClassNode";
-import { ConstructorNode, extractConstructorAttributes } from "./api/class/ConstructorNode";
-import { extractPropertyAttributes, PropertyNode } from "./api/class/PropertyNode";
-import { extractMethodAttributes, MethodNode } from "./api/class/MethodNode";
-import { extractFunctionAttributes, FunctionNode } from "./api/FunctionNode";
-import { extractVariableAttributes, VariableNode } from "./api/VariableNode";
-import { extractInterfaceAttributes, InterfaceNode } from "./api/interface/InterfaceNode";
+import { extractPackageAttributes, PackageNode } from "./api/PackageNode.js";
+import { extractNamespaceAttributes, NamespaceNode } from "./api/NamespaceNode.js";
+import { ClassNode, extractClassAttributes } from "./api/class/ClassNode.js";
+import { ConstructorNode, extractConstructorAttributes } from "./api/class/ConstructorNode.js";
+import { extractPropertyAttributes, PropertyNode } from "./api/class/PropertyNode.js";
+import { extractMethodAttributes, MethodNode } from "./api/class/MethodNode.js";
+import { extractFunctionAttributes, FunctionNode } from "./api/FunctionNode.js";
+import { extractVariableAttributes, VariableNode } from "./api/VariableNode.js";
+import { extractInterfaceAttributes, InterfaceNode } from "./api/interface/InterfaceNode.js";
 import {
 	ConstructorSignatureNode,
 	extractConstructorSignatureAttributes
-} from "./api/interface/ConstructorSignatureNode";
-import { extractPropertySignatureAttributes, PropertySignatureNode } from "./api/interface/PropertySignatureNode";
-import { extractMethodSignatureAttributes, MethodSignatureNode } from "./api/interface/MethodSignatureNode";
-import { extractIndexSignatureAttributes, IndexSignatureNode } from "./api/interface/IndexSignatureNode";
-import { extractTypeAliasAttributes, TypeAliasNode } from "./api/TypeAliasNode";
-import { EnumNode, extractEnumAttributes } from "./api/enum/EnumNode";
-import { EnumMemberNode, extractEnumMemberAttributes } from "./api/enum/EnumMemberNode";
+} from "./api/interface/ConstructorSignatureNode.js";
+import { extractPropertySignatureAttributes, PropertySignatureNode } from "./api/interface/PropertySignatureNode.js";
+import { extractMethodSignatureAttributes, MethodSignatureNode } from "./api/interface/MethodSignatureNode.js";
+import { extractIndexSignatureAttributes, IndexSignatureNode } from "./api/interface/IndexSignatureNode.js";
+import { extractTypeAliasAttributes, TypeAliasNode } from "./api/TypeAliasNode.js";
+import { EnumNode, extractEnumAttributes } from "./api/enum/EnumNode.js";
+import { EnumMemberNode, extractEnumMemberAttributes } from "./api/enum/EnumMemberNode.js";
 
 import {
 	isClass,
@@ -42,7 +42,7 @@ import {
 	isReactHook,
 	isTypeAlias,
 	isVariable
-} from "./apiItemsMatchers";
+} from "./apiItemsMatchers.js";
 
 namespace ApiExtractor {
 	export function traverse(apiItem: ApiItem, parent: ApiNode) {

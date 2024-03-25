@@ -1,6 +1,6 @@
-import { DocsExtractor } from "../../DocsExtractor";
-import { Docs, FileUrl, Name, Overload, Parameters, Protected, ReleaseTag, Signature } from "../ApiAttributes";
-import { ApiNode, ApiNodeType } from "../ApiNode";
+import { DocsExtractor } from "../../DocsExtractor.js";
+import { Docs, FileUrl, Name, Overload, Parameters, Protected, ReleaseTag, Signature } from "../ApiAttributes.js";
+import { ApiNode, ApiNodeType } from "../ApiNode.js";
 import { ApiConstructor, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
 
 interface ConstructorAttributes extends Name, Docs, ReleaseTag, Signature, FileUrl, Overload, Protected, Parameters {}

@@ -1,5 +1,5 @@
-import { Members } from "../../documenter/api/ApiAttributes";
-import { buildDoc } from "./MDDocsContext";
+import { Members } from "../../documenter/api/ApiAttributes.js";
+import { buildDoc } from "./MDDocsContext.js";
 
 type MDEnumMembersContext = {
 	parent: string;

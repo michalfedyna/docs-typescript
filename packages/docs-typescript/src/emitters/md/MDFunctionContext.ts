@@ -1,9 +1,9 @@
-import { FunctionNode } from "../../documenter/api/FunctionNode";
-import { HandlebarsMDContext } from "../Template";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
-import { MDParamsContext, buildMDParamsContext } from "./MDParamsContext";
-import { MDReturnsContext, buildMDReturnContext } from "./MDReturnsContext";
-import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext";
+import { FunctionNode } from "../../documenter/api/FunctionNode.js";
+import { HandlebarsMDContext } from "../Template.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
+import { MDParamsContext, buildMDParamsContext } from "./MDParamsContext.js";
+import { MDReturnsContext, buildMDReturnContext } from "./MDReturnsContext.js";
+import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext.js";
 
 interface MDFunctionContext {
 	name: string;

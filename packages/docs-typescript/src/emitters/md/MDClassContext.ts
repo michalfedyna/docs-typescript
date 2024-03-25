@@ -1,11 +1,11 @@
-import { ClassNode } from "../../documenter/api/class/ClassNode";
-import { HandlebarsMDContext } from "../Template";
+import { ClassNode } from "../../documenter/api/class/ClassNode.js";
+import { HandlebarsMDContext } from "../Template.js";
 
-import { MDConstructorContext, buildMDConstructorContext } from "./MDConstructorContext";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
-import { MDMethodContext, buildMDMethodContext } from "./MDMethodContext";
-import { MDPropertyContext, buildMDPropertyContext } from "./MDPropertyContext";
-import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext";
+import { MDConstructorContext, buildMDConstructorContext } from "./MDConstructorContext.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
+import { MDMethodContext, buildMDMethodContext } from "./MDMethodContext.js";
+import { MDPropertyContext, buildMDPropertyContext } from "./MDPropertyContext.js";
+import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext.js";
 
 interface MDClassContext {
 	name: string;

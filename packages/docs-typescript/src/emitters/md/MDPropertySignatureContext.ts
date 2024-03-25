@@ -1,5 +1,5 @@
-import { PropertySignatureAttributes } from "../../documenter/api/interface/PropertySignatureNode";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
+import { PropertySignatureAttributes } from "../../documenter/api/interface/PropertySignatureNode.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
 
 interface MDPropertySignatureContext {
 	name: string;

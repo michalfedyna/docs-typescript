@@ -1,10 +1,10 @@
-import { CodeSpanDocNode } from "./CodeSpanDocNode";
-import { FancedCodeDocNode } from "./FancedCodeDocNode";
-import { LinkTagDocNode } from "./LinkTagNode";
-import { ParagraphDocNode } from "./ParagraphDocNode";
-import { PlainTextDocNode } from "./PlainTextDocNode";
-import { RootDocNode } from "./RootDocNode";
-import { SoftBreakDocNode } from "./SoftBreakDocNode";
+import { CodeSpanDocNode } from "./CodeSpanDocNode.js";
+import { FencedCodeDocNode } from "./FencedCodeDocNode.js";
+import { LinkTagDocNode } from "./LinkTagNode.js";
+import { ParagraphDocNode } from "./ParagraphDocNode.js";
+import { PlainTextDocNode } from "./PlainTextDocNode.js";
+import { RootDocNode } from "./RootDocNode.js";
+import { SoftBreakDocNode } from "./SoftBreakDocNode.js";
 
 enum DocNodeType {
 	DocNode = "DocNode",
@@ -24,7 +24,7 @@ type CallbackArray = {
 	[DocNodeType.SoftBreakDocNode]?: (node: SoftBreakDocNode) => void;
 	[DocNodeType.LinkTagDocNode]?: (node: LinkTagDocNode) => void;
 	[DocNodeType.CodeSpanDocNode]?: (node: CodeSpanDocNode) => void;
-	[DocNodeType.FancedCodeDocNode]?: (node: FancedCodeDocNode) => void;
+	[DocNodeType.FancedCodeDocNode]?: (node: FencedCodeDocNode) => void;
 };
 
 type DocNodeValue<T> = T;
@@ -70,7 +70,7 @@ class DocNode<T = unknown> {
 					callback[DocNodeType.CodeSpanDocNode]?.(this as CodeSpanDocNode);
 					break;
 				case DocNodeType.FancedCodeDocNode:
-					callback[DocNodeType.FancedCodeDocNode]?.(this as FancedCodeDocNode);
+					callback[DocNodeType.FancedCodeDocNode]?.(this as FencedCodeDocNode);
 					break;
 			}
 		}

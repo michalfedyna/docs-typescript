@@ -1,8 +1,8 @@
-import { HandlebarsMDContext } from "../Template";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
-import { MDPackageMembersContext, PackageMember } from "./MDPackageMembersContext";
-import { PackageNode } from "../../documenter/api/PackageNode";
-import { ApiNodeType } from "../../documenter/api/ApiNode";
+import { HandlebarsMDContext } from "../Template.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
+import { MDPackageMembersContext, PackageMember } from "./MDPackageMembersContext.js";
+import { PackageNode } from "../../documenter/api/PackageNode.js";
+import { ApiNodeType } from "../../documenter/api/ApiNode.js";
 
 interface MDPackageContext {
 	name: string;

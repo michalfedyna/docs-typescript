@@ -1,7 +1,7 @@
-import { IndexSignatureAttributes } from "../../documenter/api/interface/IndexSignatureNode";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
-import { MDParamsContext, buildMDParamsContext } from "./MDParamsContext";
-import { MDReturnsContext, buildMDReturnContext } from "./MDReturnsContext";
+import { IndexSignatureAttributes } from "../../documenter/api/interface/IndexSignatureNode.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
+import { MDParamsContext, buildMDParamsContext } from "./MDParamsContext.js";
+import { MDReturnsContext, buildMDReturnContext } from "./MDReturnsContext.js";
 
 interface MDIndexSignatureContext {
 	name: string;

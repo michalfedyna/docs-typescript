@@ -1,7 +1,7 @@
-import { TypeAliasNode } from "../../documenter/api/TypeAliasNode";
-import { HandlebarsMDContext } from "../Template";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
-import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext";
+import { TypeAliasNode } from "../../documenter/api/TypeAliasNode.js";
+import { HandlebarsMDContext } from "../Template.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
+import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext.js";
 
 interface MDTypeAliasContext {
 	name: string;

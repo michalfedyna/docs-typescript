@@ -1,6 +1,16 @@
-import { DocsExtractor } from "../../DocsExtractor";
-import { Docs, EventProperty, FileUrl, Name, Optional, Readonly, ReleaseTag, Signature, Type } from "../ApiAttributes";
-import { ApiNode, ApiNodeType } from "../ApiNode";
+import { DocsExtractor } from "../../DocsExtractor.js";
+import {
+	Docs,
+	EventProperty,
+	FileUrl,
+	Name,
+	Optional,
+	Readonly,
+	ReleaseTag,
+	Signature,
+	Type
+} from "../ApiAttributes.js";
+import { ApiNode, ApiNodeType } from "../ApiNode.js";
 import { ApiPropertySignature, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
 
 interface PropertySignatureAttributes

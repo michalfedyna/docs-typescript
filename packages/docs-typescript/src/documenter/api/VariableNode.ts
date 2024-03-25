@@ -1,6 +1,6 @@
-import { DocsExtractor } from "../DocsExtractor";
-import { Docs, Exported, FileUrl, Initializer, Name, Readonly, ReleaseTag, Signature, Type } from "./ApiAttributes";
-import { ApiNode, ApiNodeType } from "./ApiNode";
+import { DocsExtractor } from "../DocsExtractor.js";
+import { Docs, Exported, FileUrl, Initializer, Name, Readonly, ReleaseTag, Signature, Type } from "./ApiAttributes.js";
+import { ApiNode, ApiNodeType } from "./ApiNode.js";
 import { ApiVariable, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model";
 
 interface VariableAttributes

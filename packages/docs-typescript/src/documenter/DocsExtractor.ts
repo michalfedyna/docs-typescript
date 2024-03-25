@@ -1,18 +1,18 @@
 import { ApiDocumentedItem, ApiItem } from "@microsoft/api-extractor-model";
 import { DocNode as ApiDocNode } from "@microsoft/tsdoc";
 
-import { DocsAttributes } from "./docs/DocsAttributes";
+import { DocsAttributes } from "./docs/DocsAttributes.js";
 
-import { DocNode } from "./docs/DocNode";
-import { RootDocNode } from "./docs/RootDocNode";
-import { PlainTextDocNode } from "./docs/PlainTextDocNode";
-import { ParagraphDocNode } from "./docs/ParagraphDocNode";
-import { SoftBreakDocNode } from "./docs/SoftBreakDocNode";
-import { CodeSpanDocNode } from "./docs/CodeSpanDocNode";
-import { FancedCodeDocNode } from "./docs/FancedCodeDocNode";
-import { LinkTagDocNode } from "./docs/LinkTagNode";
+import { DocNode } from "./docs/DocNode.js";
+import { RootDocNode } from "./docs/RootDocNode.js";
+import { PlainTextDocNode } from "./docs/PlainTextDocNode.js";
+import { ParagraphDocNode } from "./docs/ParagraphDocNode.js";
+import { SoftBreakDocNode } from "./docs/SoftBreakDocNode.js";
+import { CodeSpanDocNode } from "./docs/CodeSpanDocNode.js";
+import { FencedCodeDocNode } from "./docs/FencedCodeDocNode.js";
+import { LinkTagDocNode } from "./docs/LinkTagNode.js";
 
-import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "./docsNodesMatchers";
+import { isCodeSpan, isFencedCode, isLinkTag, isParagraph, isPlainText, isSoftBreak } from "./docsNodesMatchers.js";
 
 namespace DocsExtractor {
 	export function traverse(apiDocNode?: ApiDocNode, parent?: DocNode): RootDocNode | undefined {
@@ -65,7 +65,7 @@ namespace DocsExtractor {
 
 		if (isFencedCode(apiDocNode)) {
 			const attributes = { code: apiDocNode.code, language: apiDocNode.language };
-			const fancedCodeDocNode = new FancedCodeDocNode(attributes);
+			const fancedCodeDocNode = new FencedCodeDocNode(attributes);
 
 			parent.addChild(fancedCodeDocNode);
 		}

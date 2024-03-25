@@ -1,9 +1,9 @@
 import { Command } from "commander";
 
-import { getConfig } from "../actions/getConfig";
-import { buildDocs } from "../actions/buildDocs";
+import { getConfig } from "../actions/getConfig.js";
+import { buildDocs } from "../actions/buildDocs.js";
 
-import { Debug } from "../../utils/Debug";
+import { Debug } from "../../utils/Debug.js";
 
 function build(cli: Command) {
 	cli.command("build").description("builds documentation").action(action(cli));

@@ -1,8 +1,8 @@
-import { MethodSignatureAttributes } from "../../documenter/api/interface/MethodSignatureNode";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
-import { MDParamsContext, buildMDParamsContext } from "./MDParamsContext";
-import { MDReturnsContext, buildMDReturnContext } from "./MDReturnsContext";
-import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext";
+import { MethodSignatureAttributes } from "../../documenter/api/interface/MethodSignatureNode.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
+import { MDParamsContext, buildMDParamsContext } from "./MDParamsContext.js";
+import { MDReturnsContext, buildMDReturnContext } from "./MDReturnsContext.js";
+import { MDTypeParamsContext, buildMDTypeParams } from "./MDTypeParamsContext.js";
 
 interface MDMethodSignatureContext {
 	name: string;

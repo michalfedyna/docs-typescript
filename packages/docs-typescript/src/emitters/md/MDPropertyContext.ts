@@ -1,5 +1,5 @@
-import { PropertyAttributes } from "../../documenter/api/class/PropertyNode";
-import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext";
+import { PropertyAttributes } from "../../documenter/api/class/PropertyNode.js";
+import { MDDocsContext, buildMDDocsContext } from "./MDDocsContext.js";
 
 interface MDPropertyContext {
 	name: string;

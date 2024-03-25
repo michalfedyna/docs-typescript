@@ -1,5 +1,5 @@
-import { CallbackArray, DocNodeType } from "../../documenter/docs/DocNode";
-import { DocsAttributes } from "../../documenter/docs/DocsAttributes";
+import { CallbackArray, DocNodeType } from "../../documenter/docs/DocNode.js";
+import { DocsAttributes } from "../../documenter/docs/DocsAttributes.js";
 
 interface MDDocsContext {
 	summary?: string[];
