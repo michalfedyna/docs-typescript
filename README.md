@@ -5,19 +5,25 @@ Alternative to [api-documenter](https://api-extractor.com/pages/setup/generating
 
 ## Getting Started
 
-### Create configuration - creates `docs.config.json`, `api-extractor.json` and `tsdoc.json` files with default values
+### Create configuration
+
+- Creates `docs.config.json`, `api-extractor.json` and `tsdoc.json` files with [default values](https://github.com/michalfedyna/docs-typescript/tree/main/packages/docs-typescript/src/templates/config)
 
 ```bash
 npx docs-typescript init
 ```
 
-### Extract API Model from declaration files - defaults to `types/index.d.ts` file 
+### Extract API Model from declaration files
+
+- Defaults to `types/index.d.ts` file
 
 ```bash
 npx docs-typescript extract
 ```
 
-### Build documentation form API Model - defaults to `api.json` file, creates `docs` folder with documentation
+### Build documentation form API Model
+
+- Defaults to `api.json` file, creates `docs` folder with documentation
 
 ```bash
 npx docs-typescript build
