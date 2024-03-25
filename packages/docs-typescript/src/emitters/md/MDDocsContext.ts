@@ -8,7 +8,7 @@ interface MDDocsContext {
 	returns?: string[];
 	since?: string[];
 	infos?: string[];
-	alerts?: string[];
+	warnings?: string[];
 	errors?: string[];
 	authors?: string[];
 }
@@ -20,7 +20,7 @@ function buildMDDocsContext(docs: DocsAttributes): MDDocsContext {
 	let returns: MDDocsContext["returns"];
 	let since: MDDocsContext["since"];
 	let infos: MDDocsContext["infos"];
-	let alerts: MDDocsContext["alerts"];
+	let warnings: MDDocsContext["warnings"];
 	let errors: MDDocsContext["errors"];
 	let authors: MDDocsContext["authors"];
 
@@ -34,23 +34,51 @@ function buildMDDocsContext(docs: DocsAttributes): MDDocsContext {
 		docs.remarks.forEach(buildDoc(remarks));
 	}
 
-	if (docs.examples) {
-		examples = [];
-		docs.examples.forEach((example) => example.forEach(buildDoc(examples as string[])));
-	}
-
 	if (docs.returns) {
 		returns = [];
 		docs.returns.forEach(buildDoc(returns));
 	}
 
-	// TODO:
+	if (docs.examples) {
+		examples = [];
+		docs.examples.forEach((rootNode) => rootNode.forEach(buildDoc(examples as string[])));
+	}
+
+	if (docs.since) {
+		since = [];
+		docs.since.forEach((rootNode) => rootNode.forEach(buildDoc(since as string[])));
+	}
+
+	if (docs.infos) {
+		infos = [];
+		docs.infos.forEach((rootNode) => rootNode.forEach(buildDoc(infos as string[])));
+	}
+
+	if (docs.warnings) {
+		warnings = [];
+		docs.warnings.forEach((rootNode) => rootNode.forEach(buildDoc(warnings as string[])));
+	}
+
+	if (docs.errors) {
+		errors = [];
+		docs.errors.forEach((rootNode) => rootNode.forEach(buildDoc(errors as string[])));
+	}
+
+	if (docs.authors) {
+		authors = [];
+		docs.authors.forEach((rootNode) => rootNode.forEach(buildDoc(authors as string[])));
+	}
 
 	return {
 		summary,
 		remarks,
 		examples,
-		returns
+		returns,
+		since,
+		infos,
+		warnings,
+		errors,
+		authors
 	};
 }
 

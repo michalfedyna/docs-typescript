@@ -8,6 +8,10 @@ class SomeClass extends SomeAbstractClass {
 
 SomeClass exported from class.ts, extends `SomeAbstractClass`
 
+### Since - 1.0.0
+
+> This is a class that extends `SomeAbstractClass` and implements `SomeInterface`.
+
 ### Extends
 
 - #### `SomeAbstractClass`

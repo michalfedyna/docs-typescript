@@ -44,8 +44,6 @@ class InterfaceNode extends ApiNode<InterfaceAttributes> {
 	public type: ApiNodeType = ApiNodeType.InterfaceNode;
 }
 
-// TODO:
-
 function extractInterfaceAttributes(apiInterface: ApiInterface): InterfaceAttributes {
 	const { displayName, fileUrlPath, isExported } = apiInterface;
 	const docs = DocsExtractor.extract(apiInterface);

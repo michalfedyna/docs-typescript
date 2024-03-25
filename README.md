@@ -53,7 +53,7 @@ For all the details see **[DocsTypeScript.com](docstypescript.com)**, for API do
 - `@typeParam`
 - `@returns`
 - `@info`
-- `@alert`
+- `@warning`
 - `@error`
 - `@author`
 - `@since`

@@ -1,6 +1,38 @@
 # Documentation for `development` package
 
-Test library for docs-typescript development
+Test library for docs-typescript development, serves as showcase of `docs-typescript`
+
+### Since - 1.0.0
+
+### Remarks
+
+This package implements every possible tag
+
+### Examples
+
+```typescript
+import * as docs from "docs-typescript";
+
+const class = new SomeClass();
+
+```
+
+```typescript
+import * as docs from "docs-typescript";
+
+const otherClass = new OtherClass();
+```
+
+> This is info tag, checking how its working
+> another info tag
+
+> _testing warning tag_
+
+> **testing error tag**
+
+### Authors
+
+- #### Michal Fedyna
 
 # Classes
 

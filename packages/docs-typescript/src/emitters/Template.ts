@@ -29,9 +29,14 @@ import { MDMethodSignatureContext } from "./md/MDMethodSignatureContext.js";
 type HandlebarMDTemplates =
 	| "signature"
 	| "docs"
+	| "since"
 	| "summary"
 	| "remarks"
 	| "returns"
+	| "infos"
+	| "warnings"
+	| "errors"
+	| "authors"
 	| "params"
 	| "typeParams"
 	| "enumMembers"
@@ -65,9 +70,14 @@ interface Contexts extends Templates {
 	markdown: {
 		// Docs Helpers
 		docs: MDDocsContext;
+		since: MDDocsContext["since"];
 		summary: MDDocsContext["summary"];
 		remarks: MDDocsContext["remarks"];
 		examples: MDDocsContext["examples"];
+		infos: MDDocsContext["infos"];
+		warnings: MDDocsContext["warnings"];
+		errors: MDDocsContext["errors"];
+		authors: MDDocsContext["authors"];
 		packageMembers: MDPackageMembersContext;
 		// Api Helpers
 		signature: string;
@@ -99,9 +109,14 @@ const TemplatesPath: Templates<string> = {
 		// Docs Helpers
 		signature: "md/signature.hbs",
 		docs: "md/docs.hbs",
+		since: "md/since.hbs",
 		summary: "md/summary.hbs",
 		remarks: "md/remarks.hbs",
 		examples: "md/examples.hbs",
+		infos: "md/infos.hbs",
+		warnings: "md/warnings.hbs",
+		errors: "md/errors.hbs",
+		authors: "md/authors.hbs",
 		packageMembers: "md/packageMembers.hbs",
 		// Api Helpers
 		params: "md/params.hbs",

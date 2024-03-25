@@ -55,6 +55,7 @@
 		"@warning": true,
 		"@error": true,
 		"@since": true,
+    "@author": true,
 		"@component": true,
 		"@props": true,
 		"@hook": true,
