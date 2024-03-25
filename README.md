@@ -1,6 +1,6 @@
 # Docs Typescript - Documenting Typescript made easy
 
-Tool for documenting Typescript APIs using [API Extractor](https://api-extractor.com/pages/overview/intro/) Model with support for Markdown, [Docusaurus](https://docusaurus.io)(WIP) and HTML(WIP).
+Tool for documenting Typescript APIs using [API Extractor](https://api-extractor.com/pages/overview/intro/) Model with support for Markdown, [Docusaurus](https://docusaurus.io) (WIP) and HTML (WIP).
 Alternative to [api-documenter](https://api-extractor.com/pages/setup/generating_docs/) and [TypeDoc](https://typedoc.org) with better UX, much richer API presentation and support for single and multi page documentation.
 
 ## Getting Started
@@ -25,7 +25,10 @@ npx docs-typescript build
 
 ## Documentation
 
-For all the details see **[DocsTypescript.com](docstypescript.com)**, for API documentation see **[DocsTypescript.com/api](docstypescript.com/api)**
+For all the details see **[DocsTypescript.com](docstypescript.com)**, for API documentation see **[DocsTypescript.com/api](docstypescript.com/api)** (Work in Progress)
+
+- [api-extractor](https://api-extractor.com)
+- [tsdoc](https://tsdoc.org)
 
 ## Examples
 
@@ -40,6 +43,18 @@ For all the details see **[DocsTypescript.com](docstypescript.com)**, for API do
 - `@type`
 - `@typeParam`
 - `@returns`
+- `@info`
+- `@alert`
+- `@error`
+- `@author`
+- `@since`
+- `@public`
+- `@beta`
+- `@alpha`
+- `@internal`
+- `@deprecated`
+
+For more informations visit [Doc comment syntax](https://api-extractor.com/pages/tsdoc/doc_comment_syntax/)
 
 ## Roadmap
 
