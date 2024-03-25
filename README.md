@@ -1,5 +1,7 @@
 # Docs Typescript - Documenting Typescript made easy
 
+[![npm version](https://badge.fury.io/js/docs-typescript.svg)](https://badge.fury.io/js/docs-typescript)
+
 Tool for documenting Typescript APIs using [API Extractor](https://api-extractor.com/pages/overview/intro/) Model with support for Markdown, [Docusaurus](https://docusaurus.io) (WIP) and HTML (WIP).
 Alternative to [api-documenter](https://api-extractor.com/pages/setup/generating_docs/) and [TypeDoc](https://typedoc.org) with better UX, much richer API presentation and support for single and multi page documentation.
 
