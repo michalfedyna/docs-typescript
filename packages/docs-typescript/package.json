@@ -1,6 +1,6 @@
 {
 	"name": "docs-typescript",
-	"version": "0.1.4",
+	"version": "0.1.6",
 	"description": "Tool for documenting Typescript based projects",
 	"main": "lib/index.js",
   "types": "types/index.d.ts",
